@@ -35,7 +35,7 @@ export default function SignUp(){
           />
         </svg>
       </Link> */}
-      <h1 className="mt-6 text-2xl font-bold text-[#263A5C] sm:text-3xl md:text-4xl text-center">
+      <h1 className=" text-2xl font-bold text-[#263A5C] sm:text-3xl md:text-4xl text-center">
         Sign Up
       </h1>
       <form action="#" className="mt-8 ">
@@ -47,11 +47,11 @@ export default function SignUp(){
                   id="Name"
                   placeholder="Enter your Name"
             name="Name"
-            className="w-[20rem] bg-rgba-34-31-31-10 border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-sm"
+            className="w-[20rem] bg-rgba-34-31-31-10 border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-xl shadow-sm"
           />
         </div>
         <div className="flex justify-between w-[20rem] m-auto">               
-        <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-sm shadow-s w-[9rem]">
+        <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
             <select id="dropdown" name="dropdown"
               value={age}
               onChange={(e) => setAge(e.target.value)}
@@ -65,9 +65,9 @@ export default function SignUp(){
                 <option value="option3">50 and above</option>
            </select>
                     </div>
-                    <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-sm shadow-s w-[9rem]">
+                    <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
             <select id="dropdown" name="dropdown"
-              value={age}
+              value={gender}
               onChange={(e) => setGender(e.target.value)} >
               <option value="" disabled selected>Select Gender</option>
             <option value="Male">Male</option>
@@ -86,7 +86,7 @@ export default function SignUp(){
             id="Email"
             name="email"
             placeholder="Enter your email"
-            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-lg shadow-sm"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3 outline-none  text-lg shadow-sm"
           />
         </div>
 
@@ -98,7 +98,7 @@ export default function SignUp(){
             id="Password"
             placeholder="Enter your Password"
             name="password"
-            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-sm"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-xl shadow-sm"
           />
         </div>
 
@@ -110,7 +110,7 @@ export default function SignUp(){
                       id="phone"
                       placeholder="Enter your phone number"
             name="password_confirmation"
-            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3  text-xl shadow-sm"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3 outline-none text-xl shadow-sm"
           />
                   </div>
         <div className="col-span-6 flex">

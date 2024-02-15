@@ -7,7 +7,7 @@ export default function SignIn(){
 
 <section className="relative flex flex-wrap lg:h-screen lg:items-center ">
 
-  <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-3/5 lg:px-8 lg:py-24 ">
+  <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 ">
       <div className="border-solid border border-gray rounded-lg py-6">
           <div className="mx-auto max-w-lg text-center">
           <h1 className="text-4xl font-bold sm:text-3xl text-[#263A5C] text-center">Login</h1>
@@ -20,11 +20,11 @@ export default function SignIn(){
         <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4 ">
           <div className="w-full">
             <label htmlFor="email" className="sr-only">Enter your Id</label>
-             <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-semibold w-[20rem] m-auto">Enter Your Id</p>
+             <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-semibold w-[20rem] m-auto ">Enter Your Id</p>
             <div className="relative flex justify-center">
               <input
                 type="email"
-                className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3  text-xl shadow-sm"
+                className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3 outline-none text-xl shadow-sm"
               />
             </div>
           </div>
@@ -35,7 +35,7 @@ export default function SignIn(){
             <div className="relative flex justify-center">
               <input
                 type="password"
-                className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-sm"
+                className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none p-3  text-xl shadow-sm"
               />
                 </div>
                 <div className=" w-4/5 flex justify-end">
@@ -69,10 +69,8 @@ export default function SignIn(){
       </div>
     
   </div>
-        <div className="relative w-full  lg:h-full lg:w-2/5  bg-[#263A5C]  px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24 bg-blac ">
-          <div style={{ height: "100%" }}>
+        <div className="relative w-full  lg:h-full lg:w-1/2 bg-[#263A5C]  px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24 bg-blac ">
           <Onboard/>
-          </div>
   </div>
 </section>
         
