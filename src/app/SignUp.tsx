@@ -50,9 +50,9 @@ export default function SignUp(){
             className="w-[20rem] bg-rgba-34-31-31-10 border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-sm"
           />
         </div>
-        <div className="flex  ">               
-        <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-s w-[11rem]">
-            <select id="dropdown" name="dropdown" aria-placeholder="Age"
+        <div className="flex justify-between w-[20rem] m-auto">               
+        <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-sm shadow-s w-[9rem]">
+            <select id="dropdown" name="dropdown"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             >
@@ -65,7 +65,7 @@ export default function SignUp(){
                 <option value="option3">50 and above</option>
            </select>
                     </div>
-                    <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-s w-[11rem]">
+                    <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-sm shadow-s w-[9rem]">
             <select id="dropdown" name="dropdown"
               value={age}
               onChange={(e) => setGender(e.target.value)} >
@@ -86,7 +86,7 @@ export default function SignUp(){
             id="Email"
             name="email"
             placeholder="Enter your email"
-            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-xl shadow-sm"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3  text-lg shadow-sm"
           />
         </div>
 

@@ -34,8 +34,6 @@ export default function Onboard(){
                         <h2  className='text-[#FBFBFB] sm:text-2xl h-[10%] mb-40 w-80% m-[50px] text-center'  >{image.text}</h2>
                     </div>
                 ))}
-            
-
             </Slide>
            
             
