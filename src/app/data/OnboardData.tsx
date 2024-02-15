@@ -9,17 +9,17 @@ let onboard: elements[] = [
     {
         id:"1",
         src:require('../../images/onboard1.png'),
-        text:'Schedule an appointment on the app'
+        text:'Mark schedules for appointments'
     },
     {
         id:'2',
         src:require('../../images/onboard2.png'),
-        text:'Chat with doctors before and after appointments via the Setex app'
+        text:'Chat with an A.I on all health related problems'
     },
     {
         id:'3',
         src:require('../../images/onboard3.png'),
-        text:'Track your health activity and medical records at any time'
+        text:'Track your health activity and monitor schedule progress'
     },
     {
         id:'4',

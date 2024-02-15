@@ -5,14 +5,14 @@ import google from '../images/google.png'
 export default function SignIn(){
     return(
 
-<section className="relative flex flex-wrap lg:h-screen lg:items-center">
+<section className="relative flex flex-wrap lg:h-screen lg:items-center ">
 
-  <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-3/5 lg:px-8 lg:py-24">
+  <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-3/5 lg:px-8 lg:py-24 ">
       <div className="border-solid border border-gray rounded-lg py-6">
           <div className="mx-auto max-w-lg text-center">
-          <h1 className="text-4xl font-bold sm:text-3xl text-start text-[#263A5C] ml-[10px]">Login</h1>
+          <h1 className="text-4xl font-bold sm:text-3xl text-[#263A5C] text-center">Login</h1>
 
-          <p className="mt-4 text-[#B1B5B9] text-start text-xl ml-[10px]">
+          <p className="mt-4 text-[#B1B5B9] text-center text-xl">
             Input your details
           </p>
         </div>
@@ -69,9 +69,10 @@ export default function SignIn(){
       </div>
     
   </div>
- 
-  <div className="relative w-full h-full lg:h-full lg:w-2/5 justify-center bg-[#263A5C] ">
-    <Onboard/>
+        <div className="relative w-full  lg:h-full lg:w-2/5  bg-[#263A5C]  px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24 bg-blac ">
+          <div style={{ height: "100%" }}>
+          <Onboard/>
+          </div>
   </div>
 </section>
         
