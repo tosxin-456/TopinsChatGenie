@@ -69,7 +69,7 @@ export default function SignIn(){
       </div>
     
   </div>
-        <div className="relative w-full  lg:h-full lg:w-1/2 bg-[#263A5C]  px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-24 bg-blac ">
+        <div className="relative w-full  lg:w-1/2 bg-[#263A5C] bg-blac sm:hidden lg:block">
           <Onboard/>
   </div>
 </section>

@@ -57,12 +57,12 @@ export default function SignUp(){
               onChange={(e) => setAge(e.target.value)}
             >
 
-                <option value="option1" disabled>Select age:</option>
-                <option value="option1">0-5years</option>
-                <option value="option2">6-11years</option>
-                <option value="option3">12-19years</option>
-                <option value="option3">20-49years</option>
-                <option value="option3">50 and above</option>
+                <option value="option1" className="text-[#B1B5B9]" disabled>Select age:</option>
+                <option value="option1" className="text-[#B1B5B9]">0-5years</option>
+                <option value="option2" className="text-[#B1B5B9]">6-11years</option>
+                <option value="option3" className="text-[#B1B5B9]">12-19years</option>
+                <option value="option3" className="text-[#B1B5B9]">20-49years</option>
+                <option value="option3" className="text-[#B1B5B9]">50 and above</option>
            </select>
                     </div>
                     <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
@@ -70,9 +70,9 @@ export default function SignUp(){
               value={gender}
               onChange={(e) => setGender(e.target.value)} >
               <option value="" disabled selected>Select Gender</option>
-            <option value="Male">Male</option>
-           <option value="Female">Female</option>
-           <option value="Rather Not Say">Rather Not Say</option>
+            <option value="Male" className="text-[#B1B5B9]">Male</option>
+           <option value="Female" className="text-[#B1B5B9]">Female</option>
+           <option value="Rather Not Say" className="text-[#B1B5B9]">Rather Not Say</option>
            </select>
         </div>
          </div>
@@ -123,7 +123,7 @@ export default function SignUp(){
           </p>
         </div> 
       </form>
-      <button className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto">
+      <button className="w-[20rem] flex text-center mt-[10px] bg-white border border-solid justify-center m-auto">
             <img className="w-[2rem] m-2"
             src={google}
             alt="google"
@@ -133,7 +133,7 @@ export default function SignUp(){
         <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
         <button
               type="submit"
-              className=" rounded-[20px] bg-[#0099D7] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto  mt-[50px]"
+              className=" rounded-[20px] bg-[#0099D7] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto  mt-[30px]"
             >
               Sign Up
             </button>
@@ -149,7 +149,7 @@ export default function SignUp(){
                 </div>
     </div>
   </main>
-  <aside className="relative block lg:col-span-6 lg:h-full  bg-[#263A5C]">
+  <aside className="relative block lg:col-span-6 lg:h-full sm:hidden lg:block h-[100vh] bg-[#263A5C]">
     {/* <div className=""> */}
       <Onboard />
     {/* </div> */}
