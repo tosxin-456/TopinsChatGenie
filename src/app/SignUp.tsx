@@ -15,19 +15,13 @@ export default function SignUp(){
 
 <section className="bg-white">
 <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-  <aside className="relative block lg:col-span-6 lg:h-full  bg-[#0099D7]">
-    {/* <div className=""> */}
-      <Onboard />
-    {/* </div> */}
-  </aside>
-
   <main
     className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6"
   >
     <div className="max-w-xl lg:max-w-3xl">
       
       <div className="border-solid border border-gray rounded-lg p-6">
-      <Link className="block text-blue-600" to="#">
+      {/* <Link className="block text-blue-600" to="#">
         <span className="sr-only">Home</span>
         <svg
           className="h-8 sm:h-10"
@@ -40,9 +34,9 @@ export default function SignUp(){
             fill="currentColor"
           />
         </svg>
-      </Link>
-      <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-        Welcome to SenexCare
+      </Link> */}
+      <h1 className="mt-6 text-2xl font-bold text-[#263A5C] sm:text-3xl md:text-4xl">
+        Sign Up
       </h1>
 
       <p className="mt-4 leading-relaxed text-gray-500">
@@ -191,7 +185,11 @@ export default function SignUp(){
 
     </div>
   </main>
-  
+  <aside className="relative block lg:col-span-6 lg:h-full bg-[#263A5C]">
+    {/* <div className=""> */}
+      <Onboard />
+    {/* </div> */}
+  </aside>
 </div>
 </section>
     )

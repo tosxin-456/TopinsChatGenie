@@ -12,18 +12,18 @@ export default function Onboard(){
         backgroundSize: 'cover',
         height: '100%',
         width: '100%',
-        flexDirection:"column",
+        flexDirection: "column"
     }
 
     return(
         <div className="slide-container">
             <Slide>
                 {onboard.map((image) => (
-                    <div className='' key={image.id} style={{...divStyle, backgroundColor:'#0099D7'}}> 
+                    <div className='' key={image.id} style={{...divStyle, backgroundColor:'#263A5C'}}> 
                         <img src={image.src} alt="" 
-                        style={{width:'100%', height:'90%', display:"flex"}}
+                        style={{width:'45%', height:'50%', display:"flex", marginTop:"25%"}}
                         />
-                        <h2  className='text-white sm:text-2xl h-[10%] mb-40'  >{image.text}</h2>
+                        <h2  className='text-[#FBFBFB] sm:text-2xl h-[10%] mb-40 w-80% m-[50px] text-center'  >{image.text}</h2>
                     </div>
                 ))}
             
