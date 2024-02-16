@@ -12,22 +12,28 @@ export default function Onboard(){
         backgroundSize: 'cover',
         height: '100%',
         width: '100%',
-        flexDirection:"column",
+        flexDirection: "column",
     }
-
+    const settings = {
+        dots: true, // Show navigation dots
+        arrows: false, // Hide navigation arrows
+        infinite: true,
+        speed: 250,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+    
     return(
         <div className="slide-container">
-            <Slide>
+            <Slide {...settings}>
                 {onboard.map((image) => (
-                    <div className='' key={image.id} style={{...divStyle, backgroundColor:'#0099D7'}}> 
+                    <div className='' key={image.id} style={{...divStyle, backgroundColor:'#263A5C'}}> 
                         <img src={image.src} alt="" 
-                        style={{width:'100%', height:'90%', display:"flex"}}
+                        style={{width:'43%', height:'40%', display:"flex", marginTop:"35%"}}
                         />
-                        <h2  className='text-white sm:text-2xl h-[10%] mb-40'  >{image.text}</h2>
+                        <h2  className='text-[#FBFBFB] sm:text-2xl h-[10%] mb-40 w-80% m-[50px] text-center'  >{image.text}</h2>
                     </div>
                 ))}
-            
-
             </Slide>
            
             

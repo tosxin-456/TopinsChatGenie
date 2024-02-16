@@ -1,33 +1,27 @@
 import React, {useState} from "react"
 import { Link } from "react-router-dom"
 import Onboard from "./components/Onboard"
-
+import google from '../images/google.png'
 
 export default function SignUp(){                     
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
+  const [Name, setFirstName] = useState('')
   const [age, setAge] = useState('select age')
+  const [gender, setGender] = useState('select gender')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
     return(
   
 
 <section className="bg-white">
-<div className="lg:grid lg:min-h-screen lg:grid-cols-12">
-  <aside className="relative block lg:col-span-6 lg:h-full  bg-[#0099D7]">
-    {/* <div className=""> */}
-      <Onboard />
-    {/* </div> */}
-  </aside>
-
+<div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main
     className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6"
   >
     <div className="max-w-xl lg:max-w-3xl">
       
-      <div className="border-solid border border-gray rounded-lg p-6">
-      <Link className="block text-blue-600" to="#">
+      <div className="w-full ">
+      {/* <Link className="block text-blue-600" to="#">
         <span className="sr-only">Home</span>
         <svg
           className="h-8 sm:h-10"
@@ -40,158 +34,126 @@ export default function SignUp(){
             fill="currentColor"
           />
         </svg>
-      </Link>
-      <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-        Welcome to SenexCare
+      </Link> */}
+      <h1 className=" text-2xl font-bold text-[#263A5C] sm:text-3xl md:text-4xl text-center">
+        Sign Up
       </h1>
-
-      <p className="mt-4 leading-relaxed text-gray-500">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-        quibusdam aperiam voluptatum.
-      </p>
-
-      <form action="#" className="mt-8 grid grid-cols-6 gap-6">
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
-            First Name
-          </label>
-
+      <form action="#" className="mt-8 ">
+        <div className="col-span-6 sm:col-span-3 flex justify-center m-[20px]">         
           <input
-          value={firstName}
+          value={Name}
           onChange={(e) => setFirstName(e.target.value)}
             type="text"
-            id="FirstName"
-            name="first_name"
-            className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                  id="Name"
+                  placeholder="Enter your Name"
+            name="Name"
+            className="w-[20rem] bg-rgba-34-31-31-10 border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-xl shadow-sm"
           />
         </div>
-
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="LastName" className="block text-sm font-medium text-gray-700">
-            Last Name
-          </label>
-
-          <input
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-            type="text"
-            id="LastName"
-            name="last_name"
-            className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-          />
-        </div>
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="LastName" className="block text-sm font-medium text-gray-700 mb-4">
-            Age:
-            </label>
+        <div className="flex justify-between w-[20rem] m-auto">               
+        <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
             <select id="dropdown" name="dropdown"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             >
 
-                <option value="option1" disabled>Select age:</option>
-                <option value="option1">0-5years</option>
-                <option value="option2">6-11years</option>
-                <option value="option3">12-19years</option>
-                <option value="option3">20-49years</option>
-                <option value="option3">50 and above</option>
+                <option value="option1" className="text-[#B1B5B9]" disabled>Select age:</option>
+                <option value="option1" className="text-[#B1B5B9]">0-5years</option>
+                <option value="option2" className="text-[#B1B5B9]">6-11years</option>
+                <option value="option3" className="text-[#B1B5B9]">12-19years</option>
+                <option value="option3" className="text-[#B1B5B9]">20-49years</option>
+                <option value="option3" className="text-[#B1B5B9]">50 and above</option>
            </select>
-
+                    </div>
+                    <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
+            <select id="dropdown" name="dropdown"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)} >
+              <option value="" disabled selected>Select Gender</option>
+            <option value="Male" className="text-[#B1B5B9]">Male</option>
+           <option value="Female" className="text-[#B1B5B9]">Female</option>
+           <option value="Rather Not Say" className="text-[#B1B5B9]">Rather Not Say</option>
+           </select>
         </div>
+         </div>
         
 
-        <div className="col-span-6">
-          <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> Email </label>
-
-          <input
+        <div className="col-span-6 flex justify-center m-[20px]">
+          < input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
             id="Email"
             name="email"
-            className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+            placeholder="Enter your email"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px]  p-3 outline-none  text-lg shadow-sm"
           />
         </div>
 
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="Password" className="block text-sm font-medium text-gray-700"> Password </label>
-
+        <div className="col-span-6 sm:col-span-3 flex justify-center m-[20px] ">
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             id="Password"
+            placeholder="Enter your Password"
             name="password"
-            className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-xl shadow-sm"
           />
         </div>
 
-        <div className="col-span-6 sm:col-span-3">
-          <label htmlFor="PasswordConfirmation" className="block text-sm font-medium text-gray-700">
-            Password Confirmation
-          </label>
-
+        <div className="col-span-6 sm:col-span-3 flex justify-center m-[20px]">
           <input
-           value={confirmPassword}
-           onChange={(e) => setConfirmPassword(e.target.value)}
-            type="password"
-            id="PasswordConfirmation"
+           value={phone}
+           onChange={(e) => setPhone(e.target.value)}
+            type="text"
+                      id="phone"
+                      placeholder="Enter your phone number"
             name="password_confirmation"
-            className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+            className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3 outline-none text-xl shadow-sm"
           />
-        </div>
-
-        <div className="col-span-6">
-          <label htmlFor="MarketingAccept" className="flex gap-4">
-            <input
-              type="checkbox"
-              id="MarketingAccept"
-              name="marketing_accept"
-              className="size-5 rounded-md border-gray-200 bg-white shadow-sm"
-            />
-
-            <span className="text-sm text-gray-700">
-              I want to receive emails about events, product updates and company announcements.
-            </span>
-          </label>
-        </div>
-
-        <div className="col-span-6">
-          <p className="text-sm text-gray-500">
-            By creating an account, you agree to our
-            <a href="#" className="text-gray-700 underline"> terms and conditions </a>
+                  </div>
+        <div className="col-span-6 flex">
+                  <input type="checkbox" name="" id="" />
+          <p className="text-sm text-gray-500 ml-[10px]">
+            I agree to the healthcare 
+            <a href="#" className="text-[#407CE2]"> Terms of Service  </a>
             and
-            <a href="#" className="text-gray-700 underline">privacy policy</a>
+            <a href="#" className="text-[#407CE2]"> Privacy Policy</a>
           </p>
-        </div>
-
-        <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-          <button
-            className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
-          >
-            Create an account
-          </button>
-
-          <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-            Already have an account?
-            <Link to="/signin" className="text-gray-700 underline">Log in</Link>
-          </p>
-        </div>
-       
+        </div> 
       </form>
-      <button className="sm:w-full flex text-center mt-7 bg-white border border-solid justify-center">
-        <img className="align-middle justify-center"
-        src={require('../images/google.png')}
-        alt="google"
-        />
-        <h2 className="mt-3 mx-3">Sign up with Google</h2>
-      </button>
-
+      <button className="w-[20rem] flex text-center mt-[10px] bg-white border border-solid justify-center m-auto">
+            <img className="w-[2rem] m-2"
+            src={google}
+            alt="google"
+            />
+            <h2 className="m-3 font-semibold">Sign In with Google</h2>
+        </button>
+        <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
+        <button
+              type="submit"
+              className=" rounded-[20px] bg-[#0099D7] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto  mt-[30px]"
+            >
+              Sign Up
+            </button>
+        </div>
+     
+       
       </div>
-
+          <div className="flex  justify-center ">
+            <p className="text-lg text-[#221F1F]">
+              Already have an account?
+              <Link className="text-[#407CE2]" to="/signin">   Sign in</Link>
+                </p>
+                </div>
     </div>
   </main>
-  
+  <aside className="relative block lg:col-span-6 lg:h-full sm:hidden lg:block h-[100vh] bg-[#263A5C]">
+    {/* <div className=""> */}
+      <Onboard />
+    {/* </div> */}
+  </aside>
 </div>
 </section>
     )
