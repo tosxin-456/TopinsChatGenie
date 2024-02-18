@@ -39,7 +39,7 @@ export default function SignIn(){
               />
                 </div>
                 <div className=" w-4/5 flex justify-end">
-                <a className=" text-[#0099D7] text-[15px] text-end">Forgot Password?</a>
+                <p className=" text-[#0099D7] text-[15px] text-end">Forgot Password?</p>
                 </div>
               </div>
               <div className=" w-full flex justify-center">
@@ -69,7 +69,7 @@ export default function SignIn(){
       </div>
     
   </div>
-        <div className="relative w-full  lg:w-1/2 bg-[#263A5C] bg-blac sm:hidden lg:block">
+        <div className="relative w-full  lg:w-1/2 md:w-l/2 md:block bg-[#263A5C] bg-blac sm:hidden lg:block">
           <Onboard/>
   </div>
 </section>
