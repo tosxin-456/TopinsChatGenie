@@ -29,7 +29,7 @@ export default function Onboard(){
                 {onboard.map((image) => (
                     <div className='' key={image.id} style={{...divStyle, backgroundColor:'#263A5C'}}> 
                         <img src={image.src} alt="" 
-                        style={{width:'43%', height:'40%', display:"flex", marginTop:"35%"}}
+                        style={{width:'43%', height:'40%', display:"flex", marginTop:"50%"}}
                         />
                         <h2  className='text-[#FBFBFB] sm:text-2xl h-[10%] mb-40 w-80% m-[50px] text-center'  >{image.text}</h2>
                     </div>

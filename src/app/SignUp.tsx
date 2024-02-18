@@ -13,12 +13,12 @@ export default function SignUp(){
     return(
   
 
-<section className="bg-white">
+<section className="bg-white ">
 <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main
-    className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6"
+    className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6   "
   >
-    <div className="max-w-xl lg:max-w-3xl">
+    <div className="max-w-xl lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[100px]">
       
       <div className="w-full ">
       {/* <Link className="block text-blue-600" to="#">
@@ -117,9 +117,9 @@ export default function SignUp(){
                   <input type="checkbox" name="" id="" />
           <p className="text-sm text-gray-500 ml-[10px]">
             I agree to the healthcare 
-            <a href="#" className="text-[#407CE2]"> Terms of Service  </a>
+            <p className="text-[#407CE2]"> Terms of Service  </p>
             and
-            <a href="#" className="text-[#407CE2]"> Privacy Policy</a>
+            <p className="text-[#407CE2]"> Privacy Policy</p>
           </p>
         </div> 
       </form>
