@@ -24,7 +24,7 @@ export default function Onboard(){
     };
     
     return(
-        <div className="slide-container">
+        <div className="slide-container sm:hidden">
             <Slide {...settings}>
                 {onboard.map((image) => (
                     <div className='' key={image.id} style={{...divStyle, backgroundColor:'#263A5C'}}> 
