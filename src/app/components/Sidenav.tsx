@@ -45,7 +45,7 @@ export default function Sidenav() {
       <img className='pt-10 ml-10' src={Logosvg} alt="" />
       <div className='flex pt-[4rem] text-center'>
         <img className='px-3 ' src={Dashboardsvg} alt="" />
-        <Link to="/dahboard">Dashboard</Link>
+        <Link to="/dashboard">Dashboard</Link>
       </div>
       <div className='flex pt-10 text-center j'>
         <img className='px-3' src={Schedulesvg} alt="" />
