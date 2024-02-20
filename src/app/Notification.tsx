@@ -2,10 +2,10 @@ import React from 'react'
 import Sidenav from "./components/Sidenav";
 
 
-export default function Settings() {
+export default function Notification() {
   return (
     <div>
-      <Sidenav/>
+      <Sidenav />
     </div>
   )
 }
