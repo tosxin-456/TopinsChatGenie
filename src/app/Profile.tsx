@@ -69,9 +69,11 @@ const ProfilePage = () => {
     <div className='bg-[white] h-[100vh]'>
       <div className='text-white bg-[#263A5C] text-center p-[60px]'>
         <Link to='/dashboard'>
+          <div className='inline-block max-content float-left'>
         <img src={back} alt="" />
+          </div>
         </Link>
-          <h2 className='text-[30px] pt-[15px]'>Profile</h2>
+          <h2 className='text-[30px] p-[10px] mr-[25px]'>Profile</h2>
         </div>
       <div className=' mt-[-50px]'>
         {avatar && !isClosed && (
