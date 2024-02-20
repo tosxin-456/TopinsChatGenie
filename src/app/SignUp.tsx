@@ -18,7 +18,7 @@ export default function SignUp(){
   <main
     className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6   "
   >
-    <div className="max-w-xl lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[100px]">
+    <div className="max-w-xl lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[30px]">
       
       <div className="w-full ">
       {/* <Link className="block text-blue-600" to="#">
@@ -117,9 +117,9 @@ export default function SignUp(){
                   <input type="checkbox" name="" id="" />
           <p className="text-sm text-gray-500 ml-[10px]">
             I agree to the healthcare 
-            <p className="text-[#407CE2]"> Terms of Service  </p>
+            <span className="text-[#407CE2]"> Terms of Service  </span>
             and
-            <p className="text-[#407CE2]"> Privacy Policy</p>
+            <span className="text-[#407CE2]"> Privacy Policy</span>
           </p>
         </div> 
       </form>
@@ -130,10 +130,10 @@ export default function SignUp(){
             />
             <h2 className="m-3 font-semibold">Sign In with Google</h2>
         </button>
-        <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
+        <div className="col-span-6 sm:flex bg-black">
         <button
               type="submit"
-              className=" rounded-[20px] bg-[#0099D7] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto  mt-[30px]"
+              className=" rounded-[20px] bg-[#0099D7] px-7 py-3 text-sm font-medium text-white w-[10rem] m-auto mt-[30px]"
             >
               Sign Up
             </button>

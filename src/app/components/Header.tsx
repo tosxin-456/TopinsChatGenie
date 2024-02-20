@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-
+import man from '../../images/google.png'
 export default function Header(){
 
     return(
