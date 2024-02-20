@@ -39,7 +39,7 @@ export default function Sidenav() {
 
 
   return (
-<div className='mobiledesktop nav'>
+<div className='mobiledesktop nav sm:max-w-[100%]'>
   <div className='hidden bg-[#263A5c]  text-white max-w-[300px] h-screen md:block'>
     <div className='pl-20'>
       <img className='pt-10 ml-10' src={Logosvg} alt="" />
@@ -74,19 +74,19 @@ export default function Sidenav() {
     </div>
  </div>
 
- <div className={Nav ? 'bg-[#d6d6ef] max-w-[70%] h-screen md:hidden pt-6 fixed ease-in-out duration-1000 text-[#263638] rounded-xl' : "fixed left-[-100%] ease-in-out duration-500"} >
+ <div className={Nav ? 'bg-[#d6d6ef] h-screen md:hidden pt-6 w-[350px] fixed ease-in-out duration-1000 text-[#263638] rounded-xl' : "fixed left-[-100%] ease-in-out duration-500"} >
   <div onClick={changenav}>
   <MdClose size={30} className='ml-[80%]' />  
   </div>
   <div className='flex px-3 border-b-2 pb-3'>
-     <img src={Picture} alt="" />
+     <img className='px-3' src={Picture} alt="" />
      <div>
       <h1>Hi! Deborah Allen</h1>
       <p>deborahallen12@gmail.com</p>
      </div>
      
   </div>
-  <div className='pl-20 '>
+  <div className={ Nav ?'pl-20 ease-in-out duration-1000 ' : null}>
       <div className='flex pt-[2rem] text-center'>
         <img className='px-3 ' src={Dashboarddark} alt="" />
         <Link to="/dashboard">Dashboard</Link>
@@ -115,7 +115,7 @@ export default function Sidenav() {
         <img className='px-3' src={settingsdark} alt="" />
         <Link to="/settings">Settings</Link>
       </div>
-      <Link to="/signin" className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center mr-5 ml-[-1rem]'>
+      <Link to="/signin" className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center mr-5 w-[70%]'>
         <img src={logout} alt="" />
         <p>logout</p>
       </Link>
@@ -123,7 +123,7 @@ export default function Sidenav() {
 
  </div>
 
- <div className='p-4' onClick={changenav}>
+ <div className='p-4 fixed' onClick={changenav}>
   {!Nav ? <RxHamburgerMenu  size={30} /> : null}
  </div>
  </div>
