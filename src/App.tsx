@@ -10,80 +10,67 @@ import Activty from './app/Activty';
 import Emergency from './app/Emergency';
 import Profile from './app/Profile';
 import Settings from './app/Settings';
+import Notification  from './app/Notification'
+ 
 
 function App() {
   const router = createBrowserRouter([
     {
-      path:"/",
-      element:<Home/>
+      path: "/",
+      element: <Home />
     },
     {
-      path:"/signup",
-      element:<SignUp/>
+      path: "/signup",
+      element: <SignUp />
     },
     {
-      path:"/signin",
-      element:<SignIn/>
-    },
-
-    {
-      path:"/dashboard",
-      element:<Dashboard/>
+      path: "/signin",
+      element: <SignIn />
     },
 
     {
-      path:"/schedule",
-      element:<Schedule/>
+      path: "/dashboard",
+      element: <Dashboard />
     },
 
     {
-      path:"/signin",
-      element:<SignIn/>
+      path: "/schedule",
+      element: <Schedule />
     },
 
     {
-      path:"/chat",
-      element:<Chat/>
+      path: "/signin",
+      element: <SignIn />
     },
 
     {
-      path:"/activity",
-      element:<Activty/>
+      path: "/chat",
+      element: <Chat />
     },
 
     {
-      path:"/emergency",
-      element:<Emergency/>
+      path: "/activity",
+      element: <Activty />
     },
 
     {
-      path:"/profile",
-      element:<Profile/>
+      path: "/emergency",
+      element: <Emergency />
     },
 
     {
-      path:"/settings",
-      element:<Settings/>
+      path: "/profile",
+      element: <Profile />
     },
 
-
-
-
-
-    
-
-
-
-
-
-    
-
-    
-
-
-
-    
-
+    {
+      path: "/settings",
+      element: <Settings />
+    },
+    {
+      path: "/notification",
+      element: <Notification />
+    },
   ]);
 
   return (
