@@ -4,7 +4,7 @@ import avatar1 from '../images/profile.png';
 import logoutbtn from '../images/logout-bold.png';
 import { TbCameraPlus } from 'react-icons/tb';
 import { GrClose } from "react-icons/gr";
-import Sidenav from './components/Sidenav';
+import back from '../images/back.png';
 import { Link } from "react-router-dom";
 
 const ProfilePage = () => {
@@ -67,7 +67,10 @@ const ProfilePage = () => {
 
   return ( 
     <div className='bg-[white] h-[100vh]'>
-         <div className='text-white bg-[#263A5C] text-center p-[60px]'>
+      <div className='text-white bg-[#263A5C] text-center p-[60px]'>
+        <Link to='/dashboard'>
+        <img src={back} alt="" />
+        </Link>
           <h2 className='text-[30px] pt-[15px]'>Profile</h2>
         </div>
       <div className=' mt-[-50px]'>
