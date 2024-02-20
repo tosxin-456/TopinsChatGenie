@@ -42,7 +42,7 @@ export default function Sidenav() {
 <div className='mobiledesktop nav sm:max-w-[100%]'>
   <div className='hidden bg-[#263A5c]  text-white max-w-[300px] h-screen md:block'>
     <div className='pl-20'>
-      <img className='pt-10 ml-10' src={Logosvg} alt="" />
+      <img className='pt-10 w-[60%]' src={Logosvg} alt="" />
       <div className='flex pt-[4rem] text-center'>
         <img className='px-3 ' src={Dashboardsvg} alt="" />
         <Link to="/dashboard">Dashboard</Link>
@@ -86,7 +86,7 @@ export default function Sidenav() {
      </div>
      
   </div>
-  <div className={ Nav ?'pl-20 ease-in-out duration-1000 ' : null}>
+  <div className={ Nav ?'pl-20 ease-in-out duration-1000 ' : ''}>
       <div className='flex pt-[2rem] text-center'>
         <img className='px-3 ' src={Dashboarddark} alt="" />
         <Link to="/dashboard">Dashboard</Link>
