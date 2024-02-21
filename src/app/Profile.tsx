@@ -106,7 +106,7 @@ const ProfilePage = () => {
           <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >Date of Birth:</span>poppins </p>
           <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >NHIS:</span> poppins </p>
           <Link to='/signin'>
-          {!isPending && <button className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center p-[10px] ml-auto mr-12'   > <img src={logoutbtn} className='bg-[#263238]m-auto' alt="" />Logout</button>}
+          {!isPending && <button className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center p-[10px] md:ml-[75%] w-[10rem] m-auto '   > <img src={logoutbtn} className='bg-[#263238]m-auto' alt="" />Logout</button>}
           {isPending && <button disabled>Logging Out...</button>}
           </Link>
         </div>
