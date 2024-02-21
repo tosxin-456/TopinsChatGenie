@@ -65,4 +65,5 @@ function Barchart() {
   );
 }
 
+
 export default Barchart;
