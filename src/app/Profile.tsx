@@ -7,6 +7,7 @@ import { GrClose } from "react-icons/gr";
 import back from '../images/back.png';
 import { Link } from "react-router-dom";
 
+
 const ProfilePage = () => {
 //   const history = useNavigate();
   const [isClosed, setIsClosed] = useState(false);
