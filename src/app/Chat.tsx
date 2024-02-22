@@ -24,11 +24,13 @@ export default function Notification() {
                 fontWeight: '500',
             }}
             
-            className=' w-full md:mt-[50px] mt-[30px]  md:ml-[40px] text-[#263A5C] text-[20px]'>Chat</h1>
-          <div className='flex p-[5px] md:mr-[20px] md:mt-[20px]  ml-auto'>
-          <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
+            className=' w-full md:mt-[50px] mt-[40px] ml-[20px]  md:ml-[40px] text-[#263A5C] text-[20px]'>Chat</h1>
+             <div className='flex p-[5px] md:mr-[20px] md:mt-[20px] mr-[30px] mt-[30px] ml-auto'>
+            <Link to='/notification'>
+            <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
+            </Link>
           <Link to='/profile'>
-          <img src={profile} alt="" className='m-[3px]'/>          
+          <img src={profile} alt="" className='m-[3px]  w-[30px] h-[30px]'/>          
           </Link>
           </div>
         </div>

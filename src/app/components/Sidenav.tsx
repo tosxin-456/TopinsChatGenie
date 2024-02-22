@@ -87,45 +87,49 @@ export default function Sidenav() {
           </div>
           <div className='flex px-3 border-b-gray border-b-2  pb-3'>
             <img className='px-3' src={Picture} alt="" />
-            <div>
+            <div className='text-[#baadad] font-normal' >
               <h1>Hi! Deborah Allen</h1>
               <p>deborahallen12@gmail.com</p>
             </div>
 
           </div>
           <div className={Nav ? 'pl-20 ease-in-out duration-1000 ' : ''}>
-            <div className='flex pt-[2rem] text-center'>
+            <div className='flex mr-[30px] pt-[2rem] text-center'>
               <img className='px-3 ' src={Dashboarddark} alt="" />
               <Link to="/dashboard">Dashboard</Link>
             </div>
-            <div className='flex pt-10 text-center j'>
+            <div className='flex mr-[30px] pt-10 text-center j'>
               <img className='px-3' src={Scheduledark} alt="" />
               <Link to="/schedule">Schedule</Link>
             </div>
-            <div className='flex pt-10 text-center '>
+            <div className='flex mr-[30px] pt-10 text-center '>
               <img className='px-3' src={messagedark} alt="" />
               <Link to="/chat">Chat</Link>
             </div>
-            <div className='flex pt-10 text-center '>
+            <div className='flex mr-[30px] pt-10 text-center '>
               <img className='px-3' src={Activitydark} alt="" />
               <Link to="/activity">Activity</Link>
             </div>
-            <div className='flex pt-10 text-center '>
+            <div className='flex mr-[30px] pt-10 text-center '>
               <img className='px-3' src={Emergencydark} alt="" />
               <Link to="/emergency">Emergency</Link>
             </div>
-            <div className='flex pt-10 text-center'>
-              <img className='px-3' src={profiledark} alt="" />
-              <Link to="/profile">Profile</Link>
+            <div className='w-[300px] mt-[50px] bg-gray-300 h-[0.1rem] ml-[-80px] '>
             </div>
-            <div className='flex pt-10 text-center'>
+            <div className='flex mr-[30px] pt-10 text-center'>
+              <img className='px-3' src={profiledark} alt="" />
+              <Link to="/profile" className='text-center'>Profile</Link>
+            </div>
+            <div className='flex mr-[30px] pt-10 text-center'>
               <img className='px-3' src={settingsdark} alt="" />
               <Link to="/settings">Settings</Link>
             </div>
-            <Link to="/signin" className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center mr-5 w-[70%]'>
+            <div className=' w-fit ml-[30px] mt-[30px] '>
+            <Link to="/signin" className='bg-[#263238] text-white my-5 p-[3px] m-auto  rounded-md flex text-center justify-center items-center mr-5 w-[4rem]'>
               <img src={logout} alt="" />
-              <p>logout</p>
+              <p></p>
             </Link>
+            </div>
           </div>
         </div>
         <div className=' bg-gray-100 w-full bg-opacity-90 text-black h-screen'>

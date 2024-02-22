@@ -94,7 +94,7 @@ const ProfilePage = () => {
           </div>
         )}
         <div>
-          <img className='w-[7rem] m-auto ' src={pic === null ? avatar1 : pic }   alt='Profile pic' />
+          <img className='w-[6rem] m-auto md:w-[7rem] ' src={pic === null ? avatar1 : pic }   alt='Profile pic' />
           <div className=' w-[5rem] hidden m-auto'>
             <input
               type="file" 
@@ -104,15 +104,17 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className='bg-white text-white  p-[20px]'>
-          <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className=' text-[#285430]'>Profile Name: </span>poppins</p>
-          <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >ID:</span> poppins</p>
-          <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >Email:</span> Poppins </p>
-          <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >Gender:</span> Poppins </p>
-          <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >Date of Birth:</span>poppins </p>
-          <p className='w-3/4 bg-[#E2E2E2] rounded-md p-[7px] text-[#818181] m-auto mt-[10px]'><span className='text-[#285430]' >NHIS:</span> poppins </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className=' text-[#263A5C]'>Profile Name: </span>poppins</p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >ID:</span> poppins</p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Email:</span> Poppins </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Gender:</span> Poppins </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Date of Birth:</span>poppins </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >NHIS:</span> poppins </p>
           <Link to='/signin'>
-          {!isPending && <button className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center p-[10px] md:ml-[75%] w-[10rem] m-auto '   > <img src={logoutbtn} className='bg-[#263238]m-auto' alt="" />Logout</button>}
+            <div className='w-4/5 m-auto'>
+          {!isPending && <button className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center p-[20px] md:ml-[75%] w-[7rem] ml-auto '   > <img src={logoutbtn} className='bg-[#263238] m-auto ' alt="" /></button>}
           {isPending && <button disabled>Logging Out...</button>}
+            </div>
           </Link>
         </div>
       </div>

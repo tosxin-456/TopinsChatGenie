@@ -23,10 +23,11 @@ export default function Notification() {
           </div>
         </div>
         <div >
-          <div className='flex w-fit m-auto mt-[30px] bg-[#F2F2F2] rounded-lg p-1' >
+        <div className='flex w-fit m-auto mt-[30px] bg-[#F2F2F2] rounded-lg p-1' >
             <img src={searchIcon} alt=""className='w-[20px] md:w-[40px]'  />
-            <input className='bg-[#F2F2F2] w-[20rem] rounded-md p-1 md:p-3 outline-none' type="text" placeholder='search' />
+            <input className='bg-[#F2F2F2] w-[16rem] rounded-md p-1 md:p-3 outline-none' type="text" placeholder='search' />
           </div>
+          
           <div className=' w-fit m-auto mt-[50px]'>
             <div className='flex'>
             <img src={bigIcon} alt="" className='p-[5px] w-[90px]' />

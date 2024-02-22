@@ -51,7 +51,7 @@ function Barchart() {
   };
 
   return (
-    <div className='sm:w-[80%] md:w-[50%]'
+    <div className='sm:w-[70%] md:w-[50%]'
       style={{
         margin: 'auto',
         borderStyle: 'solid',
