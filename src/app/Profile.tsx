@@ -66,7 +66,12 @@ const ProfilePage = () => {
 // }
 
   return ( 
-    <div className='bg-[white] h-[100vh]'>
+    <div
+    style={{
+      fontFamily: 'Roboto, sans-serif',
+      fontWeight: '500',
+  }}
+      className='bg-[white] h-[100vh]'>
       <div className='text-white bg-[#263A5C] text-center p-[60px]'>
         <Link to='/dashboard'>
           <div className='inline-block max-content float-left'>

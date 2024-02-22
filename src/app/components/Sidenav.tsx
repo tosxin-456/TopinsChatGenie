@@ -40,7 +40,12 @@ export default function Sidenav() {
 
 
   return (
-    <div className='mobiledesktop nav sm:max-w-[100%]'>
+    <div
+    style={{
+      fontFamily: 'Roboto, sans-serif',
+      fontWeight: '500',
+  }}
+      className='mobiledesktop nav sm:max-w-[100%]'>
       <div className='hidden bg-[#263A5c]  text-white max-w-[300px] h-screen md:block'>
         <div className='pl-20'>
           <img className='pt-10 w-[60%]' src={Logosvg} alt="" />

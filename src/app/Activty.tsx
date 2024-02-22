@@ -10,7 +10,12 @@ import searchIcon from '../images/ic_round-search.svg'
 
 const MainComponent = () => {
   return (
-    <div>
+    <div
+    style={{
+      fontFamily: 'Roboto, sans-serif',
+      fontWeight: '500',
+  }}
+    >
    <div className='  items-center w-full'>
       <div className=' flex text-center'>
           <h1 className=' w-full md:mt-[50px] mt-[30px] md:ml-[40px] text-[#263A5C] text-[20px]'>Activity</h1>
