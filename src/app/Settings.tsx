@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Sidenav from "./components/Sidenav";
-import notify from "../images/ri_notification-4-line.png";
-import profile from '../images/ProfilePic.png'
+import notify from "../images/ri_notification-4-line.svg";
+import profile from '../images/profilepic2.svg'
 import { Link } from "react-router-dom";
 import searchIcon from '../images/ic_round-search.svg'
 import on from '../images/SwitcherOn.svg'

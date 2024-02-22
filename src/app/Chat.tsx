@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidenav from "./components/Sidenav";
-import notify from "../images/ri_notification-4-line.png";
-import profile from '../images/ProfilePic.png'
+import notify from "../images/ri_notification-4-line.svg";
+import profile from '../images/profilepic2.svg'
 import info from '../images/information.svg'
 import { Link } from "react-router-dom";
 import send from '../images/sendMessage.svg'
