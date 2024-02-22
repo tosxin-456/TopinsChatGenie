@@ -76,9 +76,8 @@ function App() {
 
   return (
     // <Sidenav /> {/* Include Navbar component outside RouterProvider */}
-    <RouterProvider router={router}/>
-
-   
+    <RouterProvider router={router} />
+    
   );
 }
 

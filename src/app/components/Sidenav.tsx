@@ -103,7 +103,7 @@ export default function Sidenav() {
             </div>
             <div className='flex pt-10 text-center '>
               <img className='px-3' src={Activitydark} alt="" />
-              <Link to="/activity">Activty</Link>
+              <Link to="/activity">Activity</Link>
             </div>
             <div className='flex pt-10 text-center '>
               <img className='px-3' src={Emergencydark} alt="" />
