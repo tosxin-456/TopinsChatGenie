@@ -45,7 +45,7 @@ function Piechart() {
   
   
   return (
-    <div className='sm:w-[60%] md:w-[40%]'
+    <div className='w-[80%] md:w-[40%]'
       style={{
         margin: 'auto',
         borderStyle: 'solid',

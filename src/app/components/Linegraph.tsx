@@ -31,7 +31,7 @@ function LineGraph() {
 
   const options = {}
   return (
-    <div className='sm:w-[70%] md:w-[50%]'
+    <div className='w-[85%] md:w-[50%]'
       style={{
         margin: 'auto',
         borderStyle: 'solid',

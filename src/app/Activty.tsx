@@ -16,6 +16,7 @@ const MainComponent = () => {
       fontWeight: '500',
   }}
     >
+      <div>
    <div className='  items-center w-full'>
       <div className=' flex text-center '>
           <h1 className=' w-fit md:mt-[50px]  mt-[40px] ml-[40%] md:ml-[40px] text-[#263A5C] text-[20px]'>Activity</h1>
@@ -36,6 +37,8 @@ const MainComponent = () => {
       <LineGraph/>
       <BarChart />
       <Piechart/>
+      </div>
+
     </div>
   );
 };
