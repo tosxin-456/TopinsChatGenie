@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import Sidenav from "./components/Sidenav";
-import notify from "../images/ri_notification-4-line.svg";
-import profile from '../images/profilepic2.svg'
-import { Link } from "react-router-dom";
+import { useState } from 'react'
 import searchIcon from '../images/ic_round-search.svg'
 import on from '../images/SwitcherOn.svg'
 import off from '../images/SwitcherOff.svg'
-
+import notifyIcon from '../images/ri_notification-4-line.svg'
+import { useNavigate } from 'react-router';
 
 export default function Settings() {
+  const history = useNavigate();
+
     const [isOn, setIsOn] = useState(true);
     const [isOn2, setIsOn2] = useState(true);
     const [isOn3, setIsOn3] = useState(true);
@@ -36,29 +35,23 @@ export default function Settings() {
           fontWeight: '400',
       }}
       >
-        <div className='  items-center w-full '>
-          <div className=' flex text-center'>
-            <h1
-                     style={{
-                      fontFamily: 'Roboto, sans-serif',
-                      fontWeight: '500',
-                  }}
-              className=' w-full md:mt-[50px] mt-[40px] ml-[30px] md:ml-[40px] text-[#263A5C] text-bold text-[20px]'>Settings</h1>
-           <div className='flex p-[5px] md:mr-[20px] md:mt-[20px] mr-[50px] mt-[30px] ml-auto'>
-            <Link to='/notification'>
-            <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
-            </Link>
-          <Link to='/profile'>
-          <img src={profile} alt="" className='m-[3px]  w-[30px] h-[30px]'/>          
-          </Link>
-          </div>
-          </div>
-        </div>
-        <div className='flex w-fit m-auto mt-[30px] bg-[#F2F2F2] rounded-lg p-1' >
-            <img src={searchIcon} alt=""className='w-[20px] md:w-[40px]'  />
-            <input className='bg-[#F2F2F2] w-[16rem] rounded-md p-1 md:p-3 outline-none' type="text" placeholder='search' />
-          </div>
-        <div className=' h-[45vh] sm:h-[50vh]  w-4/5 m-auto mt-[30px]  flex flex-col justify-between'>
+        <header className='hidden md:block'>
+          <nav className="topHeader flex justify-between items-center my-10">
+            <h1 className='text-2xl text-[#263A5C] font-bold'>Settings</h1>
+            <div className="flex items-center gap-4">
+              <img
+                onClick={() => history("../notification")}
+                src={notifyIcon}
+                alt="Bell Icon"
+              />
+              <span
+                onClick={() => history("../profile")} 
+                className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
+              >T</span>
+            </div>
+          </nav>
+        </header>
+        <div className=' h-[45vh] sm:h-[50vh]  w-full m-auto mt-[30px]  flex flex-col justify-between'>
   <div className='flex items-center '>
     <div>
       <b><h1>Notification</h1> </b>

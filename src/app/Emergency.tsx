@@ -1,58 +1,64 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Sidenav from "./components/Sidenav";
-import notify from "../images/ri_notification-4-line.svg";
-import profile from '../images/profilepic2.svg'
 import contact from '../images/mdi_contact.svg'
 import compass from '../images/compass.svg'
 import Map from './components/Map'
 import emergency from '../images/jam_triangle-danger-f.svg'
+import notifyIcon from '../images/ri_notification-4-line.svg'
+import { useNavigate } from 'react-router';
 
 export default function Settings() {
+  const history = useNavigate();
+
   return (
     <div
-    style={{
-      fontFamily: 'Roboto, sans-serif',
-      fontWeight: '300',
-  }}
+      style={{
+        fontFamily: 'Roboto, sans-serif',
+        fontWeight: '300',
+      }}
     >
-      <div className=' flex text-center '>
-          <h1 className=' w-fit md:mt-[50px] font-medium mt-[30px] ml-[40%] md:ml-[40px] text-[#263A5C] text-[20px]'>Emergency</h1>
-          <div className='flex p-[5px] md:mr-[20px] md:mt-[20px] mr-[30px] mt-[15px] ml-auto'>
-            <Link to='/notification'>
-            <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
-            </Link>
-          <Link to='/profile'>
-          <img src={profile} alt="" className='m-[3px]  w-[30px] h-[30px]'/>          
-          </Link>
-        </div>
-        </div>
-        <div className=' m-auto w-[fit]'>
-        <div
-          style={{
-          boxShadow:'2px 2px 3px rgba(0, 0 ,0 ,0.5)'
-          }}
-          className=' w-[22rem] flex bg-white m-auto mt-[30px] p-[6px] '>
-          <img className='ml-4' src={contact} alt="" />
-          <div className='m-auto text-[18px]'>
-            <p>Tosin Poppins</p>
-            <p className='text-gray-400'>tosinpoppins@gmail.com</p>
+      <header className='hidden md:block'>
+        <nav className="topHeader flex justify-between items-center my-10">
+          <h1 className='text-2xl text-[#263A5C] font-bold'>Emergency</h1>
+          <div className="flex items-center gap-4">
+            <img
+              onClick={() => history("../notification")}
+              src={notifyIcon}
+              alt="Bell Icon"
+            />
+            <span
+              onClick={() => history("../profile")} 
+              className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
+            >T</span>
           </div>
-          <img className='ml-auto mr-3 mt-[10px]' src={compass} alt="" />
+        </nav>
+      </header>
+      <div className=' m-auto w-[fit]'>
+      <div
+        style={{
+        boxShadow:'2px 2px 3px rgba(0, 0 ,0 ,0.5)'
+        }}
+        className=' w-full flex bg-white m-auto mt-[30px] p-[6px] '
+      >
+        <img className='ml-4' src={contact} alt="" />
+        <div className='m-auto text-[18px]'>
+          <p>Tosin Poppins</p>
+          <p className='text-gray-400'>tosinpoppins@gmail.com</p>
         </div>
-        <div
-          style={{
-          boxShadow:'2px 2px 3px rgba(0, 0 ,0 ,0.5)'
-          }}
-          className='w-[22rem] flex bg-white m-auto mt-[30px] p-[6px] '>
-          <img className='ml-4' src={contact} alt="" />
-          <div className='m-auto text-[18px]'>
-            <p>Tosin Poppins</p>
-            <p className='text-gray-400'>tosinpoppins@gmail.com</p>
-          </div>
-          <img className='ml-auto mr-3 mt-[10px]' src={compass} alt="" />
+        <img className='ml-auto mr-3 mt-[10px]' src={compass} alt="" />
+      </div>
+      <div
+        style={{
+        boxShadow:'2px 2px 3px rgba(0, 0 ,0 ,0.5)'
+        }}
+        className='w-full flex bg-white m-auto mt-[30px] p-[6px] '
+      >
+        <img className='ml-4' src={contact} alt="" />
+        <div className='m-auto text-[18px]'>
+          <p>Tosin Poppins</p>
+          <p className='text-gray-400'>tosinpoppins@gmail.com</p>
         </div>
-        <Map></Map>
+        <img className='ml-auto mr-3 mt-[10px]' src={compass} alt="" />
+      </div>
+      <Map></Map>
       </div>
       <img src={emergency} className='m-auto mt-[30px]' alt="" />
     </div>

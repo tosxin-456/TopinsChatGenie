@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import './App.css';
 import SignUp from './app/SignUp';
 import SignIn from './app/SignIn';
@@ -15,67 +15,27 @@ import Sidenav from './app/components/Sidenav';
  
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home />
-    },
-    {
-      path: "/signup",
-      element: <SignUp />
-    },
-    {
-      path: "/signin",
-      element: <SignIn />
-    },
-
-    {
-      path: "/dashboard",
-      element: <Dashboard />
-    },
-
-    {
-      path: "/schedule",
-      element: <Schedule />
-    },
-
-    {
-      path: "/signin",
-      element: <SignIn />
-    },
-
-    {
-      path: "/chat",
-      element: <Chat />
-    },
-
-    {
-      path: "/activity",
-      element: <Activty />
-    },
-
-    {
-      path: "/emergency",
-      element: <Emergency />
-    },
-
-    {
-      path: "/profile",
-      element: <Profile />
-    },
-
-    {
-      path: "/settings",
-      element: <Settings />
-    },
-    {
-      path: "/notification",
-      element: <Notification />
-    },
-  ]);
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route>
+        <Route index element={<Home/>} />
+        <Route path='signup' element={<SignUp/>} />
+        <Route path='signin' element={<SignIn/>} />
+        <Route element={<Sidenav/>}>
+          <Route path='dashboard' element={<Dashboard/>} />
+          <Route path='schedule' element={<Schedule/>} />
+          <Route path='chat' element={<Chat/>} />
+          <Route path='activity' element={<Activty/>} />
+          <Route path='emergency' element={<Emergency/>} />
+          <Route path='profile' element={<Profile/>} />
+          <Route path='settings' element={<Settings/>} />
+          <Route path='notification' element={<Notification/>} />
+        </Route>
+      </Route>
+    )
+  )
 
   return (
-    // <Sidenav /> {/* Include Navbar component outside RouterProvider */}
     <RouterProvider router={router} />
     
   );

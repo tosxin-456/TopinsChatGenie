@@ -1,33 +1,33 @@
-import React from 'react'
-import Sidenav from "./components/Sidenav";
-import notify from "../images/ri_notification-4-line.svg";
-import profile from '../images/profilepic2.svg'
 import searchIcon from '../images/ic_round-search.svg'
 import bigIcon from '../images/ProfilePic.svg'
 import notification from '../images/clarity_notification-solid.svg'
-import { Link } from "react-router-dom";
+import notifyIcon from '../images/ri_notification-4-line.svg'
+import { useNavigate } from 'react-router';
 
 
 export default function Notification() {
+  const history = useNavigate();
+
   return (
     <div className='sm:flex'>
-      {/* <Sidenav /> */}
       <div className='  items-center w-full'>
-      <div className=' flex '>
-          <h1 className=' sm:m-auto md:w-full md:mt-[50px]  md:ml-[40px] text-[#263A5C] text-[20px]'>Notification</h1>
-          <div className='flex p-[5px] mr-[20px] mt-[20px]'>
-          <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
-          <Link to='/profile'>
-          <img src={profile} alt="" className='m-[3px]'/>          
-          </Link>
-          </div>
-        </div>
-        <div >
-        <div className='flex w-fit m-auto mt-[30px] bg-[#F2F2F2] rounded-lg p-1' >
-            <img src={searchIcon} alt=""className='w-[20px] md:w-[40px]'  />
-            <input className='bg-[#F2F2F2] w-[16rem] rounded-md p-1 md:p-3 outline-none' type="text" placeholder='search' />
-          </div>
-          
+        <header className='hidden md:block'>
+          <nav className="topHeader flex justify-between items-center my-10">
+            <h1 className='text-2xl text-[#263A5C] font-bold'>Notifications</h1>
+            <div className="flex items-center gap-4">
+              <img
+                onClick={() => history("../notification")}
+                src={notifyIcon}
+                alt="Bell Icon"
+              />
+              <span
+                onClick={() => history("../profile")} 
+                className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
+              >T</span>
+            </div>
+          </nav>
+        </header>
+        <div >          
           <div className=' w-fit m-auto mt-[50px]'>
             <div className='flex'>
             <img src={bigIcon} alt="" className='p-[5px] w-[90px]' />

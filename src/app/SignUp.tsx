@@ -138,7 +138,7 @@ export default function SignUp(){
                   <Link to='/dashboard'>
               <button
               type="submit"
-              className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto"
+              className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white m-auto"
             >
               Sign in
             </button>
