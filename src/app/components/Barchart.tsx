@@ -51,7 +51,7 @@ function Barchart() {
   };
 
   return (
-    <div className='w-[85%] md:w-[50%]'
+    <div className='w-[100%] md:w-[80%]'
       style={{
         margin: 'auto',
         borderStyle: 'solid',
@@ -59,7 +59,7 @@ function Barchart() {
         boxShadow: '3px 4px 2px rgba(161,164,170 ,0.5)',
       }}
     >
-      <h1 className='text-center text-[#263A5C] mt-[50px]'>Total Activity</h1>
+      <h1 className='text-center text-[#263A5C] my-[32px]'>Total Activity</h1>
       <Bar data={data} options={options} />
     </div>
   );
