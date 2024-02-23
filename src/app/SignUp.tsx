@@ -134,13 +134,15 @@ export default function SignUp(){
             />
             <h2 className="m-3 font-semibold">Sign In with Google</h2>
         </button>
-        <div className=" w-full flex justify-center mt-[20px]">
+                <div className=" w-full flex justify-center mt-[20px]">
+                  <Link to='/dashboard'>
               <button
               type="submit"
               className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto"
             >
               Sign in
             </button>
+                  </Link>
               </div>
      
        

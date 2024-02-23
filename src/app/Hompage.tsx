@@ -14,7 +14,12 @@ import logo from "../images/senexCare.svg"
 
 
 export default function Home() {
-    return (<div>
+    return (<div
+        style={{
+            fontFamily: 'Roboto, sans-serif',
+            fontWeight: '300',
+        }}
+    >
         <div className="bg-[#F9F9F9]">
             <nav className=" flex justify-between items-center py-3 mx-[10%] sm:mx-[5%] ">
                 <img src={Logodark} alt="" />

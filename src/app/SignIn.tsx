@@ -52,12 +52,14 @@ export default function SignIn(){
                 </div>
               </div>
               <div className=" w-full flex justify-center">
+                <Link to='/dashboard'>
               <button
               type="submit"
               className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto"
             >
               Sign in
             </button>
+                </Link>
               </div>
               <div className="flex  justify-center ">
             <p className="text-lg text-[#221F1F]">
