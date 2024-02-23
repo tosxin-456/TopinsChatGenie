@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidenav from "./components/Sidenav";
-import notify from "../images/ri_notification-4-line.png";
-import profile from '../images/ProfilePic.png'
+import notify from "../images/ri_notification-4-line.svg";
+import profile from '../images/profilepic2.svg'
 import info from '../images/information.svg'
 import { Link } from "react-router-dom";
 import send from '../images/sendMessage.svg'
@@ -9,15 +9,28 @@ import ai from '../images/carbon_watsonx-ai.svg'
 
 export default function Notification() {
   return (
-    <div>
+    <div
+    style={{
+      fontFamily: 'Roboto, sans-serif',
+      fontWeight: '400',
+  }}
+    >
       {/* <Sidenav /> */}
       <div className='  items-center w-full'>
-      <div className=' flex '>
-          <h1 className=' sm:m-auto md:w-full md:mt-[50px]  md:ml-[40px] text-[#263A5C] text-[20px]'>Chat</h1>
-          <div className='flex p-[5px] mr-[20px] mt-[20px]'>
-          <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
+      <div className=' flex text-center'>
+          <h1
+              style={{
+                fontFamily: 'Roboto, sans-serif',
+                fontWeight: '500',
+            }}
+            
+            className=' w-full md:mt-[50px] mt-[40px] ml-[20px]  md:ml-[40px] text-[#263A5C] text-[20px]'>Chat</h1>
+             <div className='flex p-[5px] md:mr-[20px] md:mt-[20px] mr-[30px] mt-[30px] ml-auto'>
+            <Link to='/notification'>
+            <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
+            </Link>
           <Link to='/profile'>
-          <img src={profile} alt="" className='m-[3px]'/>          
+          <img src={profile} alt="" className='m-[3px]  w-[30px] h-[30px]'/>          
           </Link>
           </div>
         </div>
@@ -44,7 +57,7 @@ export default function Notification() {
           <div className='w-[85%] flex ' >
             <img src={ai} alt="" className='m-[10px]' />
             <div>
-            <div className='  bg-white text-[#263A5C] mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px] '>
+            <div className='  bg-white text-[#263A5C] mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[12px] '>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur dolores impedit minima quasi incidunt, quas, unde quae cum magni nobis, labore voluptate exercitationem. Unde incidunt amet nemo necessitatibus aut cumque totam ullam esse labore ex, impedit, tempora autem. Modi odio, distinctio repellat delectus sequi in doloribus expedita minus ab obcaecati?.</p>
           </div>
           <p className='text-end w-fit mr-auto ml-[3px] text-[#333333] ' >8pm</p>
@@ -52,7 +65,7 @@ export default function Notification() {
           </div>
           <div className='w-[85%] flex ml-auto'>
             <div>
-          <div className=' bg-[#263A5C] text-[white] ml-auto mt-[20px] rounded-lg p-[10px] '>
+          <div className=' bg-[#263A5C] text-[white] ml-auto mt-[20px] rounded-lg p-[12px] '>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur dolores impedit minima quasi incidunt, quas, unde quae cum magni nobis, labore voluptate exercitationem. Unde incidunt amet nemo necessitatibus aut cumque totam ullam esse labore ex, impedit, tempora autem. Modi odio, distinctio repellat delectus sequi in doloribus expedita minus ab obcaecati?.</p>
           </div>
           <p className='text-end w-fit ml-auto mr-[3px] text-[#333333] ' >8pm</p>
