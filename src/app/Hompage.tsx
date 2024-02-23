@@ -112,7 +112,7 @@ export default function Home() {
                     <textarea className="my-3 w-full px-10 py-[5rem]" placeholder="Have anything to say?">
 
                     </textarea>
-                    <button className="bg-[#002B9A] px-16 mt-[2rem] py-1 text-white rounded-md">Send</button>
+                    <button className="bg-gradient-to-r from-blue-600 to-blue-900  px-16 mt-[2rem] py-1 text-white rounded-md">Send</button>
                 </form>
             </div>
             <img className=" hidden md:block mb-[-25rem]" src={contact2} alt="" />
@@ -126,5 +126,4 @@ export default function Home() {
     </div>
 
     )
-
 }
