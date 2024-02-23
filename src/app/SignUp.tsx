@@ -16,9 +16,9 @@ export default function SignUp(){
 <section className="bg-white ">
 <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main
-    className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6   "
+    className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6  "
   >
-    <div className="max-w-xl lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[30px]">
+    <div className=" w-fit lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[15px]">
       
       <div className="w-full ">
       {/* <Link className="block text-blue-600" to="#">
@@ -35,7 +35,11 @@ export default function SignUp(){
           />
         </svg>
       </Link> */}
-      <h1 className=" text-2xl font-bold text-[#263A5C] sm:text-3xl md:text-4xl text-center">
+                <h1
+          style={{
+            fontFamily:'Clash Display, sans-serif'
+          }}
+                  className=" text-2xl font-bold text-[#263A5C] sm:text-3xl md:text-4xl text-center">
         Sign Up
       </h1>
       <form action="#" className="mt-8 ">
@@ -52,27 +56,27 @@ export default function SignUp(){
         </div>
         <div className="flex justify-between w-[20rem] m-auto">               
         <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
-            <select id="dropdown" name="dropdown"
+            <select className="outline-none " id="dropdown" name="dropdown"
               value={age}
               onChange={(e) => setAge(e.target.value)}
             >
 
-                <option value="option1" className="text-[#B1B5B9]" disabled>Select age:</option>
-                <option value="option1" className="text-[#B1B5B9]">0-5years</option>
-                <option value="option2" className="text-[#B1B5B9]">6-11years</option>
-                <option value="option3" className="text-[#B1B5B9]">12-19years</option>
-                <option value="option3" className="text-[#B1B5B9]">20-49years</option>
-                <option value="option3" className="text-[#B1B5B9]">50 and above</option>
+                <option value="option1" className="text-[#B1B5B9] outline-none " disabled>Select age:</option>
+                <option value="option1" className="text-[#B1B5B9] outline-none">0-5years</option>
+                <option value="option2" className="text-[#B1B5B9] outline-none">6-11years</option>
+                <option value="option3" className="text-[#B1B5B9] outline-none">12-19years</option>
+                <option value="option3" className="text-[#B1B5B9] outline-none">20-49years</option>
+                <option value="option3" className="text-[#B1B5B9] outline-none">50 and above</option>
            </select>
                     </div>
                     <div className="col-span-6 sm:col-span-3   border-[#B1B5B9] border-[1px] rounded-[6px] outline-none  p-3  text-sm shadow-s w-[9rem]">
-            <select id="dropdown" name="dropdown"
+            <select className="outline-none " id="dropdown" name="dropdown"
               value={gender}
               onChange={(e) => setGender(e.target.value)} >
               <option value="" disabled selected>Select Gender</option>
-            <option value="Male" className="text-[#B1B5B9]">Male</option>
-           <option value="Female" className="text-[#B1B5B9]">Female</option>
-           <option value="Rather Not Say" className="text-[#B1B5B9]">Rather Not Say</option>
+            <option value="Male" className="text-[#B1B5B9] outline-none">Male</option>
+           <option value="Female" className="text-[#B1B5B9] outline-none">Female</option>
+           <option value="Rather Not Say" className="text-[#B1B5B9] outline-none">Rather Not Say</option>
            </select>
         </div>
          </div>
@@ -114,7 +118,7 @@ export default function SignUp(){
           />
                   </div>
         <div className="col-span-6 flex">
-                  <input type="checkbox" name="" id="" />
+             <input type="checkbox" name="" id="" />
           <p className="text-sm text-gray-500 ml-[10px]">
             I agree to the healthcare 
             <span className="text-[#407CE2]"> Terms of Service  </span>
@@ -130,14 +134,14 @@ export default function SignUp(){
             />
             <h2 className="m-3 font-semibold">Sign In with Google</h2>
         </button>
-        <div className="col-span-6 sm:flex bg-black">
-        <button
+        <div className=" w-full flex justify-center mt-[20px]">
+              <button
               type="submit"
-              className=" rounded-[20px] bg-[#0099D7] px-7 py-3 text-sm font-medium text-white w-[10rem] m-auto mt-[30px]"
+              className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white w-3/5 m-auto"
             >
-              Sign Up
+              Sign in
             </button>
-        </div>
+              </div>
      
        
       </div>

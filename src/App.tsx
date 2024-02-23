@@ -11,6 +11,7 @@ import Emergency from './app/Emergency';
 import Profile from './app/Profile';
 import Settings from './app/Settings';
 import Notification  from './app/Notification'
+import Sidenav from './app/components/Sidenav';
  
 
 function App() {
@@ -74,9 +75,9 @@ function App() {
   ]);
 
   return (
-    <RouterProvider router={router}/>
-
-   
+    // <Sidenav /> {/* Include Navbar component outside RouterProvider */}
+    <RouterProvider router={router} />
+    
   );
 }
 
