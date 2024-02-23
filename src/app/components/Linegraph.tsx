@@ -39,7 +39,7 @@ function LineGraph() {
         boxShadow:'3px 4px 2px rgba(161,164,170 ,0.5)',
       }}
     >
-      <h1 className='text-center text-[#263A5C] mt-[90px]' >Medication intake Graph</h1>
+      <h1 className='text-center text-[#263A5C] mt-[40px]' >Medication intake Graph</h1>
       <Line data={data} options={options} />
     </div>
   );
