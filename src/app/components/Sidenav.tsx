@@ -136,7 +136,7 @@ export default function Sidenav() {
         </div>
       </div>
 
-      <div className='p-4' onClick={changenav}>
+      <div className='p-4 fixed' onClick={changenav}>
         {!Nav ? <RxHamburgerMenu size={30} /> : ""}
       </div>
     </div>
