@@ -47,7 +47,7 @@ export default function SignIn(){
                 className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none p-3  text-xl shadow-sm"
               />
                 </div>
-                <div className=" w-4/5 flex justify-end">
+                <div className=" w-[24rem] flex justify-end ">
                 <p className=" text-[#0099D7] text-[15px] text-end">Forgot Password?</p>
                 </div>
               </div>
@@ -55,7 +55,7 @@ export default function SignIn(){
                 <Link to='/dashboard'>
               <button
               type="submit"
-              className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white m-auto"
+              className=" rounded-[20px] bg-[#263A5C] px-14 py-3 text-sm font-medium text-white m-auto"
             >
               Sign in
             </button>
@@ -80,7 +80,7 @@ export default function SignIn(){
       </div>
     
   </div>
-        <div className="relative w-full  lg:w-1/2 md:w-l/2 md:block bg-[#263A5C] bg-blac sm:hidden lg:block">
+        <div className="relative w-full  lg:w-1/2 md:w-l/2 md:block bg-[#263A5C]   lg:block">
           <Onboard/>
   </div>
 </section>

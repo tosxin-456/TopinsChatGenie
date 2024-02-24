@@ -21,13 +21,13 @@ function App() {
         <Route index element={<Home/>} />
         <Route path='signup' element={<SignUp/>} />
         <Route path='signin' element={<SignIn/>} />
+        <Route path='profile' element={<Profile/>} />
         <Route element={<Sidenav/>}>
           <Route path='dashboard' element={<Dashboard/>} />
           <Route path='schedule' element={<Schedule/>} />
           <Route path='chat' element={<Chat/>} />
           <Route path='activity' element={<Activty/>} />
           <Route path='emergency' element={<Emergency/>} />
-          <Route path='profile' element={<Profile/>} />
           <Route path='settings' element={<Settings/>} />
           <Route path='notification' element={<Notification/>} />
         </Route>

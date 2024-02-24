@@ -16,7 +16,7 @@ export default function SignUp(){
 <section className="bg-white ">
 <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main
-    className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6  "
+    className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6  "
   >
     <div className=" w-fit lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[15px]">
       
@@ -127,18 +127,18 @@ export default function SignUp(){
           </p>
         </div> 
       </form>
-      <button className="w-[20rem] flex text-center mt-[10px] bg-white border border-solid justify-center m-auto">
+      <button className="w-[20rem] flex text-center mt-[30px] bg-white border border-solid justify-center m-auto">
             <img className="w-[2rem] m-2"
             src={google}
             alt="google"
             />
             <h2 className="m-3 font-semibold">Sign In with Google</h2>
         </button>
-                <div className=" w-full flex justify-center mt-[20px]">
+                <div className=" w-full flex justify-center mt-[30px]">
                   <Link to='/dashboard'>
               <button
               type="submit"
-              className=" rounded-[20px] bg-[#263A5C] px-7 py-3 text-sm font-medium text-white m-auto"
+              className=" rounded-[20px] bg-[#263A5C] px-14 py-3 text-sm font-medium text-white m-auto"
             >
               Sign in
             </button>
@@ -147,7 +147,7 @@ export default function SignUp(){
      
        
       </div>
-          <div className="flex  justify-center ">
+          <div className="flex  justify-center mt-[20px] ">
             <p className="text-lg text-[#221F1F]">
               Already have an account?
               <Link className="text-[#407CE2]" to="/signin">   Sign in</Link>
