@@ -52,7 +52,7 @@ export default function Sidenav() {
               <img className='px-3 ' src={Dashboardsvg} alt="" />
               <Link to="/dashboard">Dashboard</Link>
             </div>
-            <div className='flex pt-10 text-center j'>
+            <div className='flex pt-10 text-center'>
               <img className='px-3' src={Schedulesvg} alt="" />
               <Link to="/schedule">Schedule</Link>
             </div>
@@ -79,21 +79,26 @@ export default function Sidenav() {
           </div>
         </div>
 
-        <div className={Nav ? '  bg-gray-100 flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]' : "fixed left-[-100%] ease-in-out duration-500"} >
-          <div className='bg-white py-2 min-w-[300px] rounded-r-[2rem]'>
+        <div
+          style={{
+            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+
+         }}
+          className={Nav ? '   flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]' : "fixed left-[-100%] ease-in-out duration-500"} >
+          <div className='bg-white py-2 min-w-[300px] '>
             <div onClick={changenav}>
               <MdClose size={30} className='ml-[80%]' />
             </div>
             <div className='flex px-3 border-b-gray border-b-2  pb-3'>
               <img className='px-3' src={Picture} alt="" />
-              <div className='text-[#baadad] font-normal' >
+              <div className='text-[#585555] font-normal' >
                 <h1>Hi! Deborah Allen</h1>
                 <p>deborahallen12@gmail.com</p>
               </div>
 
             </div>
-            <div className={Nav ? 'pl-20 ease-in-out duration-1000 ' : ''}>
-              <div className='flex mr-[30px] pt-[2rem] text-center'>
+            <div className={Nav ? 'pl-11 ease-in-out duration-1000 ' : ''}>
+              <div className='flex mr-[40px] pt-[2rem] text-center '>
                 <img className='px-3 ' src={Dashboarddark} alt="" />
                 <Link to="/dashboard" onClick={changenav}>Dashboard</Link>
               </div>
@@ -113,7 +118,7 @@ export default function Sidenav() {
                 <img className='px-3' src={Emergencydark} alt="" />
                 <Link to="/emergency" onClick={changenav}>Emergency</Link>
               </div>
-              <div className='w-[300px] mt-[50px] bg-gray-300 h-[0.1rem] ml-[-80px] '>
+              <div className='w-[300px] mt-[50px] bg-gray-300 h-[0.1rem] ml-[-45px] '>
               </div>
               <div className='flex mr-[30px] pt-10 text-center'>
                 <img className='px-3' src={profiledark} alt="" />
@@ -124,7 +129,7 @@ export default function Sidenav() {
                 <Link to="/settings" onClick={changenav}>Settings</Link>
               </div>
               <div className=' w-fit ml-[30px] mt-[30px] '>
-              <Link to="/signin" className='bg-[#263238] text-white my-5 p-[3px] m-auto  rounded-md flex text-center justify-center items-center mr-5 w-[4rem]'>
+              <Link to="/" className='bg-[#263238] text-white my-5 p-[3px] m-auto  rounded-md flex text-center justify-center items-center mr-5 w-[4rem]'>
                 <img src={logout} alt="" />
                 <p></p>
               </Link>

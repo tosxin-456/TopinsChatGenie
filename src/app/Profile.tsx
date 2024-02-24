@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import avatar1 from '../images/profile.png';
-import logoutbtn from '../images/logout-bold.png';
+import logoutbtn from '../images/solar_logout-bold (1).svg';
 import { TbCameraPlus } from 'react-icons/tb';
 import { GrClose } from "react-icons/gr";
 import back from '../images/back.png';
@@ -105,13 +105,13 @@ const ProfilePage = () => {
           </div>
         </div>
         <div className='bg-white text-white  p-[20px]'>
-          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className=' text-[#263A5C]'>Profile Name: </span>poppins</p>
-          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >ID:</span> poppins</p>
-          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Email:</span> Poppins </p>
-          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Gender:</span> Poppins </p>
-          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Date of Birth:</span>poppins </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className=' text-[#263A5C]'>Profile Name: </span>Tosin poppins</p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >ID:</span> 123456</p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Email:</span> tospoppins@gmail.com </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Gender:</span> Mixed </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Date of Birth:</span>23/12/2007 </p>
           <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >NHIS:</span> poppins </p>
-          <Link to='/signin'>
+          <Link to='/'>
             <div className='w-4/5 m-auto'>
           {!isPending && <button className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center p-[20px] md:ml-[75%] w-[7rem] ml-auto '   > <img src={logoutbtn} className='bg-[#263238] m-auto ' alt="" /></button>}
           {isPending && <button disabled>Logging Out...</button>}
