@@ -31,7 +31,7 @@ export default function Notification() {
           </div>
         </nav>
       </header>
-      <div className=' w-full sm:w-[85%] m-auto my-12 p-[10px] max-w-[55rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF] '>
+      <div className=' w-full sm:w-[90%] m-auto  my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF] '>
         <div className='flex  border-b-[1px] border-b-[solid] border-b-[#E1E2FF] '>
           <div className='w-fit mt-[5px]'>
           <img src={ai} alt=""  />

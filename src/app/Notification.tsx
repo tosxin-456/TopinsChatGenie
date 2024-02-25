@@ -39,10 +39,10 @@ export default function Notification() {
           <div
             style={{
               borderLeft: '1px rgba(161,164,170 ,0.5)  solid',
-              boxShadow:'3px 4px 2px rgba(161,164,170 ,0.5)'
+              boxShadow:'2px 3px 2px rgba(161,164,170 ,0.5)'
 
             }}
-            className='flex m-auto mt-[15px] w-4/5 p-[5px] rounded-md'>
+            className='flex m-auto mt-[15px] w-[95%] p-[5px] rounded-md'>
             <img src={notification} alt="" className='w-[25px] h-[25px]  md:w-[50px] md:h-[50px] p-[1px] mt-auto mb-auto mr-[20px] ml-[20px]' />
             <div>
               <p className='text-[#464E5F] w-full text-[18px] md:text-[30px] md:pr-[2rem] '>Congratulations You completed today’s task</p>
@@ -54,10 +54,10 @@ export default function Notification() {
           <div
             style={{
               borderLeft: '1px rgba(161,164,170 ,0.5)  solid',
-              boxShadow:'3px 4px 2px rgba(161,164,170 ,0.5)'
+              boxShadow:'2px 3px 2px rgba(161,164,170 ,0.5)'
 
             }}
-            className='flex m-auto mt-[15px] w-4/5 p-[5px] rounded-md'>
+            className='flex m-auto mt-[15px] w-[95%] p-[5px] rounded-md'>
             <img src={notification} alt="" className='w-[25px] h-[25px]  md:w-[50px] md:h-[50px] p-[1px] mt-auto mb-auto mr-[20px] ml-[20px]' />
             <div>
               <p className='text-[#464E5F] w-full text-[18px] md:text-[30px] md:pr-[2rem] '>Congratulations You completed today’s task</p>

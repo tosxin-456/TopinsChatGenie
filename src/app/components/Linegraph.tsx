@@ -25,7 +25,7 @@ function LineGraph() {
       borderColor: '#263A5C',
       pointBorderColor: 'transparent',
       pointBorderWidth: 4,
-      tension:0.3
+      tension:0.4
     }]
   };
 

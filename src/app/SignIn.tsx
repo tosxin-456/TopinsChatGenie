@@ -80,7 +80,7 @@ export default function SignIn(){
       </div>
     
   </div>
-        <div className="relative w-full  lg:w-1/2 md:w-l/2 md:block bg-[#263A5C]   lg:block">
+        <div className="relative  w-1/2  lg:w-1/2  bg-[#263A5C] ">
           <Onboard/>
   </div>
 </section>
