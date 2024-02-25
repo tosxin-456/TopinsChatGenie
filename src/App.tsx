@@ -12,6 +12,13 @@ import Profile from './app/Profile';
 import Settings from './app/Settings';
 import Notification  from './app/Notification'
 import Sidenav from './app/components/Sidenav';
+import ScheduleWrap from './app/components/ScheduleWrapper';
+import NewSched from './app/NewSchedule';
+import SingleSched from './app/SingleSchedule';
+import RecurWrap from './app/components/RecurringWrap';
+import RecurSched from './app/RecurSchedule';
+import RecurSched2 from './app/RecurSchedule2';
+import RecurSchedule3 from './app/RecurSchedule3';
  
 
 function App() {
@@ -24,7 +31,16 @@ function App() {
         <Route path='profile' element={<Profile/>} />
         <Route element={<Sidenav/>}>
           <Route path='dashboard' element={<Dashboard/>} />
-          <Route path='schedule' element={<Schedule/>} />
+          <Route path='schedule' element={<ScheduleWrap/>} >
+            <Route index element={<Schedule/>} />
+            <Route path='new-schedule' element={<NewSched/>} />
+            <Route path='single-schedule' element={<SingleSched/>} />
+            <Route element={<RecurWrap/>}>
+              <Route path='recurring1' element={<RecurSched/>}/>
+              <Route path='recurring2' element={<RecurSched2/>} />
+              <Route path='recurring3' element={<RecurSchedule3/>} />
+            </Route>
+          </Route>
           <Route path='chat' element={<Chat/>} />
           <Route path='activity' element={<Activty/>} />
           <Route path='emergency' element={<Emergency/>} />
