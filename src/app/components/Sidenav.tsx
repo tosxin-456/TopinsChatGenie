@@ -29,7 +29,8 @@ import logout from "../../images/solar_logout-bold (1).svg"
 export default function Sidenav() {
   const location = useLocation();
   const path = location.pathname;
-  const formattedPath = path.replace('/', '').charAt(0).toUpperCase() + path.slice(2);
+  const formattedPath = path.split('/').filter(Boolean)[0];
+  const capitalizedPath = formattedPath.charAt(0).toUpperCase() + formattedPath.slice(1);
   
   const [Nav, navhidden] = useState(false)
 
@@ -142,7 +143,7 @@ export default function Sidenav() {
 
         <div className='p-4 sm:px-12 flex items-center justify-between md:hidden'>
           {!Nav ? <RxHamburgerMenu size={30} onClick={changenav}/> : ""}
-          <p className='text-[#263A5C] text-base'>{formattedPath}</p>
+          <p className='text-[#263A5C] text-base'>{capitalizedPath}</p>
           <Link to='/notification'>
             <img src={notify} alt="" className='m-[3px] w-[30px] h-[30px] ' />
             </Link>
