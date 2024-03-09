@@ -11,9 +11,9 @@ export default function SignIn(){
         fontWeight: '300',
     }}
         className="relative flex flex-wrap lg:h-screen lg:items-center ">
-
-  <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 ">
-      <div className="border-solid border border-gray rounded-lg py-6">
+  <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
+  <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6 ">
+      <div className="border-solid border border-gray rounded-lg p-20 sm:ml-[10%] lg:m-auto">
           <div className="mx-auto max-w-lg text-center">
               <h1
                 style={{
@@ -79,9 +79,12 @@ export default function SignIn(){
 
       </div>
     
-  </div>
-        <div className="relative  w-1/2  lg:w-1/2  bg-[#263A5C] ">
-          <Onboard/>
+  </main>
+  <aside className="relative block lg:col-span-6 lg:h-full sm:hidden lg:block h-[100vh] bg-[#263A5C]">
+    {/* <div className=""> */}
+      <Onboard />
+    {/* </div> */}
+  </aside>
   </div>
 </section>
         

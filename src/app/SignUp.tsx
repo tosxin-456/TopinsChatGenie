@@ -83,7 +83,7 @@ export default function SignUp(){
   <main
     className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6  "
   >
-    <div className=" w-fit lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[15px]">
+    <div className=" w-fit lg:max-w-3xl border-[#B1B5B9] border-[1px] rounded-[6px] p-[40px]">
       
       <div className="w-full ">
       {/* <Link className="block text-blue-600" to="#">
