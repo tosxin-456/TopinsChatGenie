@@ -220,7 +220,7 @@ export default function SignUp(){
                 </div>
     </div>
   </main>
-  <aside className="relative block lg:col-span-6 lg:h-full sm:hidden lg:block h-[100vh] bg-[#263A5C]">
+  <aside className="relative  lg:col-span-6 lg:h-full hidden lg:block h-[100vh] bg-[#263A5C]">
     {/* <div className=""> */}
       <Onboard />
     {/* </div> */}

@@ -3,6 +3,34 @@ import Onboard from "./components/Onboard";
 import google from '../images/google.png'
 
 export default function SignIn(){
+
+  // https://senexcare.onrender.com/auth/google
+
+ 
+  
+  const googleLogin = async () => {
+  
+    try {
+      const response = await fetch('https://senexcare.onrender.com/auth/google', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', JSON.stringify(data));
+      } else {
+        const data = await response.json();
+        console.error('Failed to submit form data:', data);
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+    }
+  };
+
+
     return(
 
   <section
@@ -13,7 +41,7 @@ export default function SignIn(){
         className="relative flex flex-wrap lg:h-screen lg:items-center ">
   <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6 ">
-      <div className="border-solid border border-gray rounded-lg p-20 sm:ml-[10%] lg:m-auto">
+      <div className="border-solid border border-gray rounded-lg p-[20px] sm:ml-[10%] mt-[10rem] lg:m-auto">
           <div className="mx-auto max-w-lg text-center">
               <h1
                 style={{
@@ -67,7 +95,7 @@ export default function SignIn(){
               <Link className="text-[#407CE2]" to="/signup">   Sign up</Link>
             </p>
           </div>
-          <button className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto">
+          <button className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto" onClick={()=>googleLogin()}>
             <img className="w-[2rem] m-2"
             src={google}
             alt="google"
@@ -80,7 +108,7 @@ export default function SignIn(){
       </div>
     
   </main>
-  <aside className="relative block lg:col-span-6 lg:h-full sm:hidden lg:block h-[100vh] bg-[#263A5C]">
+  <aside className="relative lg:col-span-6 lg:h-full hidden lg:block h-[100vh] bg-[#263A5C]">
     {/* <div className=""> */}
       <Onboard />
     {/* </div> */}
