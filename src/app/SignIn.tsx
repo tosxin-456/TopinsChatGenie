@@ -41,7 +41,7 @@ export default function SignIn(){
         className="relative flex flex-wrap lg:h-screen lg:items-center ">
   <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6 ">
-      <div className="border-solid border border-gray rounded-lg p-[20px] sm:ml-[10%] mt-[10rem] lg:m-auto">
+      <div className="border-solid border border-gray rounded-lg p-[20px] sm:ml-[100px] lg:m-auto">
           <div className="mx-auto max-w-lg text-center">
               <h1
                 style={{
