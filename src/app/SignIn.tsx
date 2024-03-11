@@ -1,21 +1,36 @@
 import { Link } from "react-router-dom";
 import Onboard from "./components/Onboard";
 import google from '../images/google.png'
+import { useState } from "react";
 
 export default function SignIn(){
+  const [id ,setId] = useState('')
+  const [password ,setPassword] = useState('')
 
-  // https://senexcare.onrender.com/auth/google
+
+  // https://senexcare.onrender.com/user/login
 
  
   
-  const googleLogin = async () => {
+  const constructFormData = () => {
+    return {
+      id: id,
+      password: password
+    };
+  };
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = constructFormData();
+    console.log(formData);
   
     try {
-      const response = await fetch('https://senexcare.onrender.com/auth/google', {
-        method: 'GET',
+      const response = await fetch( 'https://senexcare.onrender.com/user/login', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(formData)
       });
   
       if (response.ok) {
@@ -54,13 +69,15 @@ export default function SignIn(){
           </p>
         </div>
 
-        <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4 ">
+        <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4 " onSubmit={handleSubmit}>
           <div className="w-full">
             <label htmlFor="email" className="sr-only">Enter your Id</label>
              <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto ">Enter Your Id</p>
             <div className="relative flex justify-center">
               <input
-                type="email"
+                type="text"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
                 className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3 outline-none text-xl shadow-sm"
               />
             </div>
@@ -71,6 +88,8 @@ export default function SignIn(){
             <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto">Enter Your Password</p>
             <div className="relative flex justify-center">
               <input
+                 value={password}
+                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none p-3  text-xl shadow-sm"
               />
@@ -80,14 +99,14 @@ export default function SignIn(){
                 </div>
               </div>
               <div className=" w-full flex justify-center">
-                <Link to='/dashboard'>
+                {/* <Link to='/dashboard'> */}
               <button
               type="submit"
               className=" rounded-[20px] bg-[#263A5C] px-14 py-3 text-sm font-medium text-white m-auto"
             >
               Sign in
             </button>
-                </Link>
+                {/* </Link> */}
               </div>
               <div className="flex  justify-center ">
             <p className="text-lg text-[#221F1F]">
@@ -95,7 +114,7 @@ export default function SignIn(){
               <Link className="text-[#407CE2]" to="/signup">   Sign up</Link>
             </p>
           </div>
-          <button className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto" onClick={()=>googleLogin()}>
+          <button className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto">
             <img className="w-[2rem] m-2"
             src={google}
             alt="google"
