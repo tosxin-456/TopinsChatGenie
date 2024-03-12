@@ -114,14 +114,14 @@ export default function Notification() {
   <div style={{ margin: 'auto', height: '67vh', overflowX: 'auto' }}>
   {chat.map((chat, index) => (
     <div key={index}>
-    <div className='w-[60%] flex ml-auto '>
-    <div className='ml-[auto] w-[80%] bg-red'>
+    <div className='w-[70%] flex ml-auto self-end'>
+    <div className='ml-auto w-[fit] '>
     <div className='bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px] '>
       <p className='text-start'>{chat.question}</p>
     </div>
-    <p className='text-end w-fit m-auto mr-[1px] text-[#333333]'>8pm</p>
+    <p className='text-end w-fit m-auto mr-[5px] text-[#333333]'>8pm</p>
   </div>
-  <img src={profile} alt="" className='m-[auto]  mr-[10px] w-[30px] h-[30px]' />
+  <img src={profile} alt="" className='m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[30px] h-[30px]' />
    </div>
       <div className='w-[85%] flex mr-auto'>
         <img src={ai} alt="" className='m-[10px]' />
