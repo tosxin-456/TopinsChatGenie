@@ -1,15 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, RouteProps} from "react-router-dom";
 import Onboard from "./components/Onboard";
 import google from '../images/google.png'
 import { useState } from "react";
+import { useNavigate } from 'react-router';
+
 
 export default function SignIn(){
   const [id ,setId] = useState('')
   const [password ,setPassword] = useState('')
+  const [sigining, setSigning] = useState(false) 
+  const [error, setErrorMessage] = useState('')
+    // https://senexcare.onrender.com/user/login
 
-
-  // https://senexcare.onrender.com/user/login
-
+    const history = useNavigate();
  
   
   const constructFormData = () => {
@@ -18,7 +21,7 @@ export default function SignIn(){
       password: password
     };
   };
-  
+  // const MyComponent: React.FC<RouteProps> = ({ history }) => {}
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = constructFormData();
@@ -36,8 +39,10 @@ export default function SignIn(){
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', JSON.stringify(data));
+        history("../Dashboard")
       } else {
         const data = await response.json();
+        setErrorMessage(data)
         console.error('Failed to submit form data:', data);
       }
     } catch (error) {
@@ -108,6 +113,12 @@ export default function SignIn(){
             </button>
                 {/* </Link> */}
               </div>
+            <p
+              style={{
+                fontFamily:'Clash Display, sans-serif',
+                fontWeight: '500',
+            }}
+            className="text-[#e34141] text-center ">{error}</p>
               <div className="flex  justify-center ">
             <p className="text-lg text-[#221F1F]">
               Don't have an account?
