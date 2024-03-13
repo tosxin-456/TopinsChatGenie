@@ -5,6 +5,8 @@ import ai from '../images/carbon_watsonx-ai.svg'
 import notifyIcon from '../images/ri_notification-4-line.svg'
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react'
+import { SyncLoader } from 'react-spinners'
+
 
 export default function Notification() {
   const history = useNavigate();
@@ -19,7 +21,7 @@ export default function Notification() {
   // console.log(tosinToken);
   const token = JSON.parse(tosinToken as string); // type assertion
   const [question ,setQuestion] = useState('')
-  
+  const [isLoading, setIsLoading] = useState(false)  
 
   useEffect(() => {
     const fetchChat = async () => {
@@ -47,10 +49,17 @@ export default function Notification() {
       question: question,
     };
   };
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      // Call handleSubmit with appropriate arguments
+      handleSubmit(e as unknown as React.MouseEvent<HTMLImageElement, MouseEvent>);
+    }
+  };
+
   const handleSubmit = async (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault();
     const formData = constructFormData();
-    console.log(formData);
+    setIsLoading(true);
     try {
       const response = await fetch('https://senexcare.onrender.com/user/chat', {
         method: 'POST',
@@ -60,20 +69,20 @@ export default function Notification() {
         },
         body: JSON.stringify(formData)
       });
-  
+      setIsLoading(true);
       if (response.ok) {
-        const data = await response.json();
-        // Update the state with the new question
-        setChat([...chat, data]); // Assuming `data` contains the newly added question
+        setIsLoading(false);
+        window.location.reload()
       } else {
+        setIsLoading(true);
         const data = await response.json();
         console.error('Failed to submit form data:', data);
       }
     } catch (error) {
+      setIsLoading(true);
       console.error('Error submitting form data:', error);
     }
   };
-  
 
   return (
     <div
@@ -134,12 +143,18 @@ export default function Notification() {
       </div>
     </div>
   ))}
+      {isLoading && 
+      <div className='flex w-fit m-[10px]'>
+      <img src={ai} alt="" className='m-[3px]' />
+       <SyncLoader color="#263A5C" className='m-[3px]'/>
+      </div>}
 </div>
 
-
+  
 
   <div className='bg-white flex w-[80%] m-auto p-[4px] mb-[10px] mt-[10px] border-[solid] border-[1px] rounded-md border-[black] '>
     <input type="text"
+     onKeyDown={handleKeyDown}
       value={question}
       onChange={(e) => setQuestion(e.target.value)}
     className='outline-none w-[100%]' />
