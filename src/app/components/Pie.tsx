@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
@@ -12,40 +12,66 @@ import {
   Legend,
 } from 'chart.js';
 
-// Define a custom DeepPartial type
-
-
+// Register necessary Chart.js components
 ChartJs.register(
   ArcElement,
   CategoryScale,
-  // LinearScale,
+  LinearScale,
   Tooltip,
   Legend,
   PointElement
-)
-
+);
 
 function Piechart() {
-  const data = {
+  const [data, setData] = useState({
     labels: ['Schedules Attended', 'Schedules Missed'],
     datasets: [
       {
-        data: [70, 30], // Percentage of schedules attended and missed
+        data: [1, 1], // Initial values (can be anything)
         backgroundColor: ['#00F50A', '#FB640D'], // Green for attended, Red for missed
       },
     ],
+  });
+
+  useEffect(() => {
+    fetchPie();
+  }, []); // Call fetchLine only once when component mounts
+
+  const tosinToken = localStorage.getItem("token");
+  const token = JSON.parse(tosinToken as string); // type assertion
+
+  const fetchPie = async () => {
+    try {
+      const response = await fetch('https://senexcare.onrender.com/user/pie', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const chatData = await response.json();
+      console.log(chatData); // Ensure you're receiving the data correctly
+
+      const totalCompleted = chatData.totalCompleted || 0; // Default to 0 if not available
+      const totalIncomplete = chatData.totalIncomplete || 0; // Default to 0 if not available
+
+      // Update the data object with new values
+      setData({
+        ...data,
+        datasets: [
+          {
+            ...data.datasets[0],
+            data: [totalCompleted, totalIncomplete],
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('Error fetching chat data:', error);
+    }
   };
-  
-  
 
-
-  const options = { };
-  
-  
-  
-  
   return (
-    <div className='w-full md:w-[60%]'
+    <div className='w-[80%] md:w-[60%]'
       style={{
         margin: 'auto',
         borderStyle: 'solid',
@@ -54,7 +80,7 @@ function Piechart() {
       }}
     >
       <h1 className='text-center text-[#263A5C] mt-[80px] '>Schedules Graph</h1>
-      <Pie data={data} options={options} />
+      <Pie id="myChart" data={data} />
     </div>
   );
 }

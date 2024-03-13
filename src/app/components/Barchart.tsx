@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 
 import {
@@ -17,30 +17,35 @@ ChartJs.register(
   Legend
 )
 
-
-
+interface ChartData {
+  month: string;
+  year: number;
+  totalAppointments: number;
+  totalMedication: number;
+  totalTreatment: number;
+}
 
 function Barchart() {
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December'],
+  const [data, setData] = useState({
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     datasets: [
       {
         label: 'Medication',
-        data: [10, 20, 30, 40, 50, 60, 70],
-        backgroundColor: '#00F50A', // Red
+        data: [] as number[], // Explicitly define the type of data
+        backgroundColor: '#00F50A', // Green
       },
       {
         label: 'Appointment',
-        data: [20, 30, 40, 50, 60, 70, 80],
-        backgroundColor: '#263A5C', // Blu
+        data: [] as number[], // Explicitly define the type of data
+        backgroundColor: '#263A5C', // Blue
       },
       {
         label: 'Treatment',
-        data: [30, 40, 50, 60, 70, 80, 90],
+        data: [] as number[], // Explicitly define the type of data
         backgroundColor: '#FB640D', // Yellow
       },
     ],
-  };
+  });
 
   const options = {
     scales: {
@@ -48,6 +53,51 @@ function Barchart() {
         beginAtZero: true,
       },
     },
+  };
+
+  useEffect(() => {
+    fetchPie();
+  }, []); // Call fetchPie only once when component mounts
+
+  const fetchPie = async () => {
+    try {
+      const tosinToken = localStorage.getItem("token");
+      const token = JSON.parse(tosinToken as string); // Type assertion
+
+      const response = await fetch('https://senexcare.onrender.com/user/pie', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const chartData: ChartData[] = await response.json();
+      console.log(chartData); // Ensure you're receiving the data correctly
+
+      const medicationData = chartData.map(item => item.totalMedication || 0);
+      const appointmentData = chartData.map(item => item.totalAppointments || 0);
+      const treatmentData = chartData.map(item => item.totalTreatment || 0);
+
+      setData({
+        ...data,
+        datasets: [
+          {
+            ...data.datasets[0],
+            data: medicationData,
+          },
+          {
+            ...data.datasets[1],
+            data: appointmentData,
+          },
+          {
+            ...data.datasets[2],
+            data: treatmentData,
+          },
+        ],
+      });
+    } catch (error) {
+      console.error('Error fetching chart data:', error);
+    }
   };
 
   return (
@@ -64,6 +114,5 @@ function Barchart() {
     </div>
   );
 }
-
 
 export default Barchart;

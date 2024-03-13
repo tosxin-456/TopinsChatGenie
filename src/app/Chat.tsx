@@ -31,12 +31,12 @@ export default function Notification() {
   }
   
   const [chat, setChat] = useState<Chat[]>([]);
-  const tosinToken = localStorage.getItem("token");
   // console.log(tosinToken);
-  const token = JSON.parse(tosinToken as string); // type assertion
   const [question ,setQuestion] = useState('')
   const [isLoading, setIsLoading] = useState(false)  
- 
+  
+  const tosinToken = localStorage.getItem("token");
+  const token = JSON.parse(tosinToken as string); // type assertion
 
   const fetchChat = async () => {
     try {
