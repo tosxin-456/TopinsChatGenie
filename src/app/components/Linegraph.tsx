@@ -73,11 +73,22 @@ function LineGraph() {
 
   const options = {
     scales: {
+      x: {
+        grid: {
+          display: true,
+        },
+        ticks: {
+          padding: 15, // Adjust padding for x-axis ticks
+        },
+      },
       y: {
-        beginAtZero: true,
+        ticks: {
+          padding: 10, // Adjust padding for y-axis ticks
+        },
       },
     },
   };
+  
 
 
   return (
