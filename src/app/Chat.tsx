@@ -4,12 +4,26 @@ import send from '../images/sendMessage.svg'
 import ai from '../images/carbon_watsonx-ai.svg'
 import notifyIcon from '../images/ri_notification-4-line.svg'
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SyncLoader } from 'react-spinners'
-
 
 export default function Notification() {
   const history = useNavigate();
+  const isLoadingRef = useRef<HTMLDivElement>(null);
+
+
+  const pendingQuestionJSON = localStorage.getItem('pendingQuestion');
+  let pendingQuestion: any;
+  if (pendingQuestionJSON) {
+    try {
+      pendingQuestion = JSON.parse(pendingQuestionJSON);
+      // Now you can use pendingQuestion variable
+    } catch (error) {
+      console.error('Error parsing pending question JSON:', error);
+    }
+  }
+  
+
   interface Chat {
     question: string;
     response: string;
@@ -22,44 +36,57 @@ export default function Notification() {
   const token = JSON.parse(tosinToken as string); // type assertion
   const [question ,setQuestion] = useState('')
   const [isLoading, setIsLoading] = useState(false)  
+ 
+
+  const fetchChat = async () => {
+    try {
+      const response = await fetch("https://senexcare.onrender.com/user/allChat", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const chatData = await response.json();
+      setChat(chatData);
+    } catch (error) {
+      console.error("Error fetching chat data:", error);
+    }
+  };
+
 
   useEffect(() => {
-    const fetchChat = async () => {
-      try {
-        const response = await fetch("https://senexcare.onrender.com/user/allChat", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const chatData = await response.json();
-        // console.log(chatData)
-        setChat(chatData)
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchChat();
+    fetchChat(); // Fetch initial chat data when the component mounts
   }, [token]);
+
 
   const constructFormData = () => {
     return {
       question: question,
     };
   };
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  
+  
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      // Call handleSubmit with appropriate arguments
+      e.preventDefault(); // Prevent default form submission behavior
+
       handleSubmit(e as unknown as React.MouseEvent<HTMLImageElement, MouseEvent>);
+  
+      // Optionally, you can clear the input field after submission
+      setQuestion('');
     }
   };
+
 
   const handleSubmit = async (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault();
     const formData = constructFormData();
+  
+    localStorage.setItem('pendingQuestion', JSON.stringify(formData));
     setIsLoading(true);
+    setQuestion('');
+
     try {
       const response = await fetch('https://senexcare.onrender.com/user/chat', {
         method: 'POST',
@@ -69,20 +96,23 @@ export default function Notification() {
         },
         body: JSON.stringify(formData)
       });
-      setIsLoading(true);
       if (response.ok) {
         setIsLoading(false);
-        window.location.reload()
+        fetchChat();
+        localStorage.removeItem('pendingQuestion');
       } else {
-        setIsLoading(true);
+        setIsLoading(false);
         const data = await response.json();
         console.error('Failed to submit form data:', data);
       }
     } catch (error) {
-      setIsLoading(true);
+      setIsLoading(false);
       console.error('Error submitting form data:', error);
     }
   };
+  
+
+
 
   return (
     <div
@@ -107,7 +137,7 @@ export default function Notification() {
           </div>
         </nav>
       </header>
-      <div className='w-full sm:w-[90%] m-auto my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF] '>
+      <div className='w-full sm:w-[95%] m-auto mt-[10px] my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF] '>
   <div className='flex border-b-[1px] border-b-[solid] border-b-[#E1E2FF] '>
     <div className='w-fit mt-[5px]'>
       <img src={ai} alt="" />
@@ -143,8 +173,19 @@ export default function Notification() {
       </div>
     </div>
   ))}
+  {pendingQuestion && (
+  <div className='w-[70%] flex ml-auto self-end'>
+ <div className='ml-auto w-[fit] '>
+ <div className='bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px] '>
+   <p className='text-start'>{pendingQuestion.question}</p>
+ </div>
+ <p className='text-end w-fit m-auto mr-[5px] text-[#333333]'>8pm</p>
+</div>
+<img src={profile} alt="" className='m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[30px] h-[30px]' />
+</div>
+)}
       {isLoading && 
-      <div className='flex w-fit m-[10px]'>
+      <div ref={isLoadingRef} className='flex w-fit m-[10px]'>
       <img src={ai} alt="" className='m-[3px]' />
        <SyncLoader color="#263A5C" className='m-[3px]'/>
       </div>}
