@@ -1,8 +1,56 @@
-import { Link } from "react-router-dom";
+import { Link, RouteProps} from "react-router-dom";
 import Onboard from "./components/Onboard";
 import google from '../images/google.png'
+import { useState } from "react";
+import { useNavigate } from 'react-router';
+
 
 export default function SignIn(){
+  const [id ,setId] = useState('')
+  const [password ,setPassword] = useState('')
+  const [sigining, setSigning] = useState(false) 
+  const [error, setErrorMessage] = useState('')
+    // https://senexcare.onrender.com/user/login
+
+    const history = useNavigate();
+ 
+  
+  const constructFormData = () => {
+    return {
+      id: id,
+      password: password
+    };
+  };
+  // const MyComponent: React.FC<RouteProps> = ({ history }) => {}
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = constructFormData();
+    console.log(formData);
+  
+    try {
+      const response = await fetch( 'https://senexcare.onrender.com/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', JSON.stringify(data));
+        history("../Dashboard")
+      } else {
+        const data = await response.json();
+        setErrorMessage(data)
+        console.error('Failed to submit form data:', data);
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+    }
+  };
+
+
     return(
 
   <section
@@ -11,9 +59,9 @@ export default function SignIn(){
         fontWeight: '300',
     }}
         className="relative flex flex-wrap lg:h-screen lg:items-center ">
-
-  <div className="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 ">
-      <div className="border-solid border border-gray rounded-lg py-6">
+  <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
+  <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6 ">
+      <div className="border-solid border border-gray rounded-lg p-[20px] sm:ml-[100px] lg:m-auto">
           <div className="mx-auto max-w-lg text-center">
               <h1
                 style={{
@@ -26,13 +74,15 @@ export default function SignIn(){
           </p>
         </div>
 
-        <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4 ">
+        <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4 " onSubmit={handleSubmit}>
           <div className="w-full">
             <label htmlFor="email" className="sr-only">Enter your Id</label>
              <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto ">Enter Your Id</p>
             <div className="relative flex justify-center">
               <input
-                type="email"
+                type="text"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
                 className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] bg-rgba-34-31-31-40 p-3 outline-none text-xl shadow-sm"
               />
             </div>
@@ -43,6 +93,8 @@ export default function SignIn(){
             <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto">Enter Your Password</p>
             <div className="relative flex justify-center">
               <input
+                 value={password}
+                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none p-3  text-xl shadow-sm"
               />
@@ -52,15 +104,21 @@ export default function SignIn(){
                 </div>
               </div>
               <div className=" w-full flex justify-center">
-                <Link to='/dashboard'>
+                {/* <Link to='/dashboard'> */}
               <button
               type="submit"
               className=" rounded-[20px] bg-[#263A5C] px-14 py-3 text-sm font-medium text-white m-auto"
             >
               Sign in
             </button>
-                </Link>
+                {/* </Link> */}
               </div>
+            <p
+              style={{
+                fontFamily:'Clash Display, sans-serif',
+                fontWeight: '500',
+            }}
+            className="text-[#e34141] text-center ">{error}</p>
               <div className="flex  justify-center ">
             <p className="text-lg text-[#221F1F]">
               Don't have an account?
@@ -79,9 +137,12 @@ export default function SignIn(){
 
       </div>
     
-  </div>
-        <div className="relative w-full  lg:w-1/2 md:w-l/2 md:block bg-[#263A5C]   lg:block">
-          <Onboard/>
+  </main>
+  <aside className="relative lg:col-span-6 lg:h-full hidden lg:block h-[100vh] bg-[#263A5C]">
+    {/* <div className=""> */}
+      <Onboard />
+    {/* </div> */}
+  </aside>
   </div>
 </section>
         

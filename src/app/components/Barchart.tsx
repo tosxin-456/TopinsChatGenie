@@ -22,7 +22,7 @@ ChartJs.register(
 
 function Barchart() {
   const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August','September', 'October', 'November', 'December'],
     datasets: [
       {
         label: 'Medication',
@@ -35,7 +35,7 @@ function Barchart() {
         backgroundColor: '#263A5C', // Blu
       },
       {
-        label: 'Schedule',
+        label: 'Treatment',
         data: [30, 40, 50, 60, 70, 80, 90],
         backgroundColor: '#FB640D', // Yellow
       },

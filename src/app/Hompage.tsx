@@ -34,8 +34,8 @@ export default function Home() {
                 >
                  senexCare</h1>
                 <div className="sm:min-w-[25%] flex gap-6 items-center">
-                    <Link className=" border-[#263A5C] border rounded-[5px] hover:bg-gradient-to-r from-blue-600 to-blue-900 hover:text-white  px-4 md:py-2 sm:mx-1" to="/signup">Register</Link>
-                    <Link className=" border-[#263A5C] hover:bg-gradient-to-r from-blue-600 to-blue-900 hover:text-white border rounded-[5px] px-7 md:py-2 " to="signin">Login</Link>
+                    <Link className=" border-[#263A5C] border rounded-[5px] hover:bg-gradient-to-r from-blue-600 to-blue-900 hover:text-white  px-4 md:py-[3px] md:ml-auto sm:mx-1" to="/signup">Register</Link>
+                    <Link className=" border-[#263A5C] hover:bg-gradient-to-r from-blue-600 to-blue-900 hover:text-white border rounded-[5px] px-7 md:py-1 " to="signin">Login</Link>
                 </div>
             </nav>
         </div>
