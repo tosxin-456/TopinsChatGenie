@@ -20,7 +20,7 @@ function LineGraph() {
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', "December"]
   const currentDate = new Date
   const month = currentDate.getMonth() ;
- console.log( months[month])
+  
   const [data, setData] = useState({
     labels: [],
     datasets: [{

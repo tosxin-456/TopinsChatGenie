@@ -72,7 +72,6 @@ function Barchart() {
         },
       });
       const chartData: ChartData[] = await response.json();
-      console.log(chartData); // Ensure you're receiving the data correctly
 
       const medicationData = chartData.map(item => item.totalMedication || 0);
       const appointmentData = chartData.map(item => item.totalAppointments || 0);
