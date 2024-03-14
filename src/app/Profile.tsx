@@ -36,8 +36,9 @@ const ProfilePage = () => {
     })
     .then(res => res.json())
     .then(data => {
-      // console.log(data);
-      console.log(user);
+      console.log(data);
+      setPic(data.avatar)
+      // console.log(user);
       setUser(prevUser => ({ ...prevUser, ...data}));
     })
     .catch(error => {
@@ -47,10 +48,11 @@ const ProfilePage = () => {
   
   interface User {
     name: string;
-    id: string;
+    number: string;
     email: string;
     gender: string;
     avatar: string;
+    age:string;
   }
 
 //   const handleExit = () => setIsClosed(true);  
@@ -93,7 +95,7 @@ const ProfilePage = () => {
         },
       });
       const profileData = await response.json();
-      console.log(profileData)
+      // console.log(profileData)
     } catch (error) {
       console.error("Error fetching chat data:", error);
     }
@@ -141,11 +143,14 @@ const ProfilePage = () => {
         </div>
         <div className='bg-white text-white  p-[20px]'> 
           <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className=' text-[#263A5C]'>Profile Name: </span>{user?.name}</p>
-          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >ID:</span> {user?.id}</p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Number:</span> {user?.number}</p>
           <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Email:</span> {user?.email} </p>
           <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Gender:</span> {user?.gender==='M'? 'Male':'Female'} </p>
-          {/* <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Date of Birth:</span>23/12/2007 </p> */}
-          {/* <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >NHIS:</span> poppins </p> */}
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Weight:</span> Not added </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Height:</span> Not added </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Medical Conditions:</span> Not added </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Allergies:</span> Not added </p>
+          <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >Age:</span> {user?.age} </p>
           <Link to='/'>
             <div className='w-4/5 m-auto'>
             {!isPending && <button className='bg-[#263238] text-white my-5 py-2 rounded-md flex text-center justify-center items-center p-[20px] md:ml-[75%] w-[7rem] ml-auto '   > <img src={logoutbtn} className='bg-[#263238] m-auto ' alt="" /></button>}

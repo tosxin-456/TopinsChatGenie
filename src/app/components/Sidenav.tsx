@@ -49,7 +49,8 @@ export default function Sidenav() {
         },
       });
       const chatData = await response.json();
-      console.log(chatData)
+      // console.log(chatData)
+      setUser(chatData.avatar)
     } catch (error) {
       console.error("Error fetching chat data:", error);
     }
@@ -110,10 +111,10 @@ export default function Sidenav() {
           className={Nav ? '   flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]' : "fixed left-[-100%] ease-in-out duration-500"} >
           <div className='bg-white py-2 min-w-[300px] '>
             <div onClick={changenav}>
-              <MdClose size={30} className='ml-[80%]' />
+              <MdClose size={30} className='ml-[80%]'/>
             </div>
             <div className='flex px-3 border-b-gray border-b-2  pb-3'>
-              <img className='px-3' src={Picture} alt="" />
+              <img className='px-3' src={user} alt="" />
               <div className='text-[#585555] font-normal' >
                 <h1>Hi! {decodedToken.name}</h1>
                 <p>{decodedToken.email}</p>
