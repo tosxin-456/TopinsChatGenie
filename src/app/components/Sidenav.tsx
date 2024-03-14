@@ -38,7 +38,7 @@ export default function Sidenav() {
 
   const [Nav, navhidden] = useState(false)
   const decodedToken = jwtDecode(token) as { [key: string]: string };
-  console.log(decodedToken) 
+  // console.log(decodedToken) 
 
 
 
