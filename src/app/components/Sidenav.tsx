@@ -3,6 +3,7 @@ import { MdClose } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import notify from "../../images/ri_notification-4-line.svg";
+import {jwtDecode} from 'jwt-decode';
 
 
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -32,7 +33,15 @@ export default function Sidenav() {
   const formattedPath = path.split('/').filter(Boolean)[0];
   const capitalizedPath = formattedPath.charAt(0).toUpperCase() + formattedPath.slice(1);
   
+  const tosinToken = localStorage.getItem("token");
+  const token = JSON.parse(tosinToken as string); // type assertion
+
   const [Nav, navhidden] = useState(false)
+  const decodedToken = jwtDecode(token) as { [key: string]: string };
+  console.log(decodedToken) 
+
+
+
 
   const changenav = () => {
     navhidden(!Nav)
@@ -93,8 +102,8 @@ export default function Sidenav() {
             <div className='flex px-3 border-b-gray border-b-2  pb-3'>
               <img className='px-3' src={Picture} alt="" />
               <div className='text-[#585555] font-normal' >
-                <h1>Hi! Deborah Allen</h1>
-                <p>deborahallen12@gmail.com</p>
+                <h1>Hi! {decodedToken.name}</h1>
+                <p>{decodedToken.email}</p>
               </div>
 
             </div>

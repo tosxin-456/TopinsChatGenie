@@ -14,3 +14,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+@keyframes dotAnimation {
+  from {
+    height: 0;
+  }
+  to {
+    height: 100%;
+  }
+}
