@@ -16,9 +16,65 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [pic, setPic] = useState(null);
-  const [profile, setProfile] = useState('')
-  const tosinToken = localStorage.getItem("token");
-  const token = JSON.parse(tosinToken as string); // type assertion
+  
+//   const patientData = localStorage.getItem('patient')
+//   const patient = JSON.parse(patientData);
+  
+  // const handleFileChange = (event) => setAvatar(event.target.files[0]); 
+  const tosinToken = localStorage.getItem('token');
+  const token = JSON.parse(tosinToken as string);
+
+  useEffect( () => {
+    fetchProfileInfo();
+  }, []);
+
+  const fetchProfileInfo = async () => {
+    try {
+      const response = await fetch('https://senexcare.onrender.com/user/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      
+    } catch (err) {
+      console.log('Error somewhere',err);
+      
+    }
+  };
+
+//   const handleExit = () => setIsClosed(true);  
+
+//   const handleUpload = async() => {
+//       setIsUploading(true);
+//       try {
+//         const formData = new FormData();
+//         formData.append('image', avatar )
+//         const response = await fetch(`https://hospital-management-backend.onrender.com/patient/${patient._id}/upload-picture`, {
+//           method: 'POST',
+//           body: formData, 
+//         })
+//         const data = await response.json();
+//         if(response.ok){
+//           setIsUploading(false);
+//           setIsClosed(true);
+//           setPic(URL.createObjectURL(avatar));
+//         }else{
+//           console.log('Image upload failed',data);
+//           setIsUploading(false);
+//         }
+//       } catch(err){
+//         console.log('Error uploading image:', err);
+//         setIsUploading(false);
+//       }
+//   }
+  
+// const handleClick = () => {
+//   localStorage.removeItem('patient');
+// }
 
   const fetchProfile = async () => {
     try {

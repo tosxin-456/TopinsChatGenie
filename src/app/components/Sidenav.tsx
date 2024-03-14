@@ -32,16 +32,29 @@ export default function Sidenav() {
   const path = location.pathname;
   const formattedPath = path.split('/').filter(Boolean)[0];
   const capitalizedPath = formattedPath.charAt(0).toUpperCase() + formattedPath.slice(1);
-  
+  const [Nav, navhidden] = useState(false)
+  const [user, setUser] = useState('') 
+
   const tosinToken = localStorage.getItem("token");
   const token = JSON.parse(tosinToken as string); // type assertion
-
-  const [Nav, navhidden] = useState(false)
+  
   const decodedToken = jwtDecode(token) as { [key: string]: string };
-  // console.log(decodedToken) 
-
-
-
+  const fetchChat = async () => {
+    try {
+      const response = await fetch("https://senexcare.onrender.com/user/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const chatData = await response.json();
+      console.log(chatData)
+    } catch (error) {
+      console.error("Error fetching chat data:", error);
+    }
+  };
+ fetchChat()
 
   const changenav = () => {
     navhidden(!Nav)
