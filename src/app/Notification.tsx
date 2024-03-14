@@ -3,9 +3,15 @@ import bigIcon from '../images/ProfilePic.svg'
 import notification from '../images/clarity_notification-solid.svg'
 import notifyIcon from '../images/ri_notification-4-line.svg'
 import { useNavigate } from 'react-router';
-
+import {jwtDecode} from 'jwt-decode';
 
 export default function Notification() {
+  const tosinToken = localStorage.getItem("token");
+  const token = JSON.parse(tosinToken as string); // type assertion
+
+  const decodedToken = jwtDecode(token) as { [key: string]: string };
+  console.log(decodedToken) 
+
   const history = useNavigate();
 
   return (
@@ -31,7 +37,7 @@ export default function Notification() {
           <div className=' w-fit m-auto mt-[50px]'>
             <div className='flex'>
             <img src={bigIcon} alt="" className='p-[5px] w-[90px]' />
-            <h1 className='m-auto text-[30px] p-[5px]'>Tosin Poppins</h1>
+            <h1 className='m-auto text-[30px] p-[5px]'>{decodedToken.name}</h1>
             </div>
           <p className='ml-[30px] mb-[30px] text-[25px]'>789001827</p>
           </div>

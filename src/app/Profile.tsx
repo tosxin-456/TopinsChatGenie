@@ -21,20 +21,30 @@ const ProfilePage = () => {
 //   const patient = JSON.parse(patientData);
   
   // const handleFileChange = (event) => setAvatar(event.target.files[0]); 
+  const tosinToken = localStorage.getItem('token');
+  const token = JSON.parse(tosinToken as string);
 
-  // useEffect( () => {
-  //   setIsLoading(true);
-  //   fetch(`https://hospital-management-backend.onrender.com/patient/${patient._id}/get-image`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPic(data);
-  //       setIsLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setIsLoading(false)
-  //     });
-  // }, []);
+  useEffect( () => {
+    fetchProfileInfo();
+  }, []);
+
+  const fetchProfileInfo = async () => {
+    try {
+      const response = await fetch('https://senexcare.onrender.com/user/profile', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      
+    } catch (err) {
+      console.log('Error somewhere',err);
+      
+    }
+  };
 
 //   const handleExit = () => setIsClosed(true);  
 
