@@ -16,7 +16,7 @@ const ProfilePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [avatar, setAvatar] = useState(null);
   const [pic, setPic] = useState(null);
-  
+  const [profile, setProfile] = useState()  
 //   const patientData = localStorage.getItem('patient')
 //   const patient = JSON.parse(patientData);
   
@@ -38,7 +38,7 @@ const ProfilePage = () => {
         },
       });
       const data = await response.json();
-      console.log(data);
+      setProfile(data);
       
     } catch (err) {
       console.log('Error somewhere',err);
@@ -92,6 +92,7 @@ const ProfilePage = () => {
     }
   };
  fetchProfile()
+
   return ( 
     <div
     style={{
@@ -130,6 +131,7 @@ const ProfilePage = () => {
             <label htmlFor="upload">{ <TbCameraPlus className="cam" />}</label> 
           </div>
         </div>
+        {profile.map((profile)=>)}
         <div className='bg-white text-white  p-[20px]'>
           <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className=' text-[#263A5C]'>Profile Name: </span>Tosin poppins</p>
           <p className='w-4/5 bg-[#E2E2E2] rounded-md p-[10px] text-[#818181] m-auto mt-[10px]'><span className='text-[#263A5C]' >ID:</span> 123456</p>
