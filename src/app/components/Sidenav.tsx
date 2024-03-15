@@ -114,7 +114,7 @@ export default function Sidenav() {
               <MdClose size={30} className='ml-[80%]'/>
             </div>
             <div className='flex px-3 border-b-gray border-b-2  pb-3'>
-              <img className='px-3' src={user} alt="" />
+              <img className='px-3' src={Picture} alt="" />
               <div className='text-[#585555] font-normal' >
                 <h1>Hi! {decodedToken.name}</h1>
                 <p>{decodedToken.email}</p>

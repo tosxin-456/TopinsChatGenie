@@ -27,6 +27,7 @@ export default function Notification() {
   interface Chat {
     question: string;
     response: string;
+    time: string;
 
   }
   
@@ -48,6 +49,7 @@ export default function Notification() {
         },
       });
       const chatData = await response.json();
+      // console.log(chatData)
       setChat(chatData);
     } catch (error) {
       console.error("Error fetching chat data:", error);
@@ -150,7 +152,7 @@ export default function Notification() {
       <img src={info} alt="" className='w-full mt-[50%] mb-[50%]' />
     </div>
   </div>
-  <div style={{ margin: 'auto', height: '67vh', overflowX: 'auto' }}>
+  <div style={{ margin: 'auto', height: '70vh', overflowX: 'auto' }}>
   {chat.map((chat, index) => (
     <div key={index}>
     <div className='w-[70%] flex ml-auto self-end'>
@@ -158,7 +160,7 @@ export default function Notification() {
     <div className='bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px] '>
       <p className='text-start'>{chat.question}</p>
     </div>
-    <p className='text-end w-fit m-auto mr-[5px] text-[#333333]'>8pm</p>
+    <p className='text-end w-fit m-auto mr-[5px] text-[#333333]'>{chat.time}</p>
   </div>
   <img src={profile} alt="" className='m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[30px] h-[30px]' />
    </div>
@@ -168,7 +170,7 @@ export default function Notification() {
           <div className='bg-white text-[#263A5C] ml-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[12px] '>
             <p>{chat.response}</p>
           </div>
-          <p className='text-end w-fit mr-auto ml-[3px] text-[#333333]'>8pm</p>
+          <p className='text-end w-fit mr-auto ml-[3px] text-[#333333]'>{chat.time}</p>
         </div>
       </div>
     </div>
