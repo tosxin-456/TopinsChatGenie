@@ -157,7 +157,7 @@ export default function Notification() {
     <div key={index}>
     <div className='w-[70%] flex ml-auto self-end'>
     <div className='ml-auto w-[fit] '>
-    <div className='bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px] '>
+    <div className='bg-[#263A5C] w-fit ml-auto text-[white]  mt-[10px] rounded-lg p-[12px] '>
       <p className='text-start'>{chat.question}</p>
     </div>
     <p className='text-end w-fit m-auto mr-[5px] text-[#333333]'>{chat.time}</p>
@@ -167,7 +167,7 @@ export default function Notification() {
       <div className='w-[85%] flex mr-auto'>
         <img src={ai} alt="" className='m-[10px]' />
         <div>
-          <div className='bg-white text-[#263A5C] ml-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[12px] '>
+          <div className='bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px] '>
             <p>{chat.response}</p>
           </div>
           <p className='text-end w-fit mr-auto ml-[3px] text-[#333333]'>{chat.time}</p>
