@@ -64,12 +64,13 @@ function Barchart() {
       const tosinToken = localStorage.getItem("token");
       const token = JSON.parse(tosinToken as string); // Type assertion
 
-      const response = await fetch('https://senexcare.onrender.com/user/pie', {
+      const response = await fetch('https://senexcare.onrender.com/user/bar', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
+        
       });
       const chartData: ChartData[] = await response.json();
 

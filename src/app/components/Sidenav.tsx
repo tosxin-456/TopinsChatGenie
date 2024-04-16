@@ -32,16 +32,30 @@ export default function Sidenav() {
   const path = location.pathname;
   const formattedPath = path.split('/').filter(Boolean)[0];
   const capitalizedPath = formattedPath.charAt(0).toUpperCase() + formattedPath.slice(1);
-  
+  const [Nav, navhidden] = useState(false)
+  const [user, setUser] = useState('') 
+
   const tosinToken = localStorage.getItem("token");
   const token = JSON.parse(tosinToken as string); // type assertion
-
-  const [Nav, navhidden] = useState(false)
+  
   const decodedToken = jwtDecode(token) as { [key: string]: string };
-  console.log(decodedToken) 
-
-
-
+  const fetchChat = async () => {
+    try {
+      const response = await fetch("https://senexcare.onrender.com/user/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const chatData = await response.json();
+      // console.log(chatData)
+      setUser(chatData.avatar)
+    } catch (error) {
+      console.error("Error fetching chat data:", error);
+    }
+  };
+ fetchChat()
 
   const changenav = () => {
     navhidden(!Nav)
@@ -97,7 +111,7 @@ export default function Sidenav() {
           className={Nav ? '   flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]' : "fixed left-[-100%] ease-in-out duration-500"} >
           <div className='bg-white py-2 min-w-[300px] '>
             <div onClick={changenav}>
-              <MdClose size={30} className='ml-[80%]' />
+              <MdClose size={30} className='ml-[80%]'/>
             </div>
             <div className='flex px-3 border-b-gray border-b-2  pb-3'>
               <img className='px-3' src={Picture} alt="" />

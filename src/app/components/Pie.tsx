@@ -50,7 +50,6 @@ function Piechart() {
         },
       });
       const chatData = await response.json();
-      console.log(chatData); // Ensure you're receiving the data correctly
 
       const totalCompleted = chatData.totalCompleted || 0; // Default to 0 if not available
       const totalIncomplete = chatData.totalIncomplete || 0; // Default to 0 if not available

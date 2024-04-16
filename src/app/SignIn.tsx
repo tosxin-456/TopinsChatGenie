@@ -55,7 +55,20 @@ export default function SignIn(){
     }
   };
 
-
+  const signWithGoogle= async ()=>{
+    console.log('clicked')
+   try {
+    const response = await fetch('https://senexcare.onrender.com/auth/google', { method: 'GET' });
+     if (response.ok) {
+      const data = response.json()
+      console.log(data)
+    } else {
+      console.error('Failed to initiate Google authentication');
+    }
+   } catch (error) {
+    
+   }
+  }
     return(
 
   <section
@@ -134,13 +147,15 @@ export default function SignIn(){
               <Link className="text-[#407CE2]" to="/signup">   Sign up</Link>
             </p>
           </div>
-          <button className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto">
-            <img className="w-[2rem] m-2"
-            src={google}
-            alt="google"
-            />
-            <h2 className="m-3 font-medium">Sign In with Google</h2>
-        </button>
+          <button
+            type="button"
+            onClick={signWithGoogle}
+            className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto"
+            >
+          <img className="w-[2rem] m-2" src={google} alt="google" />
+          <h2 className="m-3 font-medium">Sign In with Google</h2>
+          </button>
+
         </form>
        
 

@@ -30,7 +30,7 @@ function LineGraph() {
       borderColor: '#263A5C',
       pointBorderColor: 'transparent',
       pointBorderWidth: 4,
-      tension: 0.4
+      tension: 0.3
     }]
   });
 
@@ -47,7 +47,6 @@ function LineGraph() {
         },
       });
       const chatData = await response.json();
-      console.log(chatData); // Ensure you're receiving the data correctly
   
       // Extract day and medicationTaken values from chatData
       const labels = chatData.map((entry: { day: number }) => entry.day);
@@ -85,9 +84,11 @@ function LineGraph() {
         ticks: {
           padding: 10, // Adjust padding for y-axis ticks
         },
+        min: -1, // Set the minimum value for the x-axis
       },
     },
   };
+  
   
 
 
