@@ -3,13 +3,14 @@ import Onboard from "./components/Onboard";
 import google from '../images/google.png'
 import { useState } from "react";
 import { useNavigate } from 'react-router';
-
+import { HashLoader } from "react-spinners";
 
 export default function SignIn(){
   const [id ,setId] = useState('')
   const [password ,setPassword] = useState('')
   const [sigining, setSigning] = useState(false) 
   const [error, setErrorMessage] = useState('')
+  const [isloading, setIsLoading] = useState(false);
     // https://senexcare.onrender.com/user/login
 
     const history = useNavigate();
@@ -23,6 +24,7 @@ export default function SignIn(){
   };
   // const MyComponent: React.FC<RouteProps> = ({ history }) => {}
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     const formData = constructFormData();
     console.log(formData);
@@ -39,14 +41,17 @@ export default function SignIn(){
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', JSON.stringify(data));
-        history("../Dashboard")
+        history("../Dashboard");
+        setIsLoading(false);
       } else {
         const data = await response.json();
-        setErrorMessage(data)
+        setErrorMessage(data);
+        setIsLoading(false);
         console.error('Failed to submit form data:', data);
       }
     } catch (error) {
       console.error('Error submitting form data:', error);
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +79,11 @@ export default function SignIn(){
         className="relative flex flex-wrap lg:h-screen lg:items-center ">
   <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
   <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6 ">
-      <div className="border-solid border border-gray rounded-lg p-[20px] sm:ml-[100px] lg:m-auto">
+      <div className="border-solid flex justify-center flex-col relative border border-gray rounded-lg p-[20px] sm:ml-[100px] lg:m-auto">
+        {/* Laoder */}
+        {isloading && (<div className="flex z-10 h-full bg-slate-100 opacity-85 w-full absolute items-center justify-center">
+          <HashLoader color="#263A5C" />
+        </div>)}
           <div className="mx-auto max-w-lg text-center">
               <h1
                 style={{
