@@ -15,6 +15,7 @@ const MainComponent = () => {
   }}
     >
       
+      
    <div className='  items-center w-full'>
       <header className='hidden md:block'>
         <nav className="topHeader flex justify-between items-center my-10">
