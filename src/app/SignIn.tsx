@@ -98,8 +98,8 @@ export default function SignIn(){
 
         <form action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4 " onSubmit={handleSubmit}>
           <div className="w-full">
-            <label htmlFor="email" className="sr-only">Enter your Id</label>
-             <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto ">Enter Your Id</p>
+            <label htmlFor="email" className="sr-only">Enter your Email</label>
+             <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto ">Enter Your Email</p>
             <div className="relative flex justify-center">
               <input
                 type="text"
@@ -129,7 +129,7 @@ export default function SignIn(){
                 {/* <Link to='/dashboard'> */}
               <button
               type="submit"
-              className=" rounded-[20px] bg-[#263A5C] px-14 py-3 text-sm font-medium text-white m-auto"
+              className=" rounded-[20px] w-[150px] m-auto bg-[#263A5C]  py-2.5 text-sm font-medium text-white "
             >
               Sign in
             </button>
@@ -147,15 +147,6 @@ export default function SignIn(){
               <Link className="text-[#407CE2]" to="/signup">   Sign up</Link>
             </p>
           </div>
-          <button
-            type="button"
-            onClick={signWithGoogle}
-            className="w-[20rem] flex text-center mt-7 bg-white border border-solid justify-center m-auto"
-            >
-          <img className="w-[2rem] m-2" src={google} alt="google" />
-          <h2 className="m-3 font-medium">Sign In with Google</h2>
-          </button>
-
         </form>
        
 
