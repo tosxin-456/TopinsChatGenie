@@ -87,7 +87,7 @@ const ProfilePage = () => {
 
   const fetchProfile = async () => {
     try {
-      const response = await fetch("https://senexcare.onrender.com/user/profile", {
+      const response = await fetch("https://topins-chat-backend.onrender.com/user/profile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

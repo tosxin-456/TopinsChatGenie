@@ -41,13 +41,16 @@ export default function Notification() {
 
   const fetchChat = async () => {
     try {
-      const response = await fetch("https://senexcare.onrender.com/user/allChat", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://topins-chat-backend.onrender.com/user/allChat",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
       const chatData = await response.json();
       // console.log(chatData)
       setChat(chatData);
@@ -90,14 +93,17 @@ export default function Notification() {
     setQuestion('');
 
     try {
-      const response = await fetch('https://senexcare.onrender.com/user/chat', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData)
-      });
+      const response = await fetch(
+        "https://topins-chat-backend.onrender.com//user/chat",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(formData)
+        }
+      );
       if (response.ok) {
         setIsLoading(false);
         fetchChat();
