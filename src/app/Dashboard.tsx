@@ -115,8 +115,11 @@ export default function Settings() {
       console.error("Error submitting form data:", error);
     }
   };
-  
+//  formatResponseWithLineBrea
 
+  const formatResponseWithLineBreaks = (response: string) => {
+        return response.replace(/(\d+)\s*\.\s*/g, '<br>$1. ')
+  };
   return <div>
       <div style={{ fontFamily: "Roboto, sans-serif", fontWeight: "400" }}>
         <header className="hidden md:block">
@@ -164,12 +167,9 @@ export default function Settings() {
                   <img src={ai} alt="" className="m-[10px]" />
                   <div>
                     <div className="bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px]">
-                      {chat.response && chat.response.includes("1.") ? <div>
-                            {chat.response}
-                          </div> : <ReactMarkdown>
+                      {chat.response && chat.response.includes("1.") ? <div dangerouslySetInnerHTML={{ __html: formatResponseWithLineBreaks(chat.response) }} className="list-decimal list-inside" /> : <ReactMarkdown className="list-decimal list-inside">
                             {chat.response}
                           </ReactMarkdown>}
-
                     </div>
                     <p className="text-end w-fit mr-auto ml-[3px] text-[#333333]">
                       {chat.time}
