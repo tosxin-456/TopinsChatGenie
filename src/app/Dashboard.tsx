@@ -1,8 +1,3 @@
-import scheduleIcon from "../images/schedule.svg";
-import activityIcon from "../images/activity.svg";
-import emergencyIcon from "../images/emergencyHome.svg";
-import notifyIcon from "../images/ri_notification-4-line.svg";
-import chatIcon from "../images/chat.svg";
 import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import { SyncLoader } from "react-spinners";

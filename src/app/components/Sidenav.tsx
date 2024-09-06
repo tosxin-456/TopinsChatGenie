@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { MdClose } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
-import notify from "../../images/ri_notification-4-line.svg";
+import history from "../../images/fluent--history-16-regular.svg";
 import { jwtDecode } from "jwt-decode";
 import { ScaleLoader } from "react-spinners";
 
@@ -278,10 +278,11 @@ return (
 
       {/* Mobile Top Bar */}
       <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">
-        {!Nav ? <RxHamburgerMenu size={30} onClick={changenav} /> : ""}
-        <p className="text-[#263A5C] text-base">{capitalizedPath}</p>
-        <Link to="/notification">
-          <img src={notify} alt="" className="m-[3px] w-[30px] h-[30px]" />
+        {!Nav ? <img src={history} alt="" className="m-[3px] w-[30px] h-[30px] cursor-pointer" onClick={changenav}  /> : ""}
+        <p className="text-[#263A5C] text-base">Chat</p>
+        <Link to="/settings">
+                      <img className="w-6 h-6 mr-3" src={settingsdark} alt="Settings" />
+
         </Link>
       </div>
     </div>
