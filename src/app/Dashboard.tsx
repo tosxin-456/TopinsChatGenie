@@ -9,8 +9,10 @@ import { SyncLoader } from "react-spinners";
 import info from "../images/information.svg";
 import send from "../images/sendMessage.svg";
 import ai from "../images/carbon_watsonx-ai.svg";
+import share from "../images/Share.svg";
 import profile from "../images/profilepic2.svg";
 import ReactMarkdown from "react-markdown";
+import { jwtDecode } from "jwt-decode";
 
 export default function Settings() {
   const history = useNavigate();
@@ -38,6 +40,9 @@ export default function Settings() {
 
   const tosinToken = localStorage.getItem("token");
   const token = JSON.parse(tosinToken as string);
+  const decodedToken = jwtDecode(token) as { [key: string]: string };
+const firstLetter = decodedToken.name?.slice(0, 1) || '';
+
 
   const fetchChat = async () => {
     try {
@@ -115,33 +120,35 @@ export default function Settings() {
       console.error("Error submitting form data:", error);
     }
   };
-//  formatResponseWithLineBrea
+  //  formatResponseWithLineBrea
 
   const formatResponseWithLineBreaks = (response: string) => {
-        return response.replace(/(\d+)\s*\.\s*/g, '<br>$1. ')
+    return response.replace(/(\d+)\s*\.\s*/g, "<br>$1. ");
   };
-  return <div>
+  return (
+    <div>
       <div style={{ fontFamily: "Roboto, sans-serif", fontWeight: "400" }}>
         <header className="hidden md:block">
           <nav className="topHeader flex justify-between items-center my-10">
             <h1 className="text-2xl text-[#263A5C] font-bold">Chat</h1>
             <div className="flex items-center gap-4">
-              <img onClick={() => history("../notification")} src={notifyIcon} alt="Bell Icon" />
-              <span onClick={() => history("../profile")} className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer">
-                T
+              <img src={share} alt="Bell Icon" className="w-[27px]" />
+              <span
+                onClick={() => history("../profile")}
+                className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
+              >
+                {firstLetter}
               </span>
             </div>
           </nav>
         </header>
-        <div className="w-full sm:w-[95%] m-auto mt-[10px] my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF]">
+        <div className="w-full sm:w-[100%] m-auto mt-[10px] my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF]">
           <div className="flex border-b-[1px] border-b-[solid] border-b-[#E1E2FF]">
             <div className="w-fit mt-[5px]">
               <img src={ai} alt="" />
             </div>
             <div>
-              <p className="text-[20px] ml-[5px] font-bold">
-                TopinnsChatGenie
-              </p>
+              <p className="text-[20px] ml-[5px] font-bold">TopinnsChatGenie</p>
               <p className="text-[18px] font-bold">#72u88q</p>
             </div>
             <div className="ml-[auto] w-[3%] items-center">
@@ -149,7 +156,8 @@ export default function Settings() {
             </div>
           </div>
           <div style={{ margin: "auto", height: "70vh", overflowX: "auto" }}>
-            {chat.map((chat, index) => <div key={index}>
+            {chat.map((chat, index) =>
+              <div key={index}>
                 <div className="w-[70%] flex ml-auto self-end">
                   <div className="ml-auto w-[fit]">
                     <div className="bg-[#263A5C] w-fit ml-auto text-[white]  mt-[10px] rounded-lg p-[12px]">
@@ -161,13 +169,27 @@ export default function Settings() {
                       {chat.time}
                     </p>
                   </div>
-                  <img src={profile} alt="" className="m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[30px] h-[30px]" />
+                  <span
+                onClick={() => history("../profile")}
+                className="rounded-full text-white px- py-3 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[50px] h-[50px] text-center cursor-pointer"
+              >
+                {firstLetter}
+              </span>
                 </div>
                 <div className="w-[85%] flex mr-auto">
                   <img src={ai} alt="" className="m-[10px]" />
                   <div>
                     <div className="bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px]">
-                      {chat.response && chat.response.includes("1.") ? <div dangerouslySetInnerHTML={{ __html: formatResponseWithLineBreaks(chat.response) }} className="list-decimal list-inside" /> : <ReactMarkdown className="list-decimal list-inside">
+                      {chat.response && chat.response.includes("1.")
+                        ? <div
+                            dangerouslySetInnerHTML={{
+                              __html: formatResponseWithLineBreaks(
+                                chat.response
+                              )
+                            }}
+                            className="list-decimal list-inside"
+                          />
+                        : <ReactMarkdown className="list-decimal list-inside">
                             {chat.response}
                           </ReactMarkdown>}
                     </div>
@@ -176,8 +198,10 @@ export default function Settings() {
                     </p>
                   </div>
                 </div>
-              </div>)}
-            {pendingQuestion && <div className="w-[70%] flex ml-auto self-end">
+              </div>
+            )}
+            {pendingQuestion &&
+              <div className="w-[70%] flex ml-auto self-end">
                 <div className="ml-auto w-[fit]">
                   <div className="bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px]">
                     <p className="text-start">
@@ -188,19 +212,36 @@ export default function Settings() {
                     8pm
                   </p>
                 </div>
-                <img src={profile} alt="" className="m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[30px] h-[30px]" />
+                <img
+                  src={profile}
+                  alt=""
+                  className="m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[30px] h-[30px]"
+                />
               </div>}
-            {isLoading && <div ref={isLoadingRef} className="flex w-fit m-[10px]">
+            {isLoading &&
+              <div ref={isLoadingRef} className="flex w-fit m-[10px]">
                 <img src={ai} alt="" className="m-[3px]" />
                 <SyncLoader color="#263A5C" className="m-[3px]" />
               </div>}
           </div>
 
           <div className="bg-white flex w-[80%] m-auto p-[4px] mb-[10px] mt-[10px] border-[solid] border-[1px] rounded-md border-[black]">
-            <input type="text" onKeyDown={handleKeyDown} value={question} onChange={e => setQuestion(e.target.value)} className="outline-none w-[100%]" />
-            <img src={send} alt="" className="hover:cursor-pointer" onClick={e => handleSubmit(e)} />
+            <input
+              type="text"
+              onKeyDown={handleKeyDown}
+              value={question}
+              onChange={e => setQuestion(e.target.value)}
+              className="outline-none w-[100%]"
+            />
+            <img
+              src={send}
+              alt=""
+              className="hover:cursor-pointer"
+              onClick={e => handleSubmit(e)}
+            />
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 }

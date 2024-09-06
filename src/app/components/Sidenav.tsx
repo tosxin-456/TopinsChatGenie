@@ -121,156 +121,179 @@ const groupChatsByDate = (chats: Chat[]) => {
     },
     [token]
   );
-  return (
-    <div className="w-full md:flex">
-      <div
-        style={{ fontFamily: "Roboto, sans-serif", fontWeight: "500" }}
-        className="mobiledesktop nav sm:max-w-[100%] md:w-[23%]"
-      >
-        <div className="hidden bg-[#263A5c]  text-white h-screen md:block sticky top-0">
-          <div className="pl-20">
-            
-          <div className="w-full md:w-[77%] md:flex">
- <div className="flex-1 md:p-6">
-  {isLoading ? (
-    <ScaleLoader color="#263A5C" />
-  ) : (
-    <>
-      <h1 className="text-2xl font-bold mb-4">Chat List</h1>
-      {Object.keys(groupedChats).every((key) => groupedChats[key].length === 0) ? (
-        <p>No chats available.</p>
-      ) : (
-        Object.keys(groupedChats).map((group) => (
-          groupedChats[group].length > 0 && (
-            <div key={group} className="mb-6">
-              <h2 className="text-lg font-semibold">{group}</h2>
-              <ul className="list-none">
-                {/* Display only the first chat item for each group */}
-                <li
-                  key={groupedChats[group][0].question}
-                  className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                >
-                  <p className="font-medium">{groupedChats[group][0].question}</p>
-                </li>
-              </ul>
-            </div>
-          )
-        ))
-      )}
-    </>
-  )}
-</div>
+return (
+  <div className="w-full md:flex justify-between">
+    {/* Desktop Sidebar */}
+    <div
+      style={{ fontFamily: "Roboto, sans-serif", fontWeight: "500" }}
+      className="mobiledesktop nav sm:max-w-[100%] md:w-[25%]"
+    >
+      <div className="hidden bg-[#263A5c] text-white h-screen md:block sticky top-0">
+        <div className="flex flex-col h-full">
+          {/* Top (ChatGenie Header) */}
+          <h1 className="text-2xl font-bold text-center mt-[50px] mb-[60px] ">
+            TopinnsChatGenie
+          </h1>
 
-</div>
-            <div className="flex pt-10 text-center">
-              <img className="px-3" src={Profilesvg} alt="" />
-              <Link to="/profile">Profile</Link>
-            </div>
-            <div className="flex pt-10 text-center">
-              <img className="px-3" src={Settingssvg} alt="" />
-              <Link to="/settings">Settings</Link>
-            </div>
+          {/* Middle (Scrollable Chat List) */}
+          <div className="flex-1 flex flex-col overflow-y-auto">
+            {isLoading ? (
+              <ScaleLoader color="#263A5C" />
+            ) : (
+              <>
+                {Object.keys(groupedChats).every(
+                  (key) => groupedChats[key].length === 0
+                ) ? (
+                  <p className="text-center mt-4">No chats available.</p>
+                ) : (
+                  Object.keys(groupedChats).map(
+                    (group) =>
+                      groupedChats[group].length > 0 && (
+                        <div key={group} className="mb-6 px-6">
+                          <h2 className="text-lg font-semibold">{group}</h2>
+                          <ul className="list-none">
+                            <li
+                              key={groupedChats[group][0].question}
+                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                            >
+                              <p className="font-medium">
+                                {groupedChats[group][0].question}
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                      )
+                  )
+                )}
+              </>
+            )}
           </div>
-        </div>
 
-        <div
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-          className={
-            Nav
-              ? "   flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]"
-              : "fixed left-[-100%] ease-in-out duration-500"
-          }
-        >
-          <div className="bg-white py-2 min-w-[300px] ">
-            <div onClick={changenav}>
-              <MdClose size={30} className="ml-[80%]" />
-            </div>
-            <div className="flex px-3 border-b-gray border-b-2  pb-3">
-              <img className="px-3" src={Picture} alt="" />
-              <div className="text-[#585555] font-normal">
-                <h1>
-                  Hi! {decodedToken.name}
-                </h1>
-                <p>
-                  {decodedToken.email}
-                </p>
+          {/* Bottom (Profile, Settings, Log Out) */}
+          <div className="mb-10">
+            <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
+            <div className="flex flex-col items-center space-y-10">
+              <div className="flex items-center">
+                <img className="px-3" src={Profilesvg} alt="Profile" />
+                <Link to="/profile">Profile</Link>
               </div>
-            </div>
-<div className="w-full md:w-[77%] md:flex">
-  <div className="flex-1 md:p-6">
-      {isLoading ? (
-     <ScaleLoader  color="#263A5C" />
-    ) : (
-      <>
-        <h1 className="text-2xl font-bold mb-4">Chat List</h1>
-        {Object.keys(groupedChats).every((key) => groupedChats[key].length === 0) ? (
-          <p>Start chatting, today.</p>
-        ) : (
-          Object.keys(groupedChats).map((group) => (
-            groupedChats[group].length > 0 && (
-              <div key={group} className="mb-6">
-                <h2 className="text-lg font-semibold">{group}</h2>
-                <ul className="list-none">
-                  {/* Only show the first chat item for each group */}
-                  <li
-                    key={groupedChats[group][0].question}
-                    className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                  >
-                    <p className="font-medium">{groupedChats[group][0].question}</p>
-                  </li>
-                </ul>
+              <div className="flex items-center">
+                <img className="px-3" src={Settingssvg} alt="Settings" />
+                <Link to="/settings">Settings</Link>
               </div>
-            )
-          ))
-        )}
-      </>
-    )}
-  </div>
-</div>
-
-
-            <div className={Nav ? "pl-11 ease-in-out duration-1000 " : ""}>
-              <div className="w-[300px] mt-[50px] bg-gray-300 h-[0.1rem] ml-[-45px] " />
-              <div className="flex mr-[30px] pt-10 text-center">
-  
-                <img className="px-3" src={profiledark} alt="" />
-                <Link to="/profile" className="text-center" onClick={changenav}>
-                  Profile
-                </Link>
-              </div>
-              <div className="flex mr-[30px] pt-10 text-center">
-                <img className="px-3" src={settingsdark} alt="" />
-                <Link to="/settings" onClick={changenav}>
-                  Settings
-                </Link>
-              </div>
-              <div className=" w-fit ml-[30px] mt-[30px] ">
-                <Link
-                  to="/"
-                  className="bg-[#263238] text-white my-5 p-[3px] m-auto  rounded-md flex text-center justify-center items-center mr-5 w-[4rem]"
-                >
-                  <img src={logout} alt="" />
-                  <p />
-                </Link>
+              <div className="flex items-center">
+                <img className="px-3" src={logout} alt="Log out" />
+                <Link to="/">Log out</Link>
               </div>
             </div>
           </div>
-          <div className=" bg-gray-100 w-full bg-opacity-90 text-black h-screen" />
-        </div>
-
-        <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">
-          {!Nav ? <RxHamburgerMenu size={30} onClick={changenav} /> : ""}
-          <p className="text-[#263A5C] text-base">
-            {capitalizedPath}
-          </p>
-          <Link to="/notification">
-            <img src={notify} alt="" className="m-[3px] w-[30px] h-[30px] " />
-          </Link>
         </div>
       </div>
-      <main className="container px-4 sm:px-12 mx-auto mb-10 md:w-[77%]">
-        <Outlet />
-      </main>
+
+      {/* Mobile Sidebar */}
+      <div
+        style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+        className={
+          Nav
+            ? "flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]"
+            : "fixed left-[-100%] ease-in-out duration-500"
+        }
+      >
+        <div className="bg-white py-2 min-w-[300px]">
+          {/* Close Button */}
+          <div onClick={changenav} className="flex justify-end pr-4 pt-2">
+            <MdClose size={30} className="cursor-pointer" />
+          </div>
+
+          {/* User Info */}
+          <div className="flex px-4 py-4 items-center border-b border-gray-300">
+            <img className="w-10 h-10 rounded-full mr-3" src={Picture} alt="" />
+            <div className="text-[#585555] font-normal">
+              <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
+              <p className="text-sm">{decodedToken.email}</p>
+            </div>
+          </div>
+
+          {/* Chat List */}
+          <div className="p-4">
+            {isLoading ? (
+              <ScaleLoader color="#263A5C" />
+            ) : (
+              <>
+                <h1 className="text-2xl font-bold mb-4 ">TopinnsChatGenie</h1>
+                {Object.keys(groupedChats).every(
+                  (key) => groupedChats[key].length === 0
+                ) ? (
+                  <p className="text-center text-gray-500">
+                    Start chatting, today.
+                  </p>
+                ) : (
+                  Object.keys(groupedChats).map(
+                    (group) =>
+                      groupedChats[group].length > 0 && (
+                        <div key={group} className="mb-6">
+                          <h2 className="text-lg font-semibold">{group}</h2>
+                          <ul className="list-none">
+                            <li
+                              key={groupedChats[group][0].question}
+                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                            >
+                              <p className="font-medium">
+                                {groupedChats[group][0].question}
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                      )
+                  )
+                )}
+              </>
+            )}
+          </div>
+
+          {/* Profile, Settings, Log Out */}
+          <div className="flex flex-col items-start p-4 space-y-6">
+            <div className="flex items-center">
+              <img className="w-6 h-6 mr-3" src={profiledark} alt="Profile" />
+              <Link to="/profile" className="text-base" onClick={changenav}>
+                Profile
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <img className="w-6 h-6 mr-3" src={settingsdark} alt="Settings" />
+              <Link to="/settings" className="text-base" onClick={changenav}>
+                Settings
+              </Link>
+            </div>
+            <div className="flex items-center">
+              <img className="w-6 h-6 mr-3" src={logout} alt="Log out" />
+              <Link to="/" className="text-base" onClick={changenav}>
+                Log out
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="bg-gray-100 w-full h-screen" />
+      </div>
+
+      {/* Mobile Top Bar */}
+      <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">
+        {!Nav ? <RxHamburgerMenu size={30} onClick={changenav} /> : ""}
+        <p className="text-[#263A5C] text-base">{capitalizedPath}</p>
+        <Link to="/notification">
+          <img src={notify} alt="" className="m-[3px] w-[30px] h-[30px]" />
+        </Link>
+      </div>
     </div>
-  );
+
+    {/* Main Content Area */}
+    <main className="container px-4 sm:px-12 mx-auto mb-10 md:w-[77%]">
+      <Outlet />
+    </main>
+  </div>
+);
+
+
+
+
 }
