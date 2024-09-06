@@ -81,6 +81,7 @@ const groupChatsByDate = (chats: Chat[]) => {
   last30Days.setDate(today.getDate() - 30);
 
   const groups: { [date: string]: Chat[] } = {
+    Today: [],
     Yesterday: [],
     "Last 7 Days": [],
     "Last 30 Days": [],
@@ -89,10 +90,13 @@ const groupChatsByDate = (chats: Chat[]) => {
 
   chats.forEach((chat) => {
     const chatDate = new Date(chat.createdAt);
+    const chatDateString = chatDate.toDateString();
+    const todayString = today.toDateString();
+    const yesterdayString = yesterday.toDateString();
 
-    if (
-      chatDate.toDateString() === yesterday.toDateString()
-    ) {
+    if (chatDateString === todayString) {
+      groups.Today.push(chat);
+    } else if (chatDateString === yesterdayString) {
       groups.Yesterday.push(chat);
     } else if (chatDate > last7Days) {
       groups["Last 7 Days"].push(chat);
@@ -105,6 +109,8 @@ const groupChatsByDate = (chats: Chat[]) => {
 
   return groups;
 };
+
+
 
 
   const groupedChats = groupChatsByDate(chat);
@@ -125,42 +131,36 @@ const groupChatsByDate = (chats: Chat[]) => {
           <div className="pl-20">
             
           <div className="w-full md:w-[77%] md:flex">
-  <div className="flex-1 md:p-6">
-    {isLoading ? (
-     <ScaleLoader  color="#263A5C" />
+ <div className="flex-1 md:p-6">
+  {isLoading ? (
+    <ScaleLoader color="#263A5C" />
+  ) : (
+    <>
+      <h1 className="text-2xl font-bold mb-4">Chat List</h1>
+      {Object.keys(groupedChats).every((key) => groupedChats[key].length === 0) ? (
+        <p>No chats available.</p>
+      ) : (
+        Object.keys(groupedChats).map((group) => (
+          groupedChats[group].length > 0 && (
+            <div key={group} className="mb-6">
+              <h2 className="text-lg font-semibold">{group}</h2>
+              <ul className="list-none">
+                {/* Display only the first chat item for each group */}
+                <li
+                  key={groupedChats[group][0].question}
+                  className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                >
+                  <p className="font-medium">{groupedChats[group][0].question}</p>
+                </li>
+              </ul>
+            </div>
+          )
+        ))
+      )}
+    </>
+  )}
+</div>
 
-    ) : (
-      <>
-        <h1 className="text-2xl font-bold mb-4">Chat List</h1>
-        {Object.keys(groupedChats).every((key) => groupedChats[key].length === 0) ? (
-          <p>No chats available.</p>
-        ) : (
-          Object.keys(groupedChats).map((group) => (
-            groupedChats[group].length > 0 && (
-              <div key={group} className="mb-6">
-                <h2 className="text-lg font-semibold">{group}</h2>
-                <ul className="list-none">
-                  {groupedChats[group].map((chatItem) => (
-                    <li
-                      key={chatItem.question}
-                      className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                    >
-                      <div className="flex justify-between">
-                        <p className="font-medium">{chatItem.question}</p>
-                        <p className="text-sm text-gray-500">
-                          {new Date(chatItem.createdAt).toLocaleTimeString()}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )
-          ))
-        )}
-      </>
-    )}
-  </div>
 </div>
             <div className="flex pt-10 text-center">
               <img className="px-3" src={Profilesvg} alt="" />
@@ -198,32 +198,26 @@ const groupChatsByDate = (chats: Chat[]) => {
             </div>
 <div className="w-full md:w-[77%] md:flex">
   <div className="flex-1 md:p-6">
-    {isLoading ? (
-      <p>Loading chats...</p>
+      {isLoading ? (
+     <ScaleLoader  color="#263A5C" />
     ) : (
       <>
         <h1 className="text-2xl font-bold mb-4">Chat List</h1>
         {Object.keys(groupedChats).every((key) => groupedChats[key].length === 0) ? (
-          <p>No chats available.</p>
+          <p>Start chatting, today.</p>
         ) : (
           Object.keys(groupedChats).map((group) => (
             groupedChats[group].length > 0 && (
               <div key={group} className="mb-6">
                 <h2 className="text-lg font-semibold">{group}</h2>
                 <ul className="list-none">
-                  {groupedChats[group].map((chatItem) => (
-                    <li
-                      key={chatItem.question}
-                      className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                    >
-                      <div className="flex justify-between">
-                        <p className="font-medium">{chatItem.question}</p>
-                        <p className="text-sm text-gray-500">
-                          {new Date(chatItem.createdAt).toLocaleTimeString()}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
+                  {/* Only show the first chat item for each group */}
+                  <li
+                    key={groupedChats[group][0].question}
+                    className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                  >
+                    <p className="font-medium">{groupedChats[group][0].question}</p>
+                  </li>
                 </ul>
               </div>
             )
@@ -233,6 +227,7 @@ const groupChatsByDate = (chats: Chat[]) => {
     )}
   </div>
 </div>
+
 
             <div className={Nav ? "pl-11 ease-in-out duration-1000 " : ""}>
               <div className="w-[300px] mt-[50px] bg-gray-300 h-[0.1rem] ml-[-45px] " />

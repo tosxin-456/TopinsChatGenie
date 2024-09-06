@@ -1,116 +1,122 @@
-import scheduleIcon from '../images/schedule.svg'
-import activityIcon from '../images/activity.svg'
-import emergencyIcon from '../images/emergencyHome.svg'
-import notifyIcon from '../images/ri_notification-4-line.svg'
-import chatIcon from '../images/chat.svg'
-import { useNavigate } from 'react-router';
+import scheduleIcon from "../images/schedule.svg";
+import activityIcon from "../images/activity.svg";
+import emergencyIcon from "../images/emergencyHome.svg";
+import notifyIcon from "../images/ri_notification-4-line.svg";
+import chatIcon from "../images/chat.svg";
+import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import { SyncLoader } from "react-spinners";
 import info from "../images/information.svg";
 import send from "../images/sendMessage.svg";
 import ai from "../images/carbon_watsonx-ai.svg";
 import profile from "../images/profilepic2.svg";
-
-
+import ReactMarkdown from "react-markdown";
 
 export default function Settings() {
   const history = useNavigate();
- const isLoadingRef = useRef<HTMLDivElement>(null);
+  const isLoadingRef = useRef<HTMLDivElement>(null);
 
- const pendingQuestionJSON = localStorage.getItem("pendingQuestion");
- let pendingQuestion: any;
- if (pendingQuestionJSON) {
-   try {
-     pendingQuestion = JSON.parse(pendingQuestionJSON);
-     // Now you can use pendingQuestion variable
-   } catch (error) {
-     console.error("Error parsing pending question JSON:", error);
-   }
- }
+  const pendingQuestionJSON = localStorage.getItem("pendingQuestion");
+  let pendingQuestion: any;
+  if (pendingQuestionJSON) {
+    try {
+      pendingQuestion = JSON.parse(pendingQuestionJSON);
+    } catch (error) {
+      console.error("Error parsing pending question JSON:", error);
+    }
+  }
 
- interface Chat { question: string; response: string; time: string }
+  interface Chat {
+    question: string;
+    response: string;
+    time: string;
+  }
 
- const [chat, setChat] = useState<Chat[]>([]);
- // console.log(tosinToken);
- const [question, setQuestion] = useState("");
- const [isLoading, setIsLoading] = useState(false);
+  const [chat, setChat] = useState<Chat[]>([]);
+  const [question, setQuestion] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
- const tosinToken = localStorage.getItem("token");
- const token = JSON.parse(tosinToken as string); // type assertion
+  const tosinToken = localStorage.getItem("token");
+  const token = JSON.parse(tosinToken as string);
 
- const fetchChat = async () => {
-   try {
-     const response = await fetch(
-       "https://topins-chat-backend.onrender.com/user/allChat",
-       {
-         method: "GET",
-         headers: {
-           "Content-Type": "application/json",
-           Authorization: `Bearer ${token}`
-         }
-       }
-     );
-     const chatData = await response.json();
-     console.log(chatData)
-     setChat(chatData);
-   } catch (error) {
-     console.error("Error fetching chat data:", error);
-   }
- };
+  const fetchChat = async () => {
+    try {
+      const response = await fetch(
+        "https://topins-chat-backend.onrender.com/user/allChat",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      const chatData = await response.json();
+      setChat(chatData);
+    } catch (error) {
+      console.error("Error fetching chat data:", error);
+    }
+  };
 
- useEffect(
-   () => {
-     fetchChat(); 
-   },
-   [token]
- );
+  useEffect(
+    () => {
+      fetchChat();
+    },
+    [token]
+  );
 
- const constructFormData = () => {
-   return { question: question };
- };
+  const constructFormData = () => {
+    return { question: question };
+  };
 
- const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-   if (e.key === "Enter") {
-     e.preventDefault(); // Prevent default form submission behavior
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(
+        (e as unknown) as React.MouseEvent<HTMLImageElement, MouseEvent>
+      );
+      setQuestion("");
+    }
+  };
 
-     handleSubmit((e as unknown) as React.MouseEvent<HTMLImageElement, MouseEvent>);
+  const handleSubmit = async (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    const formData = constructFormData();
 
-     // Optionally, you can clear the input field after submission
-     setQuestion("");
-   }
- };
+    localStorage.setItem("pendingQuestion", JSON.stringify(formData));
+    setIsLoading(true);
+    setQuestion("");
 
- const handleSubmit = async (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-   e.preventDefault();
-   const formData = constructFormData();
+    try {
+      const response = await fetch(
+        "https://topins-chat-backend.onrender.com/user/chat",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(formData)
+        }
+      );
+      if (response.ok) {
+        setIsLoading(false);
+        fetchChat();
+        localStorage.removeItem("pendingQuestion");
+      } else {
+        setIsLoading(false);
+        const data = await response.json();
+        console.error("Failed to submit form data:", data);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.error("Error submitting form data:", error);
+    }
+  };
+  
 
-   localStorage.setItem("pendingQuestion", JSON.stringify(formData));
-   setIsLoading(true);
-   setQuestion("");
-
-   try {
-     const response = await fetch("https://topins-chat-backend.onrender.com/user/chat", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-         Authorization: `Bearer ${token}`
-       },
-       body: JSON.stringify(formData)
-     });
-     if (response.ok) {
-       setIsLoading(false);
-       fetchChat();
-       localStorage.removeItem("pendingQuestion");
-     } else {
-       setIsLoading(false);
-       const data = await response.json();
-       console.error("Failed to submit form data:", data);
-     }
-   } catch (error) {
-     setIsLoading(false);
-     console.error("Error submitting form data:", error);
-   }
- };
   return <div>
       <div style={{ fontFamily: "Roboto, sans-serif", fontWeight: "400" }}>
         <header className="hidden md:block">
@@ -124,13 +130,15 @@ export default function Settings() {
             </div>
           </nav>
         </header>
-        <div className="w-full sm:w-[95%] m-auto mt-[10px] my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF] ">
-          <div className="flex border-b-[1px] border-b-[solid] border-b-[#E1E2FF] ">
+        <div className="w-full sm:w-[95%] m-auto mt-[10px] my-12 p-[10px] max-w-[60rem] rounded-lg border-[1px] border-[solid] border-[#E1E2FF]">
+          <div className="flex border-b-[1px] border-b-[solid] border-b-[#E1E2FF]">
             <div className="w-fit mt-[5px]">
               <img src={ai} alt="" />
             </div>
             <div>
-              <p className="text-[20px] ml-[5px] font-bold">TopinnsChatGenie</p>
+              <p className="text-[20px] ml-[5px] font-bold">
+                TopinnsChatGenie
+              </p>
               <p className="text-[18px] font-bold">#72u88q</p>
             </div>
             <div className="ml-[auto] w-[3%] items-center">
@@ -140,8 +148,8 @@ export default function Settings() {
           <div style={{ margin: "auto", height: "70vh", overflowX: "auto" }}>
             {chat.map((chat, index) => <div key={index}>
                 <div className="w-[70%] flex ml-auto self-end">
-                  <div className="ml-auto w-[fit] ">
-                    <div className="bg-[#263A5C] w-fit ml-auto text-[white]  mt-[10px] rounded-lg p-[12px] ">
+                  <div className="ml-auto w-[fit]">
+                    <div className="bg-[#263A5C] w-fit ml-auto text-[white]  mt-[10px] rounded-lg p-[12px]">
                       <p className="text-start">
                         {chat.question}
                       </p>
@@ -155,10 +163,13 @@ export default function Settings() {
                 <div className="w-[85%] flex mr-auto">
                   <img src={ai} alt="" className="m-[10px]" />
                   <div>
-                    <div className="bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px] ">
-                      <p>
-                        {chat.response}
-                      </p>
+                    <div className="bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px]">
+                      {chat.response && chat.response.includes("1.") ? <div>
+                            {chat.response}
+                          </div> : <ReactMarkdown>
+                            {chat.response}
+                          </ReactMarkdown>}
+
                     </div>
                     <p className="text-end w-fit mr-auto ml-[3px] text-[#333333]">
                       {chat.time}
@@ -167,8 +178,8 @@ export default function Settings() {
                 </div>
               </div>)}
             {pendingQuestion && <div className="w-[70%] flex ml-auto self-end">
-                <div className="ml-auto w-[fit] ">
-                  <div className="bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px] ">
+                <div className="ml-auto w-[fit]">
+                  <div className="bg-[#263A5C] text-[white]  mt-[10px] rounded-lg p-[12px]">
                     <p className="text-start">
                       {pendingQuestion.question}
                     </p>
@@ -185,7 +196,7 @@ export default function Settings() {
               </div>}
           </div>
 
-          <div className="bg-white flex w-[80%] m-auto p-[4px] mb-[10px] mt-[10px] border-[solid] border-[1px] rounded-md border-[black] ">
+          <div className="bg-white flex w-[80%] m-auto p-[4px] mb-[10px] mt-[10px] border-[solid] border-[1px] rounded-md border-[black]">
             <input type="text" onKeyDown={handleKeyDown} value={question} onChange={e => setQuestion(e.target.value)} className="outline-none w-[100%]" />
             <img src={send} alt="" className="hover:cursor-pointer" onClick={e => handleSubmit(e)} />
           </div>
