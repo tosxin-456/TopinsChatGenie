@@ -292,7 +292,7 @@ return (
       {/* Mobile Top Bar */}
       <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">
         {!Nav ? <img src={history} alt="" className="m-[3px] w-[30px] h-[30px] cursor-pointer" onClick={changenav}  /> : ""}
-        <p className="text-[#263A5C] text-xl ">Chat</p>
+        {/* <p className="text-[#263A5C] text-xl ">Chat</p> */}
         <Link to="/settings">
                       <img className="w-10 h-10 mr-3  " src={settingsdark} alt="Settings" />
 

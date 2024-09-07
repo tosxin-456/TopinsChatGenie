@@ -134,8 +134,8 @@ const components: Partial<import('react-markdown').Components> = {
     <div>
       <div style={{ fontFamily: "Roboto, sans-serif", fontWeight: "400" }}>
         <header className="hidden md:block">
-          <nav className="topHeader flex justify-between items-center my-10">
-            <h1 className="text-2xl text-[#263A5C] font-bold">Chat</h1>
+          <nav className="topHeader flex justify-end items-center my-10">
+            {/* <h1 className="text-2xl text-[#263A5C] font-bold">Chat</h1> */}
             <div className="flex items-center gap-4">
               <img src={share} alt="Bell Icon" className="w-[27px]" />
               <span
