@@ -9,8 +9,12 @@ import { ScaleLoader } from "react-spinners";
 
 import { Link, Outlet, useLocation } from "react-router-dom";
 
-import Profilesvg from "../../images/iconamoon_profile-fill.svg";
-import Settingssvg from "../../images/settings_24px.svg";
+import Profilesvg from "../../images/iconamoon_profile-fill.dark.svg";
+import Clearsvg from "../../images/material-symbols--delete-outline (1).svg";
+import Lightsvg from "../../images/clarity--sun-solid.svg";
+// import svg from "../../images/iconamoon_profile-fill.svg";
+
+import Settingssvg from "../../images/solar--settings-bold.svg";
 import Logosvg from "../../images/senexCare.svg";
 import Picture from "../../images/Frame 2608382.svg";
 import Dashboarddark from "../../images/ic_sharp-dashboard.dark.svg";
@@ -20,7 +24,7 @@ import Activitydark from "../../images/jam_activity.dark.svg";
 import Emergencydark from "../../images/material-symbols_emergency-home-outline (1).svg";
 import profiledark from "../../images/iconamoon_profile-fill.dark.svg";
 import settingsdark from "../../images/ic_round-settings.dark.svg";
-import logout from "../../images/solar_logout-bold (1).svg";
+import logout from "../../images/material-symbols--logout (1).svg";
 
 export default function Sidenav() {
   const location = useLocation();
@@ -128,7 +132,7 @@ return (
       style={{ fontFamily: "Roboto, sans-serif", fontWeight: "500" }}
       className="mobiledesktop nav sm:max-w-[100%] md:w-[25%]"
     >
-      <div className="hidden bg-[#263A5c] text-white h-screen md:block sticky top-0">
+      <div className="hidden bg-[white] text-[#4A90E2 h-screen md:block sticky top-0">
         <div className="flex flex-col h-full">
           {/* Top (ChatGenie Header) */}
           <h1 className="text-2xl font-bold text-center mt-[50px] mb-[60px] ">
@@ -154,7 +158,7 @@ return (
                           <ul className="list-none">
                             <li
                               key={groupedChats[group][0].question}
-                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200 bg-[#F5F7FA]   "
                             >
                               <p className="font-medium">
                                 {groupedChats[group][0].question}
@@ -170,23 +174,32 @@ return (
           </div>
 
           {/* Bottom (Profile, Settings, Log Out) */}
-          <div className="mb-10">
-            <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
-            <div className="flex flex-col items-center space-y-10">
-              <div className="flex items-center">
-                <img className="px-3" src={Profilesvg} alt="Profile" />
-                <Link to="/profile">Profile</Link>
-              </div>
-              <div className="flex items-center">
-                <img className="px-3" src={Settingssvg} alt="Settings" />
-                <Link to="/settings">Settings</Link>
-              </div>
-              <div className="flex items-center">
-                <img className="px-3" src={logout} alt="Log out" />
-                <Link to="/">Log out</Link>
-              </div>
-            </div>
-          </div>
+          <div className="mb-10 px-4 text-[#4A90E2">
+  <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
+  <div className="flex flex-col items-start space-y-6">
+    <div className="flex items-center space-x-3">
+      <img className="w-6 h-6" src={Clearsvg} alt="Profile Icon" />
+      <Link to="/profile" className=" hover:underline">Clear Conversations</Link>
+    </div>
+    <div className="flex items-center space-x-3">
+      <img className="w-6 h-6" src={Lightsvg} alt="Profile Icon" />
+      <Link to="/profile" className=" hover:underline">Light Mode</Link>
+    </div>
+    <div className="flex items-center space-x-3">
+      <img className="w-6 h-6" src={Profilesvg} alt="Profile Icon" />
+      <Link to="/profile" className=" hover:underline">Profile</Link>
+    </div>
+    <div className="flex items-center space-x-3">
+      <img className="w-6 h-6" src={Settingssvg} alt="Settings Icon" />
+      <Link to="/settings" className=" hover:underline">Settings</Link>
+    </div>
+    <div className="flex items-center space-x-3">
+      <img className="w-6 h-6" src={logout} alt="Log Out Icon" />
+      <Link to="/" className=" hover:underline">Log Out</Link>
+    </div>
+  </div>
+</div>
+
         </div>
       </div>
 
@@ -279,9 +292,9 @@ return (
       {/* Mobile Top Bar */}
       <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">
         {!Nav ? <img src={history} alt="" className="m-[3px] w-[30px] h-[30px] cursor-pointer" onClick={changenav}  /> : ""}
-        <p className="text-[#263A5C] text-base">Chat</p>
+        <p className="text-[#263A5C] text-xl ">Chat</p>
         <Link to="/settings">
-                      <img className="w-6 h-6 mr-3" src={settingsdark} alt="Settings" />
+                      <img className="w-10 h-10 mr-3  " src={settingsdark} alt="Settings" />
 
         </Link>
       </div>

@@ -1,3 +1,4 @@
+import React, { ReactNode } from 'react';
 import { useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import { SyncLoader } from "react-spinners";
@@ -116,10 +117,19 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
     }
   };
   //  formatResponseWithLineBrea
+const components: Partial<import('react-markdown').Components> = {
+  ol: ({ children }) => (
+    <ol className="list-decimal pl-[20px]">{children}</ol>  // Padding added here
+  ),
+  ul: ({ children }) => (
+    <ul className="list-disc pl-[20px]">{children}</ul>  // Padding added here
+  ),
+  li: ({ children }) => (
+    <li className="mb-[5px]">{children}</li>
+  )
+};
 
-  const formatResponseWithLineBreaks = (response: string) => {
-    return response.replace(/(\d+)\s*\.\s*/g, "<br>$1. ");
-  };
+
   return (
     <div>
       <div style={{ fontFamily: "Roboto, sans-serif", fontWeight: "400" }}>
@@ -151,50 +161,46 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
             </div>
           </div>
           <div style={{ margin: "auto", height: "70vh", overflowX: "auto" }}>
-            {chat.map((chat, index) =>
-              <div key={index}>
-                <div className="w-[70%] flex ml-auto self-end">
-                  <div className="ml-auto w-[fit]">
-                    <div className="bg-[#263A5C] w-fit ml-auto text-[white]  mt-[10px] rounded-lg p-[12px]">
-                      <p className="text-start">
-                        {chat.question}
-                      </p>
-                    </div>
-                    <p className="text-end w-fit m-auto mr-[5px] text-[#333333]">
-                      {chat.time}
-                    </p>
-                  </div>
-                  <span
-                onClick={() => history("../profile")}
-                className="rounded-full text-white px- py-3 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto]  ml-[5px] w-[50px] h-[50px] text-center cursor-pointer"
-              >
-                {firstLetter}
-              </span>
-                </div>
-                <div className="w-[85%] flex mr-auto">
-                  <img src={ai} alt="" className="m-[10px]" />
-                  <div>
-                    <div className="bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px]">
-                      {chat.response && chat.response.includes("1.")
-                        ? <div
-                            dangerouslySetInnerHTML={{
-                              __html: formatResponseWithLineBreaks(
-                                chat.response
-                              )
-                            }}
-                            className="list-decimal list-inside"
-                          />
-                        : <ReactMarkdown className="list-decimal list-inside">
-                            {chat.response}
-                          </ReactMarkdown>}
-                    </div>
-                    <p className="text-end w-fit mr-auto ml-[3px] text-[#333333]">
-                      {chat.time}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
+         {chat.map((chatItem, index) => (
+  <div key={index}>
+    {/* User chat */}
+    <div className="w-[70%] flex ml-auto self-end">
+      <div className="ml-auto w-[fit]">
+        <div className="bg-[#263A5C] w-fit ml-auto text-[white] mt-[10px] rounded-lg p-[12px]">
+          <p className="text-start">{chatItem.question}</p>
+        </div>
+        <p className="text-end w-fit m-auto mr-[5px] text-[#333333]">
+          {chatItem.time}
+        </p>
+      </div>
+      <span
+        onClick={() => history("../profile")}
+        className="rounded-full text-white px- py-3 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto] ml-[5px] w-[50px] h-[50px] text-center cursor-pointer"
+      >
+        {firstLetter}
+      </span>
+    </div>
+
+    {/* AI chat */}
+    <div className="w-[85%] flex mr-auto">
+      <img src={ai} alt="" className="m-[10px]" />
+      <div>
+        <div className="bg-white text-[#263A5C] w-fit mr-auto mt-[20px] border-[#333333] border-[1px] border-[solid] rounded-lg p-[10px]">
+          {chatItem.response && chatItem.response.includes("1.") ? (
+            <ReactMarkdown components={components}>
+              {chatItem.response}
+            </ReactMarkdown>
+          ) : (
+            <ReactMarkdown>{chatItem.response}</ReactMarkdown>
+          )}
+        </div>
+        <p className="text-end w-fit mr-auto ml-[3px] text-[#333333]">
+          {chatItem.time}
+        </p>
+      </div>
+    </div>
+  </div>
+))}
             {pendingQuestion &&
               <div className="w-[70%] flex ml-auto self-end">
                 <div className="ml-auto w-[fit]">
