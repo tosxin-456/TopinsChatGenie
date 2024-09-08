@@ -110,13 +110,15 @@ const groupChatsByDate = (chats: Chat[]) => {
   const last30Days = new Date(today);
   last30Days.setDate(today.getDate() - 30);
 
-  const groups: { [date: string]: Chat[] } = {
-    Today: [],
-    Yesterday: [],
-    "Last 7 Days": [],
-    "Last 30 Days": [],
-    Older: [],
+  const groups: { [group: string]: { [date: string]: Chat[] } } = {
+    Today: {},
+    Yesterday: {},
+    "Last 7 Days": {},
+    "Last 30 Days": {},
+    Older: {},
   };
+
+  chats.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
 
   chats.forEach((chat) => {
     const chatDate = new Date(chat.createdAt);
@@ -125,20 +127,27 @@ const groupChatsByDate = (chats: Chat[]) => {
     const yesterdayString = yesterday.toDateString();
 
     if (chatDateString === todayString) {
-      groups.Today.push(chat);
+      if (!groups.Today[chatDateString]) groups.Today[chatDateString] = [];
+      groups.Today[chatDateString].push(chat);
     } else if (chatDateString === yesterdayString) {
-      groups.Yesterday.push(chat);
+      if (!groups.Yesterday[chatDateString]) groups.Yesterday[chatDateString] = [];
+      groups.Yesterday[chatDateString].push(chat);
     } else if (chatDate > last7Days) {
-      groups["Last 7 Days"].push(chat);
+      if (!groups["Last 7 Days"][chatDateString]) groups["Last 7 Days"][chatDateString] = [];
+      groups["Last 7 Days"][chatDateString].push(chat);
     } else if (chatDate > last30Days) {
-      groups["Last 30 Days"].push(chat);
+      if (!groups["Last 30 Days"][chatDateString]) groups["Last 30 Days"][chatDateString] = [];
+      groups["Last 30 Days"][chatDateString].push(chat);
     } else {
-      groups.Older.push(chat);
+      if (!groups.Older[chatDateString]) groups.Older[chatDateString] = [];
+      groups.Older[chatDateString].push(chat);
     }
   });
 
   return groups;
 };
+
+
 
 
 
@@ -194,38 +203,44 @@ return (
           </h1>
 
           {/* Middle (Scrollable Chat List) */}
-          <div className="flex-1 flex flex-col overflow-y-auto">
-            {isLoading ? (
-              <ScaleLoader color="#263A5C" />
-            ) : (
-              <>
-                {Object.keys(groupedChats).every(
-                  (key) => groupedChats[key].length === 0
-                ) ? (
-                  <p className="text-center mt-4">No chats available.</p>
-                ) : (
-                  Object.keys(groupedChats).map(
-                    (group) =>
-                      groupedChats[group].length > 0 && (
-                        <div key={group} className="mb-6 px-6">
-                          <h2 className="text-lg font-semibold">{group}</h2>
-                          <ul className="list-none">
-                            <li
-                              key={groupedChats[group][0].question}
-                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200 bg-[#F5F7FA]"
-                            >
-                              <p className="font-medium">
-                                {groupedChats[group][0].question}
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      )
-                  )
-                )}
-              </>
-            )}
-          </div>
+        <div className="flex-1 flex flex-col overflow-y-auto">
+  {isLoading ? (
+    <ScaleLoader color="#263A5C" />
+  ) : (
+    <>
+      {Object.keys(groupedChats).every(
+        (key) => Object.keys(groupedChats[key]).length === 0
+      ) ? (
+        <p className="text-center mt-4">No chats available.</p>
+      ) : (
+        Object.keys(groupedChats).map(
+          (group) =>
+            Object.keys(groupedChats[group]).length > 0 && (
+              <div key={group} className="mb-6 px-6">
+                <h2 className="text-lg font-semibold">{group}</h2>
+                {Object.keys(groupedChats[group]).map((date) => (
+                  <div key={date} className="mb-4">
+                    <h3 className="text-md font-medium">{date}</h3>
+                    <ul className="list-none">
+                      {groupedChats[group][date].map((chat) => (
+                        <li
+                          key={chat.question}
+                          className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200 bg-[#F5F7FA]"
+                        >
+                          <p className="font-medium">{chat.question}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )
+        )
+      )}
+    </>
+  )}
+</div>
+
 
           {/* Bottom (Profile, Settings, Log Out) */}
           <div className="mb-10 px-4">
@@ -248,7 +263,7 @@ return (
                   alt="Light Mode Icon"
                 />
                 <span className="hover:cursor-pointer hover:underline">
-                  Light Mode
+                 {isDarkMode? "Light Mode" : "Dark Mode" } 
                 </span>
               </div>
               <div className="flex items-center space-x-3">
@@ -322,39 +337,43 @@ return (
           </div>
 
           {/* Chat List */}
-          <div className="p-4 flex-1 overflow-y-auto">
-            {isLoading ? (
-              <ScaleLoader color="#263A5C" />
-            ) : (
-              <>
-                <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
-                {Object.keys(groupedChats).every(
-                  (key) => groupedChats[key].length === 0
-                ) ? (
-                  <p className="text-center text-gray-500">Start chatting, today.</p>
-                ) : (
-                  Object.keys(groupedChats).map(
-                    (group) =>
-                      groupedChats[group].length > 0 && (
-                        <div key={group} className="mb-6">
-                          <h2 className="text-lg font-semibold">{group}</h2>
-                          <ul className="list-none">
-                            <li
-                              key={groupedChats[group][0].question}
-                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                            >
-                              <p className="font-medium">
-                                {groupedChats[group][0].question}
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      )
-                  )
-                )}
-              </>
-            )}
+<div className="p-4 flex-1 overflow-y-auto">
+  {isLoading ? (
+    <ScaleLoader color="#263A5C" />
+  ) : (
+    <>
+      <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
+      {Object.keys(groupedChats).every(
+        (key) => Object.keys(groupedChats[key]).length === 0
+      ) ? (
+        <p className="text-center text-gray-500">Start chatting, today.</p>
+      ) : (
+        Object.keys(groupedChats).map((group) => (
+          <div key={group} className="mb-6">
+            <h2 className="text-lg font-semibold">{group}</h2>
+            {Object.keys(groupedChats[group]).map((date) => (
+              <div key={date} className="mb-4">
+                <h3 className="text-md font-medium">{date}</h3>
+                <ul className="list-none">
+                  {groupedChats[group][date].map((chat) => (
+                    <li
+                      key={chat.question}
+                      className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                    >
+                      <p className="font-medium">{chat.question}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
+        ))
+      )}
+    </>
+  )}
+</div>
+
+
 
           {/* Profile, Settings, Log Out */}
           <div className="mb-20 px-4 text-black">
@@ -377,7 +396,7 @@ return (
                   alt="Light Mode Icon"
                 />
                 <span className="hover:cursor-pointer hover:underline">
-                  Light Mode
+                 {isDarkMode? "Light Mode" : "Dark Mode" } 
                 </span>
               </div>
               <div className="flex items-center space-x-3">
