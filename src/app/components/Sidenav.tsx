@@ -5,30 +5,34 @@ import { useState } from "react";
 import history from "../../images/fluent--history-16-regular.svg";
 import { jwtDecode } from "jwt-decode";
 import { ScaleLoader } from "react-spinners";
+import { useNavigate } from "react-router";
 
 
 import { Link, Outlet, useLocation } from "react-router-dom";
 
-import Profilesvg from "../../images/iconamoon_profile-fill.dark.svg";
+import Profilesvg from "../../images/iconamoon_profile-fill.svg";
 import Clearsvg from "../../images/material-symbols--delete-outline (1).svg";
 import Lightsvg from "../../images/clarity--sun-solid.svg";
 import Darksvg from "../../images/basil--moon-solid.svg";
 
 
 import Settingssvg from "../../images/solar--settings-bold.svg";
-import Picture from "../../images/Frame 2608382.svg";
-import Dashboarddark from "../../images/ic_sharp-dashboard.dark.svg";
-import Scheduledark from "../../images/uis_schedule..dark.svg";
-import messagedark from "../../images/ic_baseline-chat.dark.svg";
+import ClearWhitesvg from "../../images/material-symbols-light--delete.svg";
+import ProfileWhitesvg from "../../images/iconamoon--profile-fill.svg";
+import SettingsWhite from "../../images/solar--settings-bold (1)white.svg";
+import logoutWhite from "../../images/material-symbols--logout-rounded.svg";
 import Activitydark from "../../images/jam_activity.dark.svg";
 import Emergencydark from "../../images/material-symbols_emergency-home-outline (1).svg";
 import profiledark from "../../images/iconamoon_profile-fill.dark.svg";
 import settingsdark from "../../images/ic_round-settings.dark.svg";
-import logout from "../../images/material-symbols--logout (1).svg";
+import logout from "../../images/material-symbols--logout-rounded (1)black.svg";
+
 
 export default function Sidenav() {
   const location = useLocation();
   const path = location.pathname;
+  const historee = useNavigate();
+
   const formattedPath = path.split("/").filter(Boolean)[0];
   const capitalizedPath =
     formattedPath.charAt(0).toUpperCase() + formattedPath.slice(1);
@@ -44,7 +48,7 @@ const [isDarkMode, setIsDarkMode] = useState(false);
     time: string;
     createdAt:string;
   }
-
+  
   const [chat, setChat] = useState<Chat[]>([]);
   // console.log(tosinToken);
   const [question, setQuestion] = useState("");
@@ -56,14 +60,25 @@ const [isDarkMode, setIsDarkMode] = useState(false);
   const token = JSON.parse(tosinToken as string); // type assertion
   const decodedToken = jwtDecode(token) as { [key: string]: string };
 
+const firstLetter = decodedToken.name?.slice(0, 1) || '';
+
+
   const handleClick = () => {
   localStorage.removeItem('patient');
+  historee("../profile")
 }
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
+    localStorage.setItem('theme', isDarkMode ? 'white' : 'dark');
   };
-
+    useEffect(() => {
+    // Check if a theme preference is saved in localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+    }
+  }, []);
 
   const fetchChat = async () => {
     try {
@@ -137,15 +152,41 @@ const groupChatsByDate = (chats: Chat[]) => {
     [token]
   );
 return (
-  <div className={`w-full md:flex justify-between ${isDarkMode ? "dark" : ""}`}>
+  <div className={`w-full md:flex justify-between ${isDarkMode ? "text-white bg-black" : ""}`}>
+    {/* Navbar Opener (Hamburger Menu for Mobile) */}
+    <div className="md:hidden flex justify-between items-center p-4">
+      <h1 className="text-xl font-bold">TopinnsChatGenie</h1>
+      <button onClick={changenav} className="text-2xl">
+        {/* Hamburger icon */}
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h16m-7 6h7"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
     {/* Desktop Sidebar */}
     <div
       style={{ fontFamily: "Roboto, sans-serif", fontWeight: "500" }}
-        className={`mobiledesktop nav sm:max-w-[100%] md:w-[25%] ${
-          isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
-        }`}
+      className={`mobiledesktop nav sm:max-w-[100%] md:w-[25%] ${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+      }`}
     >
-      <div className="hidden bg-gray-100 text-[#4A90E2 h-screen md:block sticky top-0">
+      <div
+        className={`hidden h-screen md:block sticky top-0 ${
+          isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+        }`}
+      >
         <div className="flex flex-col h-full">
           {/* Top (ChatGenie Header) */}
           <h1 className="text-2xl font-bold text-center mt-[50px] mb-[60px] ">
@@ -171,7 +212,7 @@ return (
                           <ul className="list-none">
                             <li
                               key={groupedChats[group][0].question}
-                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200 bg-[#F5F7FA]   "
+                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200 bg-[#F5F7FA]"
                             >
                               <p className="font-medium">
                                 {groupedChats[group][0].question}
@@ -187,145 +228,206 @@ return (
           </div>
 
           {/* Bottom (Profile, Settings, Log Out) */}
-          <div className="mb-10 px-4 text-[#4A90E2">
-  <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
-  <div className="flex flex-col items-start space-y-6">
-    <div className="flex items-center space-x-3">
-      <img className="w-6 h-6" src={Clearsvg} alt="Profile Icon" />
-      <Link to="/profile" className=" hover:underline">Clear Chat</Link>
-    </div>
-    <div className="flex items-center space-x-3" onClick={toggleTheme}>
-      <img className="w-6 h-6" src={isDarkMode ? Darksvg : Lightsvg} alt="Profile Icon" />
-      <span className=" hover:cursor-pointer hover:underline">{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
-    </div>
-    <div className="flex items-center space-x-3">
-      <img className="w-6 h-6" src={Profilesvg} alt="Profile Icon" />
-      <Link to="/profile" className=" hover:underline">Profile</Link>
-    </div>
-    <div className="flex items-center space-x-3">
-      <img className="w-6 h-6" src={Settingssvg} alt="Settings Icon" />
-      <Link to="/settings" className=" hover:underline">Settings</Link>
-    </div>
-    <div className="flex items-center space-x-3">
-      <img className="w-6 h-6" src={logout} alt="Log Out Icon" />
-      <Link to="/" className=" hover:underline">Log Out</Link>
-    </div>
-  </div>
-</div>
-
+          <div className="mb-10 px-4">
+            <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
+            <div className="flex flex-col items-start space-y-6">
+              <div className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? ClearWhitesvg : Clearsvg}
+                  alt="Clear Chat Icon"
+                />
+                <Link to="/profile" className="hover:underline">
+                  Clear Chat
+                </Link>
+              </div>
+              <div className="flex items-center space-x-3" onClick={toggleTheme}>
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? Darksvg : Lightsvg}
+                  alt="Light Mode Icon"
+                />
+                <span className="hover:cursor-pointer hover:underline">
+                  Light Mode
+                </span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? Profilesvg : ProfileWhitesvg}
+                  alt="Profile Icon"
+                />
+                <Link to="/profile" className="hover:underline">
+                  Profile
+                </Link>
+              </div>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? SettingsWhite : Settingssvg}
+                  alt="Settings Icon"
+                />
+                <Link to="/settings" className="hover:underline">
+                  Settings
+                </Link>
+              </div>
+              <div onClick={handleClick} className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? logoutWhite : logout}
+                  alt="Log Out Icon"
+                />
+                <span className="hover:underline">
+                  Log Out
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Mobile Sidebar */}
-<div
-  style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-  className={
-    Nav
-      ? "flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]"
-      : "fixed left-[-100%] ease-in-out duration-500"
-  }
->
-  <div className="bg-white py-2 min-w-[300px] flex flex-col justify-between">
-    {/* Close Button */}
-    <div onClick={changenav} className="flex justify-end pr-4 pt-2">
-      <MdClose size={30} className="cursor-pointer" />
-    </div>
+      <div
+        className={`fixed h-screen w-full ${Nav ? "flex" : "hidden"} md:hidden`}
+      >
+        {/* Overlay: Clicking anywhere outside the navbar closes it */}
+        <div
+          onClick={changenav}
+          className="flex-1 backdrop-blur-sm bg-black bg-opacity-50"
+        />
 
-    {/* User Info */}
-    <div className="flex px-4 py-4 items-center border-b border-gray-300">
-      <img className="w-10 h-10 rounded-full mr-3" src={Picture} alt="" />
-      <div className="text-[#585555] font-normal">
-        <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
-        <p className="text-sm">{decodedToken.email}</p>
+        {/* Sidebar */}
+        <div
+          className={`py-2 min-w-[300px] flex flex-col justify-between text-[#263638] ${
+            isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+          }`}
+        >
+          {/* Close Button */}
+          <div onClick={changenav} className="flex justify-end pr-4 pt-2">
+            <MdClose size={30} className="cursor-pointer" />
+          </div>
+
+          {/* User Info */}
+          <div className="flex px-4 py-4 items-center border-b border-gray-300">
+            <span
+              onClick={() => historee("../profile")}
+              className="rounded-full text-white py-1 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto] mr-[5px] w-[40px] h-[40px] text-center cursor-pointer"
+            >
+              {firstLetter}
+            </span>
+            <div className="text-[#585555] font-normal">
+              <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
+              <p className="text-sm">{decodedToken.email}</p>
+            </div>
+          </div>
+
+          {/* Chat List */}
+          <div className="p-4 flex-1 overflow-y-auto">
+            {isLoading ? (
+              <ScaleLoader color="#263A5C" />
+            ) : (
+              <>
+                <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
+                {Object.keys(groupedChats).every(
+                  (key) => groupedChats[key].length === 0
+                ) ? (
+                  <p className="text-center text-gray-500">Start chatting, today.</p>
+                ) : (
+                  Object.keys(groupedChats).map(
+                    (group) =>
+                      groupedChats[group].length > 0 && (
+                        <div key={group} className="mb-6">
+                          <h2 className="text-lg font-semibold">{group}</h2>
+                          <ul className="list-none">
+                            <li
+                              key={groupedChats[group][0].question}
+                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                            >
+                              <p className="font-medium">
+                                {groupedChats[group][0].question}
+                              </p>
+                            </li>
+                          </ul>
+                        </div>
+                      )
+                  )
+                )}
+              </>
+            )}
+          </div>
+
+          {/* Profile, Settings, Log Out */}
+          <div className="mb-20 px-4 text-black">
+            <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
+            <div className="flex flex-col items-start space-y-6">
+              <div className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? ClearWhitesvg : Clearsvg}
+                  alt="Clear Chat Icon"
+                />
+                <Link to="/profile" className="hover:underline">
+                  Clear Chat
+                </Link>
+              </div>
+              <div className="flex items-center space-x-3" onClick={toggleTheme}>
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? Darksvg : Lightsvg}
+                  alt="Light Mode Icon"
+                />
+                <span className="hover:cursor-pointer hover:underline">
+                  Light Mode
+                </span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? Profilesvg : ProfileWhitesvg}
+                  alt="Profile Icon"
+                />
+                <Link to="/profile" className="hover:underline">
+                  Profile
+                </Link>
+              </div>
+              <div className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? SettingsWhite : Settingssvg}
+                  alt="Settings Icon"
+                />
+                <Link to="/settings" className="hover:underline">
+                  Settings
+                </Link>
+              </div>
+              <div onClick={handleClick} className="flex items-center space-x-3">
+                <img
+                  className="w-6 h-6"
+                  src={isDarkMode ? logoutWhite : logout}
+                  alt="Log Out Icon"
+                />
+                <span className=" hover:cursor-pointer hover:underline">
+                  Log Out
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Clickable Overlay */}
+      <div
+        onClick={changenav}
+        className="flex flex-1 backdrop-blur-sm md:hidden w-full"
+      />
     </div>
 
-    {/* Chat List */}
-    <div className="p-4 flex-1 overflow-y-auto">
-      {isLoading ? (
-        <ScaleLoader color="#263A5C" />
-      ) : (
-        <>
-          <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
-          {Object.keys(groupedChats).every(
-            (key) => groupedChats[key].length === 0
-          ) ? (
-            <p className="text-center text-gray-500">
-              Start chatting, today.
-            </p>
-          ) : (
-            Object.keys(groupedChats).map(
-              (group) =>
-                groupedChats[group].length > 0 && (
-                  <div key={group} className="mb-6">
-                    <h2 className="text-lg font-semibold">{group}</h2>
-                    <ul className="list-none">
-                      <li
-                        key={groupedChats[group][0].question}
-                        className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                      >
-                        <p className="font-medium">
-                          {groupedChats[group][0].question}
-                        </p>
-                      </li>
-                    </ul>
-                  </div>
-                )
-            )
-          )}
-        </>
-      )}
-    </div>
-
-    {/* Profile, Settings, Log Out */}
-    <div className="mb-10 px-4 text-black">
-      <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
-      <div className="flex flex-col items-start space-y-6">
-        <div className="flex items-center space-x-3">
-          <img className="w-6 h-6" src={Clearsvg} alt="Clear Chat Icon" />
-          <Link to="/profile" className="hover:underline">Clear Chat</Link>
-        </div>
-        <div className="flex items-center space-x-3" onClick={toggleTheme}>
-          <img className="w-6 h-6" src={isDarkMode ? Darksvg : Lightsvg} alt="Light Mode Icon" />
-          <Link to="/profile" className="hover:underline">Light Mode</Link>
-        </div>
-        <div className="flex items-center space-x-3">
-          <img className="w-6 h-6" src={Profilesvg} alt="Profile Icon" />
-          <Link to="/profile" className="hover:underline">Profile</Link>
-        </div>
-        <div className="flex items-center space-x-3">
-          <img className="w-6 h-6" src={Settingssvg} alt="Settings Icon" />
-          <Link to="/settings" className="hover:underline">Settings</Link>
-        </div>
-        <div className="flex items-center space-x-3">
-          <img className="w-6 h-6" src={logout} alt="Log Out Icon" />
-          <Link to="/" className="hover:underline">Log Out</Link>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div className="bg-gray-100 w-full h-screen" />
-</div>
-
-
-      {/* Mobile Top Bar */}
-      <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">
-        {!Nav ? <img src={history} alt="" className="m-[3px] w-[30px] h-[30px] cursor-pointer" onClick={changenav}  /> : ""}
-        {/* <p className="text-[#263A5C] text-xl ">Chat</p> */}
-        <Link to="/settings">
-                      <img className="w-10 h-10 mr-3  " src={settingsdark} alt="Settings" />
-
-        </Link>
-      </div>
-    </div>
-
-    {/* Main Content Area */}
-    <main className="container px-4 sm:px-12 mx-auto mb-10 md:w-[77%]">
+    {/* Main Chat Component */}
+    <div className="md:w-[75%] w-[100%]">
       <Outlet />
-    </main>
+    </div>
   </div>
 );
-
 
 
 
