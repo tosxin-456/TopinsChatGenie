@@ -12,10 +12,10 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import Profilesvg from "../../images/iconamoon_profile-fill.dark.svg";
 import Clearsvg from "../../images/material-symbols--delete-outline (1).svg";
 import Lightsvg from "../../images/clarity--sun-solid.svg";
-// import svg from "../../images/iconamoon_profile-fill.svg";
+import Darksvg from "../../images/basil--moon-solid.svg";
+
 
 import Settingssvg from "../../images/solar--settings-bold.svg";
-import Logosvg from "../../images/senexCare.svg";
 import Picture from "../../images/Frame 2608382.svg";
 import Dashboarddark from "../../images/ic_sharp-dashboard.dark.svg";
 import Scheduledark from "../../images/uis_schedule..dark.svg";
@@ -34,7 +34,7 @@ export default function Sidenav() {
     formattedPath.charAt(0).toUpperCase() + formattedPath.slice(1);
   const [Nav, navhidden] = useState(false);
   const [user, setUser] = useState("");
-
+const [isDarkMode, setIsDarkMode] = useState(false); 
   const changenav = () => {
     navhidden(!Nav);
   };
@@ -49,10 +49,21 @@ export default function Sidenav() {
   // console.log(tosinToken);
   const [question, setQuestion] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
 
   const tosinToken = localStorage.getItem("token");
   const token = JSON.parse(tosinToken as string); // type assertion
   const decodedToken = jwtDecode(token) as { [key: string]: string };
+
+  const handleClick = () => {
+  localStorage.removeItem('patient');
+}
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
 
   const fetchChat = async () => {
     try {
@@ -126,13 +137,15 @@ const groupChatsByDate = (chats: Chat[]) => {
     [token]
   );
 return (
-  <div className="w-full md:flex justify-between">
+  <div className={`w-full md:flex justify-between ${isDarkMode ? "dark" : ""}`}>
     {/* Desktop Sidebar */}
     <div
       style={{ fontFamily: "Roboto, sans-serif", fontWeight: "500" }}
-      className="mobiledesktop nav sm:max-w-[100%] md:w-[25%]"
+        className={`mobiledesktop nav sm:max-w-[100%] md:w-[25%] ${
+          isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+        }`}
     >
-      <div className="hidden bg-[white] text-[#4A90E2 h-screen md:block sticky top-0">
+      <div className="hidden bg-gray-100 text-[#4A90E2 h-screen md:block sticky top-0">
         <div className="flex flex-col h-full">
           {/* Top (ChatGenie Header) */}
           <h1 className="text-2xl font-bold text-center mt-[50px] mb-[60px] ">
@@ -179,11 +192,11 @@ return (
   <div className="flex flex-col items-start space-y-6">
     <div className="flex items-center space-x-3">
       <img className="w-6 h-6" src={Clearsvg} alt="Profile Icon" />
-      <Link to="/profile" className=" hover:underline">Clear Conversations</Link>
+      <Link to="/profile" className=" hover:underline">Clear Chat</Link>
     </div>
     <div className="flex items-center space-x-3">
-      <img className="w-6 h-6" src={Lightsvg} alt="Profile Icon" />
-      <Link to="/profile" className=" hover:underline">Light Mode</Link>
+      <img className="w-6 h-6" src={isDarkMode ? Darksvg : Lightsvg} alt="Profile Icon" />
+      <span className=" hover:cursor-pointer hover:underline">{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
     </div>
     <div className="flex items-center space-x-3">
       <img className="w-6 h-6" src={Profilesvg} alt="Profile Icon" />
@@ -204,90 +217,96 @@ return (
       </div>
 
       {/* Mobile Sidebar */}
-      <div
-        style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
-        className={
-          Nav
-            ? "flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]"
-            : "fixed left-[-100%] ease-in-out duration-500"
-        }
-      >
-        <div className="bg-white py-2 min-w-[300px]">
-          {/* Close Button */}
-          <div onClick={changenav} className="flex justify-end pr-4 pt-2">
-            <MdClose size={30} className="cursor-pointer" />
-          </div>
+<div
+  style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+  className={
+    Nav
+      ? "flex h-screen md:hidden w-full fixed ease-in-out duration-1000 text-[#263638]"
+      : "fixed left-[-100%] ease-in-out duration-500"
+  }
+>
+  <div className="bg-white py-2 min-w-[300px] flex flex-col justify-between">
+    {/* Close Button */}
+    <div onClick={changenav} className="flex justify-end pr-4 pt-2">
+      <MdClose size={30} className="cursor-pointer" />
+    </div>
 
-          {/* User Info */}
-          <div className="flex px-4 py-4 items-center border-b border-gray-300">
-            <img className="w-10 h-10 rounded-full mr-3" src={Picture} alt="" />
-            <div className="text-[#585555] font-normal">
-              <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
-              <p className="text-sm">{decodedToken.email}</p>
-            </div>
-          </div>
-
-          {/* Chat List */}
-          <div className="p-4">
-            {isLoading ? (
-              <ScaleLoader color="#263A5C" />
-            ) : (
-              <>
-                <h1 className="text-2xl font-bold mb-4 ">TopinnsChatGenie</h1>
-                {Object.keys(groupedChats).every(
-                  (key) => groupedChats[key].length === 0
-                ) ? (
-                  <p className="text-center text-gray-500">
-                    Start chatting, today.
-                  </p>
-                ) : (
-                  Object.keys(groupedChats).map(
-                    (group) =>
-                      groupedChats[group].length > 0 && (
-                        <div key={group} className="mb-6">
-                          <h2 className="text-lg font-semibold">{group}</h2>
-                          <ul className="list-none">
-                            <li
-                              key={groupedChats[group][0].question}
-                              className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                            >
-                              <p className="font-medium">
-                                {groupedChats[group][0].question}
-                              </p>
-                            </li>
-                          </ul>
-                        </div>
-                      )
-                  )
-                )}
-              </>
-            )}
-          </div>
-
-          {/* Profile, Settings, Log Out */}
-          <div className="flex flex-col items-start p-4 space-y-6">
-            <div className="flex items-center">
-              <img className="w-6 h-6 mr-3" src={profiledark} alt="Profile" />
-              <Link to="/profile" className="text-base" onClick={changenav}>
-                Profile
-              </Link>
-            </div>
-            <div className="flex items-center">
-              <img className="w-6 h-6 mr-3" src={settingsdark} alt="Settings" />
-              <Link to="/settings" className="text-base" onClick={changenav}>
-                Settings
-              </Link>
-            </div>
-            <div className="flex items-center">
-              <img className="w-6 h-6 mr-3" src={logout} alt="Log out" />
-              <Link to="/" className="text-base" onClick={changenav}>
-                Log out
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="bg-gray-100 w-full h-screen" />
+    {/* User Info */}
+    <div className="flex px-4 py-4 items-center border-b border-gray-300">
+      <img className="w-10 h-10 rounded-full mr-3" src={Picture} alt="" />
+      <div className="text-[#585555] font-normal">
+        <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
+        <p className="text-sm">{decodedToken.email}</p>
       </div>
+    </div>
+
+    {/* Chat List */}
+    <div className="p-4 flex-1 overflow-y-auto">
+      {isLoading ? (
+        <ScaleLoader color="#263A5C" />
+      ) : (
+        <>
+          <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
+          {Object.keys(groupedChats).every(
+            (key) => groupedChats[key].length === 0
+          ) ? (
+            <p className="text-center text-gray-500">
+              Start chatting, today.
+            </p>
+          ) : (
+            Object.keys(groupedChats).map(
+              (group) =>
+                groupedChats[group].length > 0 && (
+                  <div key={group} className="mb-6">
+                    <h2 className="text-lg font-semibold">{group}</h2>
+                    <ul className="list-none">
+                      <li
+                        key={groupedChats[group][0].question}
+                        className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                      >
+                        <p className="font-medium">
+                          {groupedChats[group][0].question}
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                )
+            )
+          )}
+        </>
+      )}
+    </div>
+
+    {/* Profile, Settings, Log Out */}
+    <div className="mb-10 px-4 text-black">
+      <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
+      <div className="flex flex-col items-start space-y-6">
+        <div className="flex items-center space-x-3">
+          <img className="w-6 h-6" src={Clearsvg} alt="Clear Chat Icon" />
+          <Link to="/profile" className="hover:underline">Clear Chat</Link>
+        </div>
+        <div className="flex items-center space-x-3">
+          <img className="w-6 h-6" src={isDarkMode ? Darksvg : Lightsvg} alt="Light Mode Icon" />
+          <Link to="/profile" className="hover:underline">Light Mode</Link>
+        </div>
+        <div className="flex items-center space-x-3">
+          <img className="w-6 h-6" src={Profilesvg} alt="Profile Icon" />
+          <Link to="/profile" className="hover:underline">Profile</Link>
+        </div>
+        <div className="flex items-center space-x-3">
+          <img className="w-6 h-6" src={Settingssvg} alt="Settings Icon" />
+          <Link to="/settings" className="hover:underline">Settings</Link>
+        </div>
+        <div className="flex items-center space-x-3">
+          <img className="w-6 h-6" src={logout} alt="Log Out Icon" />
+          <Link to="/" className="hover:underline">Log Out</Link>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="bg-gray-100 w-full h-screen" />
+</div>
+
 
       {/* Mobile Top Bar */}
       <div className="p-4 sm:px-12 flex items-center justify-between md:hidden">

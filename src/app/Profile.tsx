@@ -81,9 +81,7 @@ const ProfilePage = () => {
 //       }
 //   }
   
-// const handleClick = () => {
-//   localStorage.removeItem('patient');
-// }
+
 
   const fetchProfile = async () => {
     try {
