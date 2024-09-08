@@ -194,7 +194,7 @@ return (
       <img className="w-6 h-6" src={Clearsvg} alt="Profile Icon" />
       <Link to="/profile" className=" hover:underline">Clear Chat</Link>
     </div>
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center space-x-3" onClick={toggleTheme}>
       <img className="w-6 h-6" src={isDarkMode ? Darksvg : Lightsvg} alt="Profile Icon" />
       <span className=" hover:cursor-pointer hover:underline">{isDarkMode ? "Light Mode" : "Dark Mode"}</span>
     </div>
@@ -285,7 +285,7 @@ return (
           <img className="w-6 h-6" src={Clearsvg} alt="Clear Chat Icon" />
           <Link to="/profile" className="hover:underline">Clear Chat</Link>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3" onClick={toggleTheme}>
           <img className="w-6 h-6" src={isDarkMode ? Darksvg : Lightsvg} alt="Light Mode Icon" />
           <Link to="/profile" className="hover:underline">Light Mode</Link>
         </div>
