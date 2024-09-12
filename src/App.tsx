@@ -25,11 +25,11 @@ function App() {
         <Route path="signup" element={<SignUp />} />
         <Route path="signin" element={<SignIn />} />
 
+        <Route path="profile" element={<Profile />} />
+        <Route path="settings" element={<Settings />} />
         {/* Routes wrapped with Sidenav */}
         <Route element={<Sidenav />}>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="settings" element={<Settings />} />
         </Route>
       </Route>
     )
