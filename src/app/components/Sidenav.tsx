@@ -304,7 +304,7 @@ return (
   {/* Sidebar */}
   <div
   className={`fixed left-0 h-full w-[50%] min-w-[300px] py-4 flex flex-col justify-between ${
-    isDarkMode ? "bg-[black] text-white" : "bg-white text-black"
+    isDarkMode ? "bg-[#212121] text-white" : "bg-white text-black"
   }`}
 
   >
