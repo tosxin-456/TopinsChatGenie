@@ -292,141 +292,132 @@ return (
       </div>
 
       {/* Mobile Sidebar */}
-      <div
-        className={`fixed h-screen w-[50%] ${Nav ? "flex" : "hidden"} md:hidden`}
+<div
+  className={`fixed inset-0 h-full w-full ${Nav ? "flex" : "hidden"} md:hidden`}
+>
+  {/* Overlay: Clicking anywhere outside the navbar closes it */}
+  <div
+    onClick={changenav}
+    className="flex-1 bg-[#212121] bg-opacity-10"
+  />
+
+  {/* Sidebar */}
+  <div
+    className={`fixed left-0 h-full w-[50%] min-w-[300px] bg-white py-4 flex flex-col justify-between text-[#263638] ${
+      isDarkMode ? "bg-[#212121] text-white" : "bg-white text-black"
+    }`}
+  >
+    {/* User Info */}
+    <div className="flex px-4 py-4 items-center border-b border-gray-300">
+      <span
+        onClick={() => historee("../profile")}
+        className="rounded-full text-white py-1 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto] mr-[5px] w-[40px] h-[40px] text-center cursor-pointer"
       >
-        {/* Overlay: Clicking anywhere outside the navbar closes it */}
-        <div
-          onClick={changenav}
-          className="flex-1 backdrop-blur-sm bg-[#212121] bg-opacity-50"
-        />
+        {firstLetter}
+      </span>
+      <div className="text-[#585555] font-normal">
+        <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
+        <p className="text-sm">{decodedToken.email}</p>
+      </div>
+    </div>
 
-        {/* Sidebar */}
-        <div
-          className={`py-2 min-w-[300px] flex flex-col justify-between text-[#263638] ${
-            isDarkMode ? "bg-[#212121] text-white" : "bg-white text-black"
-          }`}
-        >
-          {/* Close Button */}
-          <div onClick={changenav} className="flex justify-end pr-4 pt-2">
-            <MdClose size={30} className="cursor-pointer" />
-          </div>
-
-          {/* User Info */}
-          <div className="flex px-4 py-4 items-center border-b border-gray-300">
-            <span
-              onClick={() => historee("../profile")}
-              className="rounded-full text-white py-1 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto] mr-[5px] w-[40px] h-[40px] text-center cursor-pointer"
-            >
-              {firstLetter}
-            </span>
-            <div className="text-[#585555] font-normal">
-              <h1 className="font-semibold">Hi! {decodedToken.name}</h1>
-              <p className="text-sm">{decodedToken.email}</p>
-            </div>
-          </div>
-
-          {/* Chat List */}
-<div className="p-4 flex-1 overflow-y-auto">
-  {isLoading ? (
-    <ScaleLoader color="#263A5C" />
-  ) : (
-    <>
-      <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
-      {Object.keys(groupedChats).every(
-        (key) => Object.keys(groupedChats[key]).length === 0
-      ) ? (
-        <p className="text-center text-gray-500">Start chatting, today.</p>
+    {/* Chat List */}
+    <div className="p-4 flex-1 overflow-y-auto">
+      {isLoading ? (
+        <ScaleLoader color="#263A5C" />
       ) : (
-        Object.keys(groupedChats).map((group) => (
-          <div key={group} className="mb-6">
-            <h2 className="text-lg font-semibold">{group}</h2>
-            {Object.keys(groupedChats[group]).map((date) => (
-              <div key={date} className="mb-4">
-                <h3 className="text-md font-medium">{date}</h3>
-                <ul className="list-none">
-                  {groupedChats[group][date].map((chat) => (
-                    <li
-                      key={chat.question}
-                      className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                    >
-                      <p className="font-medium">{chat.question}</p>
-                    </li>
-                  ))}
-                </ul>
+        <>
+          <h1 className="text-2xl font-bold mb-4">TopinnsChatGenie</h1>
+          {Object.keys(groupedChats).every(
+            (key) => Object.keys(groupedChats[key]).length === 0
+          ) ? (
+            <p className="text-center text-gray-500">Start chatting, today.</p>
+          ) : (
+            Object.keys(groupedChats).map((group) => (
+              <div key={group} className="mb-6">
+                <h2 className="text-lg font-semibold">{group}</h2>
+                {Object.keys(groupedChats[group]).map((date) => (
+                  <div key={date} className="mb-4">
+                    <h3 className="text-md font-medium">{date}</h3>
+                    <ul className="list-none">
+                      {groupedChats[group][date].map((chat) => (
+                        <li
+                          key={chat.question}
+                          className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
+                        >
+                          <p className="font-medium">{chat.question}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        ))
+            ))
+          )}
+        </>
       )}
-    </>
-  )}
+    </div>
+
+    {/* Profile, Settings, Log Out - Moved to Bottom */}
+    <div
+      className={`mt-auto px-4 mb-6 ${isDarkMode ? "text-white" : "text-black"}`}
+    >
+      <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
+      <div className="flex flex-col items-start space-y-6">
+        <div className="flex items-center space-x-3">
+          <img
+            className="w-6 h-6"
+            src={isDarkMode ? ClearWhitesvg : Clearsvg}
+            alt="Clear Chat Icon"
+          />
+          <Link to="/profile" className="hover:underline">
+            Clear Chat
+          </Link>
+        </div>
+        <div className="flex items-center space-x-3" onClick={toggleTheme}>
+          <img
+            className="w-6 h-6"
+            src={isDarkMode ? Darksvg : Lightsvg}
+            alt="Light Mode Icon"
+          />
+          <span className="hover:cursor-pointer hover:underline">
+            {isDarkMode ? "Light Mode" : "Dark Mode"}
+          </span>
+        </div>
+        <div className="flex items-center space-x-3">
+          <img
+            className="w-6 h-6"
+            src={isDarkMode ? Profilesvg : ProfileWhitesvg}
+            alt="Profile Icon"
+          />
+          <Link to="/profile" className="hover:underline">
+            Profile
+          </Link>
+        </div>
+        <div className="flex items-center space-x-3">
+          <img
+            className="w-6 h-6"
+            src={isDarkMode ? SettingsWhite : Settingssvg}
+            alt="Settings Icon"
+          />
+          <Link to="/settings" className="hover:underline">
+            Settings
+          </Link>
+        </div>
+        <div onClick={handleClick} className="flex items-center space-x-3">
+          <img
+            className="w-6 h-6"
+            src={isDarkMode ? logoutWhite : logout}
+            alt="Log Out Icon"
+          />
+          <span className="hover:cursor-pointer hover:underline">Log Out</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-
-          {/* Profile, Settings, Log Out */}
-           <div
-      className={`mb-20 px-4 ${
-        isDarkMode ? 'text-white' : 'text-black'
-      }`}
-    >
-            <div className="w-full h-[1px] mb-7 bg-gray-300"></div>
-            <div className="flex flex-col items-start space-y-6">
-              <div className="flex items-center space-x-3">
-                <img
-                  className="w-6 h-6"
-                  src={isDarkMode ? ClearWhitesvg : Clearsvg}
-                  alt="Clear Chat Icon"
-                />
-                <Link to="/profile" className="hover:underline">
-                  Clear Chat
-                </Link>
-              </div>
-              <div className="flex items-center space-x-3" onClick={toggleTheme}>
-                <img
-                  className="w-6 h-6"
-                  src={isDarkMode ? Darksvg : Lightsvg}
-                  alt="Light Mode Icon"
-                />
-                <span className="hover:cursor-pointer hover:underline">
-                 {isDarkMode? "Light Mode" : "Dark Mode" } 
-                </span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <img
-                  className="w-6 h-6"
-                  src={isDarkMode ? Profilesvg : ProfileWhitesvg}
-                  alt="Profile Icon"
-                />
-                <Link to="/profile" className="hover:underline">
-                  Profile
-                </Link>
-              </div>
-              <div className="flex items-center space-x-3">
-                <img
-                  className="w-6 h-6"
-                  src={isDarkMode ? SettingsWhite : Settingssvg}
-                  alt="Settings Icon"
-                />
-                <Link to="/settings" className="hover:underline">
-                  Settings
-                </Link>
-              </div>
-              <div onClick={handleClick} className="flex items-center space-x-3">
-                <img
-                  className="w-6 h-6"
-                  src={isDarkMode ? logoutWhite : logout}
-                  alt="Log Out Icon"
-                />
-                <span className=" hover:cursor-pointer hover:underline">
-                  Log Out
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Clickable Overlay */}
       <div
