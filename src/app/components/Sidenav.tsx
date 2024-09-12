@@ -180,12 +180,12 @@ return (
     <div
       style={{ fontFamily: "Roboto, sans-serif", fontWeight: "500" }}
       className={`mobiledesktop nav sm:max-w-[100%] md:w-[25%] ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+        isDarkMode ? " text-white" : "bg-white text-black"
       }`}
     >
       <div
         className={`hidden h-screen md:block sticky top-0 ${
-          isDarkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+          isDarkMode ? " text-white" : "bg-gray-100 text-black"
         }`}
       >
         <div className="flex flex-col h-full">
@@ -207,23 +207,21 @@ return (
       ) : (
         Object.keys(groupedChats).map((group) =>
           Object.keys(groupedChats[group]).length > 0 ? (
-            <div key={group} className="mb-6 px-6">
+            <div key={group} className="mb-6 px-2">
               <h2 className="text-lg font-semibold">{group}</h2>
               {Object.keys(groupedChats[group]).map((date) => (
-                <div key={date} className="mb-4">
+                <div key={date} className="mb-4 mt-[px]">
                   <h3 className="text-md font-medium">{date}</h3>
                   <div
-                    // onClick={() => handleClick(groupedChats[group][date])} // Optional: handle click to show all chats of the day
-                    className="p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-200 bg-[#F5F7FA] flex items-center"
+                   className={`p-2 border rounded-lg cursor-pointer  flex items-center ${
+    isDarkMode
+      ? 'bg-[black] text-white border-[#333] hover:bg-[#1C1C1C]'
+      : 'bg-[#F5F7FA] text-black border-[#E0E0E0] hover:bg-[#E0E0E0]'
+  }`}
                   >
-                    <span className="rounded-full text-white py-1 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto] mr-[5px] w-[40px] h-[40px] text-center cursor-pointer">
-                      {groupedChats[group][date].length > 0
-                        ? groupedChats[group][date][0].question.charAt(0)
-                        : "?"}
-                    </span>
                     <div className="ml-4">
                       <p className="font-medium">
-                        Chats on {date} ({groupedChats[group][date].length})
+                        Chats({groupedChats[group][date].length})
                       </p>
                     </div>
                   </div>

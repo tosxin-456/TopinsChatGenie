@@ -146,8 +146,8 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
     minHeight: "100vh", // Ensure the background covers the entire viewport height
   }}
 >
-    <header className="hidden md:block  top-0 left-0 right-0 z-50">
-      <nav className="topHeader flex justify-end items-center my-10 p-4">
+    {/* <header className="hidden md:block  top-0 left-0 right-0 z-50">
+      <nav className="topHeader flex top-0 left-0 right-0  justify-end items-center my-10 md:my-[0] p-4">
         <div className="flex items-center gap-4">
           <img src={share} alt="Bell Icon" className="w-[27px]" />
           <span
@@ -158,9 +158,9 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
           </span>
         </div>
       </nav>
-    </header>
+    </header> */}
 
-      <div className="w-full sm:w-[100%] m-auto mt-[70px] my-12 p-[10px] max-w-[60rem]">
+      <div className="w-full sm:w-[100%] m-auto mt-[70px] md:mt-[10px] my-12 p-[10px] max-w-[60rem]">
      <div style={{ margin: "auto", height: "85vh", overflowX: "auto" }}>
   {chat.map((chatItem, index) => (
     <div key={index}>
