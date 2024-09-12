@@ -56,8 +56,8 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
 
 
   const handleClick = () => {
-  localStorage.removeItem('patient');
-  historee("../profile")
+  localStorage.clear()
+  historee("/")
 }
 
 
