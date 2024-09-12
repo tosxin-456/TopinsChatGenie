@@ -12,6 +12,7 @@ import Dashboard from "./app/Dashboard";
 import Profile from "./app/Profile";
 import Settings from "./app/Settings";
 import Sidenav from "./app/components/Sidenav";
+import { ThemeProvider } from "./app/ThemeContext"; // Import the ThemeProvider
 
 function App() {
   const router = createBrowserRouter(
@@ -34,7 +35,11 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
 
 export default App;

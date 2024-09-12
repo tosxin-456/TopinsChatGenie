@@ -6,8 +6,10 @@ import { jwtDecode } from "jwt-decode";
 import info from "../images/information.svg";
 import send from "../images/sendMessage.svg";
 import ai from "../images/icon-white-background.svg";
+import aiDark from "../images/icon-black-background.svg";
 import share from "../images/Share.svg";
 import profile from "../images/profilepic2.svg";
+import { useTheme } from "./useTheme";
 
 interface Chat {
   question: string;
@@ -22,19 +24,13 @@ interface DecodedToken {
 export default function Settings() {
   const history = useNavigate();
   const isLoadingRef = useRef<HTMLDivElement>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const { isDarkMode, toggleTheme } = useTheme();
   const [chat, setChat] = useState<Chat[]>([]);
   const [question, setQuestion] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   let pendingQuestion: { question: string } | null = null;
 
-  // Theme handling
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === "dark");
-    }
-  }, []);
+
 
   // Pending question handling
   const pendingQuestionJSON = localStorage.getItem("pendingQuestion");
@@ -141,7 +137,15 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
   };
 
   return (
-    <div style={{ fontFamily: "Roboto, sans-serif", fontWeight: "400" }}>
+   <div
+  style={{
+    fontFamily: "Roboto, sans-serif",
+    fontWeight: "400",
+    backgroundColor: isDarkMode ? "#000000" : "#FFFFFF", // Dark and light background
+    color: isDarkMode ? "#FFFFFF" : "#000000", // Text color
+    minHeight: "100vh", // Ensure the background covers the entire viewport height
+  }}
+>
       <header className="hidden md:block">
         <nav className="topHeader flex justify-end items-center my-10">
           <div className="flex items-center gap-4">
@@ -166,7 +170,7 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
           <div
             className={`w-fit ml-auto mr-[10px] mt-[10px] rounded-lg p-[12px] ${
               isDarkMode
-                ? "bg-black text-white"
+                ? "bg-[#1C1C1C] text-white"
                 : "bg-[#F7F9FB] text-[black]"
             }`}
           >
@@ -177,11 +181,13 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
 
       {/* AI chat */}
       <div className="w-[85%] flex mr-auto items-start">
-        <img
-          src={ai}
-          alt=""
-          className="m-[10px] w-[30px] h-[30px] bg-white border"
-        />
+       <img
+      src={isDarkMode ? aiDark : ai}
+      alt=""
+      className={`m-[10px] w-[30px] h-[30px] ${
+        isDarkMode ? 'bg-black border-white' : 'bg-white border-[#1C1C1C]'
+      }`}
+    />
         <div>
           <div
             className={`w-[100%] mr-auto mt-[20px] p-[10px]  ${
@@ -206,21 +212,28 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
 
 
         {/* Input Section */}
-        <div className="bg-white flex w-[80%] m-auto p-[4px] mb-[10px] mt-[10px] border-[solid] border-[1px] rounded-md border-[black]">
-          <input
-            type="text"
-            onKeyDown={handleKeyDown}
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            className="outline-none w-[100%]"
-          />
-          <img
-            src={send}
-            alt=""
-            className="hover:cursor-pointer"
-            onClick={handleSubmit}
-          />
-        </div>
+  <div
+      className={`flex w-[90%] m-auto p-[4px] mb-[10px] mt-[10px] rounded-xl border-solid border-[1px] ${
+        isDarkMode ? 'bg-[#212121] border-[#333]' : 'bg-white border-black'
+      }`}
+    >
+      <input
+        type="text"
+        onKeyDown={handleKeyDown}
+        value={question}
+        onChange={(e) => setQuestion(e.target.value)}
+        className={`outline-none w-[100%] p-[4px] ${
+          isDarkMode ? 'bg-[#212121] text-white placeholder:text-gray-400' : 'bg-white text-black placeholder:text-gray-500'
+        }`}
+        placeholder="Type your question here..."
+      />
+      <img
+        src={send}
+        alt="Send"
+        className="hover:cursor-pointer"
+        onClick={handleSubmit}
+      />
+    </div>
       </div>
     </div>
   );
