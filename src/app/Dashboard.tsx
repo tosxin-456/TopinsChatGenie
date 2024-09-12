@@ -146,22 +146,22 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
     minHeight: "100vh", // Ensure the background covers the entire viewport height
   }}
 >
-      <header className="hidden md:block">
-        <nav className="topHeader flex justify-end items-center my-10">
-          <div className="flex items-center gap-4">
-            <img src={share} alt="Bell Icon" className="w-[27px]" />
-            <span
-              onClick={() => history("../profile")}
-              className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
-            >
-              {firstLetter}
-            </span>
-          </div>
-        </nav>
-      </header>
+    <header className="hidden md:block  top-0 left-0 right-0 z-50">
+      <nav className="topHeader flex justify-end items-center my-10 p-4">
+        <div className="flex items-center gap-4">
+          <img src={share} alt="Bell Icon" className="w-[27px]" />
+          <span
+            onClick={() => history("../profile")}
+            className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
+          >
+            {firstLetter}
+          </span>
+        </div>
+      </nav>
+    </header>
 
-      <div className="w-full sm:w-[100%] m-auto mt-[10px] my-12 p-[10px] max-w-[60rem]">
-     <div style={{ margin: "auto", height: "70vh", overflowX: "auto" }}>
+      <div className="w-full sm:w-[100%] m-auto mt-[70px] my-12 p-[10px] max-w-[60rem]">
+     <div style={{ margin: "auto", height: "85vh", overflowX: "auto" }}>
   {chat.map((chatItem, index) => (
     <div key={index}>
       {/* User chat */}
@@ -212,27 +212,35 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
 
 
         {/* Input Section */}
-  <div
-      className={`flex w-[90%] m-auto p-[4px] mb-[10px] mt-[10px] rounded-xl border-solid border-[1px] ${
-        isDarkMode ? 'bg-[#212121] border-[#333]' : 'bg-white border-black'
+      <div
+      className={` bottom-0 left-0 right-0 flex w-full p-4 ${
+        isDarkMode ? "bg-[#212121] border-t " : "bg-white border-t "
       }`}
     >
-      <input
-        type="text"
-        onKeyDown={handleKeyDown}
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        className={`outline-none w-[100%] p-[4px] ${
-          isDarkMode ? 'bg-[#212121] text-white placeholder:text-gray-400' : 'bg-white text-black placeholder:text-gray-500'
+      <div
+        className={`flex w-full max-w-[60rem] m-auto p-1 rounded-xl border ${
+          isDarkMode ? "bg-[#212121] border-[#333]" : "bg-white border-black"
         }`}
-        placeholder="Type your question here..."
-      />
-      <img
-        src={send}
-        alt="Send"
-        className="hover:cursor-pointer"
-        onClick={handleSubmit}
-      />
+      >
+        <input
+          type="text"
+          onKeyDown={handleKeyDown}
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          className={`outline-none flex-1 p-1 rounded-l-xl ${
+            isDarkMode
+              ? "bg-[#212121] text-white placeholder:text-gray-400"
+              : "bg-white text-black placeholder:text-gray-500"
+          }`}
+          placeholder="Type your question here..."
+        />
+        <img
+          src={send}
+          alt="Send"
+          className="ml-2 hover:cursor-pointer h-7 w-7"
+          onClick={handleSubmit}
+        />
+      </div>
     </div>
       </div>
     </div>

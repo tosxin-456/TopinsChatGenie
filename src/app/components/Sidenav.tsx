@@ -100,11 +100,11 @@ const groupChatsByDate = (chats: Chat[]) => {
     Older: {},
   };
 
-  chats.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+  chats.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // Sort by most recent first
 
   chats.forEach((chat) => {
     const chatDate = new Date(chat.createdAt);
-    const chatDateString = chatDate.toDateString();
+    const chatDateString = chatDate.toDateString(); // Formats the date as "Day Mon Date Year"
     const todayString = today.toDateString();
     const yesterdayString = yesterday.toDateString();
 
@@ -114,10 +114,10 @@ const groupChatsByDate = (chats: Chat[]) => {
     } else if (chatDateString === yesterdayString) {
       if (!groups.Yesterday[chatDateString]) groups.Yesterday[chatDateString] = [];
       groups.Yesterday[chatDateString].push(chat);
-    } else if (chatDate > last7Days) {
+    } else if (chatDate >= last7Days) {
       if (!groups["Last 7 Days"][chatDateString]) groups["Last 7 Days"][chatDateString] = [];
       groups["Last 7 Days"][chatDateString].push(chat);
-    } else if (chatDate > last30Days) {
+    } else if (chatDate >= last30Days) {
       if (!groups["Last 30 Days"][chatDateString]) groups["Last 30 Days"][chatDateString] = [];
       groups["Last 30 Days"][chatDateString].push(chat);
     } else {
@@ -128,6 +128,8 @@ const groupChatsByDate = (chats: Chat[]) => {
 
   return groups;
 };
+
+
 
 
 
@@ -145,7 +147,7 @@ const groupChatsByDate = (chats: Chat[]) => {
 return (
   <div className={`w-full md:flex justify-between ${isDarkMode ? "text-white bg-[#212121]" : ""}`}>
     {/* Navbar Opener (Hamburger Menu for Mobile) */}
-    <div className="md:hidden flex justify-between items-center p-4">
+  <div className={`md:hidden fixed top-0 left-0 w-full flex justify-between items-center p-4 ${isDarkMode ? 'bg-black' : 'bg-white'} mb-[70px] shadow-sm z-1`}>
       <button onClick={changenav} className="text-2xl">
         {/* Hamburger icon */}
   <svg
@@ -193,7 +195,7 @@ return (
           </h1>
 
           {/* Middle (Scrollable Chat List) */}
-        <div className="flex-1 flex flex-col overflow-y-auto">
+<div className="flex-1 flex flex-col overflow-y-auto">
   {isLoading ? (
     <ScaleLoader color="#263A5C" />
   ) : (
@@ -203,33 +205,39 @@ return (
       ) ? (
         <p className="text-center mt-4">No chats available.</p>
       ) : (
-        Object.keys(groupedChats).map(
-          (group) =>
-            Object.keys(groupedChats[group]).length > 0 && (
-              <div key={group} className="mb-6 px-6">
-                <h2 className="text-lg font-semibold">{group}</h2>
-                {Object.keys(groupedChats[group]).map((date) => (
-                  <div key={date} className="mb-4">
-                    <h3 className="text-md font-medium">{date}</h3>
-                    <ul className="list-none">
-                      {groupedChats[group][date].map((chat) => (
-                        <li
-                          key={chat.question}
-                          className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200 bg-[#F5F7FA]"
-                        >
-                          <p className="font-medium">{chat.question}</p>
-                        </li>
-                      ))}
-                    </ul>
+        Object.keys(groupedChats).map((group) =>
+          Object.keys(groupedChats[group]).length > 0 ? (
+            <div key={group} className="mb-6 px-6">
+              <h2 className="text-lg font-semibold">{group}</h2>
+              {Object.keys(groupedChats[group]).map((date) => (
+                <div key={date} className="mb-4">
+                  <h3 className="text-md font-medium">{date}</h3>
+                  <div
+                    // onClick={() => handleClick(groupedChats[group][date])} // Optional: handle click to show all chats of the day
+                    className="p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-200 bg-[#F5F7FA] flex items-center"
+                  >
+                    <span className="rounded-full text-white py-1 text-xl bg-[#6C8571] m-[2px] mt-[auto] mb-[auto] mr-[5px] w-[40px] h-[40px] text-center cursor-pointer">
+                      {groupedChats[group][date].length > 0
+                        ? groupedChats[group][date][0].question.charAt(0)
+                        : "?"}
+                    </span>
+                    <div className="ml-4">
+                      <p className="font-medium">
+                        Chats on {date} ({groupedChats[group][date].length})
+                      </p>
+                    </div>
                   </div>
-                ))}
-              </div>
-            )
+                </div>
+              ))}
+            </div>
+          ) : null
         )
       )}
     </>
   )}
 </div>
+
+
 
 
           {/* Bottom (Profile, Settings, Log Out) */}
@@ -298,12 +306,12 @@ return (
   {/* Overlay: Clicking anywhere outside the navbar closes it */}
   <div
     onClick={changenav}
-    className="flex-1 bg-[#212121] bg-opacity-10"
+    className="flex-1 bg-[black] bg-opacity-70"
   />
 
   {/* Sidebar */}
   <div
-  className={`fixed left-0 h-full w-[50%] min-w-[300px] py-4 flex flex-col justify-between ${
+  className={`fixed  left-0 h-full w-[50%] min-w-[300px] py-4 flex flex-col justify-between ${
     isDarkMode ? "bg-[#212121] text-white" : "bg-white text-black"
   }`}
 
@@ -323,7 +331,7 @@ return (
     </div>
 
     {/* Chat List */}
-    <div className="p-4 flex-1 overflow-y-auto">
+      <div className="p-4 flex-1 overflow-y-auto">
       {isLoading ? (
         <ScaleLoader color="#263A5C" />
       ) : (
@@ -334,30 +342,38 @@ return (
           ) ? (
             <p className="text-center text-gray-500">Start chatting, today.</p>
           ) : (
-            Object.keys(groupedChats).map((group) => (
-              <div key={group} className="mb-6">
-                <h2 className="text-lg font-semibold">{group}</h2>
-                {Object.keys(groupedChats[group]).map((date) => (
-                  <div key={date} className="mb-4">
-                    <h3 className="text-md font-medium">{date}</h3>
-                    <ul className="list-none">
-                      {groupedChats[group][date].map((chat) => (
-                        <li
-                          key={chat.question}
-                          className="p-4 border border-gray-300 rounded-lg my-2 cursor-pointer hover:bg-gray-200"
-                        >
-                          <p className="font-medium">{chat.question}</p>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            ))
+            Object.keys(groupedChats).map((group) =>
+              Object.keys(groupedChats[group]).length > 0 ? (
+                <div key={group} className="mb-6 px-4">
+                  <h2 className="text-[15px] font-semibold">{group}</h2>
+                  {Object.keys(groupedChats[group]).map((date) => (
+                    <div key={date} className="mb-4">
+                      <h3 className="text-md mt-2 font-sm">{date}</h3>
+                      <div
+                        // onClick={() => handleClick(groupedChats[group][date])} // Callback on click
+                        className={`p-3 mb-5 mt-2 border rounded-xl cursor-pointer flex items-center ${
+                          isDarkMode
+                            ? 'bg-[black] text-white hover:bg-[#1C1C1C]'
+                            : 'bg-[#F7F9FB] text-black hover:bg-[#E0E0E0]'
+                        }`}
+                      >
+                        <div className="ml-4">
+                          <p className="font-medium">
+                            Chats ({groupedChats[group][date].length})
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null
+            )
           )}
         </>
       )}
     </div>
+
+
 
     {/* Profile, Settings, Log Out - Moved to Bottom */}
     <div
