@@ -7,8 +7,10 @@ import soundWhite from "../images/charm--sound-up-white-color.svg";
 import soundBlack from "../images/charm--sound-up-black-color.svg";
 import copyWhite from "../images/radix-icons--copy-white.svg";
 import copyBlack from "../images/radix-icons--copy-black.svg";
-import { toast, ToastContainer } from 'react-toastify';
-import send from "../images/sendMessage.svg";
+import micWhite from "../images/ic--outline-mic-white.svg";
+import micBlack from "../images/ic--outline-mic-black.svg";
+import sendWhite from "../images/ic--sharp-send-white.svg";
+import sendBlack from "../images/ic--sharp-send-black.svg";
 import ai from "../images/icon-white-background.svg";
 import aiDark from "../images/icon-black-background.svg";
 import stopWhite from "../images/ic--round-stop-white.svg";
@@ -40,8 +42,12 @@ export default function Settings() {
   const [isSpeaking, setIsSpeaking] = useState(false); // State to control if speech is active
   const [isSpeakingIndex, setIsSpeakingIndex] = useState<number | null>(null); // Track the index of the speaking chat
   const [currentUtterance, setCurrentUtterance] = useState<SpeechSynthesisUtterance | null>(null); // To keep track of the current speech
+  const [isListening, setIsListening] = useState(false);
 
   let pendingQuestion: { question: string } | null = null;
+
+const SpeechRecognition =
+  (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
   // Fetch pending question from localStorage
   const pendingQuestionJSON = localStorage.getItem("pendingQuestion");
@@ -140,6 +146,34 @@ export default function Settings() {
     li: ({ children }) => <li className="mb-[5px]">{children}</li>,
   };
 
+
+  
+const startSpeechRecognition = (): void => {
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+
+      // Handle the result of the speech recognition
+      recognition.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setQuestion(transcript); // Update the input with recognized speech
+      };
+
+      // Handle recognition errors
+      recognition.onerror = (event: Event) => {
+        console.error('Speech Recognition Error:', event);
+      };
+
+      // Start speech recognition
+      recognition.start();
+    } else {
+      alert('Speech Recognition API is not supported in this browser.');
+    }
+  };
+
+
 const handleCopy = (text: string, index: number) => {
   navigator.clipboard.writeText(text)
     .then(() => {
@@ -167,6 +201,8 @@ const handleStop = () => {
   speechSynthesis.cancel(); // Stop speaking
   setIsSpeakingIndex(null); // Reset the speaking state
 };
+
+
 
 
   return (
@@ -296,10 +332,16 @@ const handleStop = () => {
               placeholder="Type your question here..."
             />
             <img
-              src={send}
+              src={ isDarkMode ? sendWhite: sendBlack}
               alt="Send"
               className="ml-2 hover:cursor-pointer h-7 w-7"
               onClick={handleSubmit}
+            />
+              <img
+              src={ isDarkMode ? micWhite: micBlack}
+              alt="Send"
+              className="ml-2 hover:cursor-pointer h-7 w-7"
+             onClick={startSpeechRecognition}
             />
           </div>
         </div>
