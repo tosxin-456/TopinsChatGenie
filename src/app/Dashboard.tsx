@@ -10,6 +10,9 @@ import aiDark from "../images/icon-black-background.svg";
 import share from "../images/Share.svg";
 import profile from "../images/profilepic2.svg";
 import { useTheme } from "./useTheme";
+import remarkMath from 'remark-math'; 
+import rehypeKatex from 'rehype-katex'; 
+import 'katex/dist/katex.min.css'; 
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
 interface Chat {
   question: string;
@@ -196,18 +199,26 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
                 : " text-[#191919] "
             }`}
           >
-          {chatItem.response && chatItem.response.includes("1.") ? (
-      <ReactMarkdown components={components}>
+  {chatItem.response && chatItem.response.includes("1.") ? (
+      <ReactMarkdown
+        components={components}
+        remarkPlugins={[remarkMath]} // Parses LaTeX
+        rehypePlugins={[rehypeKatex]} // Renders LaTeX
+      >
         {chatItem.response}
       </ReactMarkdown>
+    ) : chatItem.response && chatItem.response.includes("$$") ? (
+      <MathJaxContext>
+        <ReactMarkdown
+          components={components}
+          remarkPlugins={[remarkMath]}
+          rehypePlugins={[rehypeKatex]}
+        >
+          {chatItem.response}
+        </ReactMarkdown>
+      </MathJaxContext>
     ) : (
-      chatItem.response && chatItem.response.includes("$$") ? (
-        <MathJaxContext>
-          <MathJax dynamic inline>{chatItem.response}</MathJax>
-        </MathJaxContext>
-      ) : (
-        <ReactMarkdown>{chatItem.response}</ReactMarkdown>
-      )
+      <ReactMarkdown components={components}>{chatItem.response}</ReactMarkdown>
     )}
           </div>
         </div>
