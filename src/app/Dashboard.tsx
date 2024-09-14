@@ -2,19 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { SyncLoader } from "react-spinners";
 import ReactMarkdown from "react-markdown";
-import { jwtDecode } from "jwt-decode";
-import info from "../images/information.svg";
+import {jwtDecode} from "jwt-decode"; // Removed curly braces from jwtDecode import
+import soundWhite from "../images/charm--sound-up-white-color.svg";
+import soundBlack from "../images/charm--sound-up-black-color.svg";
+import copyWhite from "../images/radix-icons--copy-white.svg";
+import copyBlack from "../images/radix-icons--copy-black.svg";
+import { toast, ToastContainer } from 'react-toastify';
 import send from "../images/sendMessage.svg";
 import ai from "../images/icon-white-background.svg";
 import aiDark from "../images/icon-black-background.svg";
 import share from "../images/Share.svg";
-import profile from "../images/profilepic2.svg";
+import tickIcon from "../images/charm--tick.svg";
 import { useTheme } from "./useTheme";
-import remarkMath from 'remark-math'; // Helps parse math expressions in markdown
-import rehypeKatex from 'rehype-katex'; // Renders math expressions
-import 'katex/dist/katex.min.css';
-import { MathJaxContext, MathJax } from 'better-react-mathjax';
-
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
+import "katex/dist/katex.min.css"; 
 interface Chat {
   question: string;
   response: string;
@@ -26,14 +29,17 @@ interface DecodedToken {
 }
 
 export default function Settings() {
-  const history = useNavigate();
+  const navigate = useNavigate(); // Updated "history" to "navigate" for react-router v6+
   const { isDarkMode, toggleTheme } = useTheme();
   const [chat, setChat] = useState<Chat[]>([]);
   const [question, setQuestion] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const isLoadingRef = useRef<HTMLDivElement>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
   let pendingQuestion: { question: string } | null = null;
 
-  // Pending question handling
+  // Fetch pending question from localStorage
   const pendingQuestionJSON = localStorage.getItem("pendingQuestion");
   if (pendingQuestionJSON) {
     try {
@@ -46,10 +52,10 @@ export default function Settings() {
   // Token and user details
   const tosinToken = localStorage.getItem("token");
   const token = JSON.parse(tosinToken as string);
-  const decodedToken = jwtDecode(token) as { [key: string]: string };
-  const firstLetter = decodedToken.name?.slice(0, 1) || '';
+  const decodedToken = jwtDecode(token) as DecodedToken;
+  const firstLetter = decodedToken.name?.slice(0, 1) || "";
 
-  // Fetch Chat
+  // Fetch chat history
   const fetchChat = async () => {
     try {
       const response = await fetch(
@@ -76,9 +82,7 @@ export default function Settings() {
   }, [token]);
 
   // Handle form submission
-  const handleSubmit = async (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>
-  ) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     e.preventDefault();
     const formData = { question };
 
@@ -86,6 +90,9 @@ export default function Settings() {
     setIsLoading(true);
     setQuestion("");
 
+
+
+    
     try {
       const response = await fetch(
         "https://topins-chat-backend.onrender.com/user/chat",
@@ -117,43 +124,44 @@ export default function Settings() {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      handleSubmit(
-        e as unknown as React.MouseEvent<HTMLImageElement, MouseEvent>
-      );
+      handleSubmit(e as unknown as React.MouseEvent<HTMLImageElement, MouseEvent>);
       setQuestion("");
     }
   };
 
   // Markdown custom components
   const components: Partial<import("react-markdown").Components> = {
-    ol: ({ children }) => (
-      <ol className="list-decimal pl-[20px]">{children}</ol>
-    ),
-    ul: ({ children }) => (
-      <ul className="list-disc pl-[20px]">{children}</ul>
-    ),
+    ol: ({ children }) => <ol className="list-decimal pl-[20px]">{children}</ol>,
+    ul: ({ children }) => <ul className="list-disc pl-[20px]">{children}</ul>,
     li: ({ children }) => <li className="mb-[5px]">{children}</li>,
   };
+
+const handleCopy = (text: string, index: number) => {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      setCopiedIndex(index); // Mark the copied item
+      setTimeout(() => {
+        setCopiedIndex(null); // Reset after 3 seconds
+      }, 1000); // 3 seconds delay
+    })
+    .catch((error) => {
+      console.error("Failed to copy text: ", error);
+    });
+};
+
 
   return (
     <div
       style={{
         fontFamily: "Roboto, sans-serif",
         fontWeight: "400",
-        backgroundColor: isDarkMode ? "#000000" : "#FFFFFF",
-        color: isDarkMode ? "#FFFFFF" : "#000000",
-        maxHeight: "100vh",
-        overflow: "hidden", // Prevent page overflow
+        backgroundColor: isDarkMode ? "#000000" : "#FFFFFF", // Dark and light background
+        color: isDarkMode ? "#FFFFFF" : "#000000", // Text color
+        minHeight: "100vh", // Ensure the background covers the entire viewport height
       }}
     >
       <div className="w-full sm:w-[100%] m-auto mt-[70px] md:mt-[10px] my-12 p-[10px] max-w-[60rem]">
-        <div
-          style={{
-            margin: "auto",
-            height: "80vh", // Adjusted height to fit better
-            overflowY: "auto", // Enable vertical scrolling only
-          }}
-        >
+        <div style={{ margin: "auto", height: "85vh", overflowX: "auto" }}>
           {chat.map((chatItem, index) => (
             <div key={index}>
               {/* User chat */}
@@ -161,9 +169,7 @@ export default function Settings() {
                 <div className="ml-auto w-[fit]">
                   <div
                     className={`w-fit ml-auto mr-[10px] mt-[10px] rounded-lg p-[12px] ${
-                      isDarkMode
-                        ? "bg-[#1C1C1C] text-white"
-                        : "bg-[#F7F9FB] text-[black]"
+                      isDarkMode ? "bg-[#1C1C1C] text-white" : "bg-[#F7F9FB] text-[black]"
                     }`}
                   >
                     <p className="text-start">{chatItem.question}</p>
@@ -175,55 +181,76 @@ export default function Settings() {
               <div className="w-[85%] flex mr-auto items-start">
                 <img
                   src={isDarkMode ? aiDark : ai}
-                  alt=""
+                  alt="AI Icon"
                   className={`m-[10px] w-[30px] h-[30px] ${
                     isDarkMode ? "bg-black border-white" : "bg-white border-[#1C1C1C]"
                   }`}
-                  style={{ zIndex: 1 }} // Ensure z-index for AI avatar is correct
                 />
                 <div>
                   <div
                     className={`w-[100%] mr-auto mt-[20px] p-[10px] ${
-                      isDarkMode ? " text-white " : " text-[#191919] "
+                      isDarkMode ? "text-white" : "text-[#191919]"
                     }`}
-                    style={{ zIndex: 1 }} // Ensure content is below the sidenav
                   >
-                    {chatItem.response && chatItem.response.includes("1.") ? (
-                      <ReactMarkdown
-                        components={components}
-                        remarkPlugins={[remarkMath]} // Parses LaTeX
-                        rehypePlugins={[rehypeKatex]} // Renders LaTeX
-                      >
-                        {chatItem.response}
-                      </ReactMarkdown>
-                    ) : chatItem.response && chatItem.response.includes("$$") ? (
-                      <MathJaxContext>
-                        <ReactMarkdown
-                          components={components}
-                          remarkPlugins={[remarkMath]}
-                          rehypePlugins={[rehypeKatex]}
-                        >
-                          {chatItem.response}
-                        </ReactMarkdown>
-                      </MathJaxContext>
-                    ) : (
-                      <ReactMarkdown components={components}>
-                        {chatItem.response}
-                      </ReactMarkdown>
+      {chatItem.response ? (
+        chatItem.response.includes("$$") ? (
+          <MathJaxContext>
+            <MathJax dynamic>
+              {chatItem.response.split("$$").map((part, index) =>
+                index % 2 === 1 ? (
+                  <MathJax key={index} dynamic>{`$$${part}$$`}</MathJax>
+                ) : (
+                  <span key={index}>
+                    {/* Here we manually handle the bold sections */}
+                    {part.split("\n").map((line, idx) =>
+                      line.startsWith("**") && line.endsWith("**") ? (
+                        <p key={idx} className="font-bold">
+                          {line.slice(2, -2)}
+                        </p>
+                      ) : (
+                        <p key={idx}>{line}</p>
+                      )
                     )}
+                  </span>
+                )
+              )}
+            </MathJax>
+          </MathJaxContext>
+        ) : (
+          <ReactMarkdown
+            components={components}
+            remarkPlugins={[remarkMath]}
+            rehypePlugins={[rehypeKatex]}
+          >
+            {chatItem.response}
+          </ReactMarkdown>
+          
+        )
+      ) : null}
                   </div>
+                    <div className="flex gap-3" >
+        <img className="hover:cursor-pointer" src={isDarkMode ? soundWhite: soundBlack} alt="Sound Icon" />
+    <img
+  className="hover:cursor-pointer"
+  src={copiedIndex === index ? tickIcon : isDarkMode ? copyWhite : copyBlack}
+  alt="Copy Icon"
+  onClick={() => handleCopy(chatItem.response, index)}
+/>
+
+
+      </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
 
+
         {/* Input Section */}
         <div
           className={`bottom-0 left-0 right-0 flex w-full p-4 ${
-            isDarkMode ? "bg-[#212121] border-t " : "bg-white border-t "
+            isDarkMode ? "bg-[#212121] border-t" : "bg-white border-t"
           }`}
-          style={{ zIndex: 10 }} // Ensure input bar has a higher z-index
         >
           <div
             className={`flex w-full max-w-[60rem] m-auto p-1 rounded-xl border ${
@@ -236,9 +263,7 @@ export default function Settings() {
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
               className={`outline-none flex-1 p-1 rounded-l-xl ${
-                isDarkMode
-                  ? "bg-[#212121] text-white placeholder:text-gray-400"
-                  : "bg-white text-black placeholder:text-gray-500"
+                isDarkMode ? "bg-[#212121] text-white placeholder:text-gray-400" : "bg-white text-black placeholder:text-gray-500"
               }`}
               placeholder="Type your question here..."
             />
@@ -251,12 +276,6 @@ export default function Settings() {
           </div>
         </div>
       </div>
-
-      {isLoading && (
-        <div className="flex items-center justify-center mt-4">
-          <SyncLoader color={isDarkMode ? "#FFFFFF" : "#000000"} />
-        </div>
-      )}
     </div>
   );
 }
