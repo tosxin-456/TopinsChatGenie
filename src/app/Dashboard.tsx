@@ -10,8 +10,8 @@ import aiDark from "../images/icon-black-background.svg";
 import share from "../images/Share.svg";
 import profile from "../images/profilepic2.svg";
 import { useTheme } from "./useTheme";
-import remarkMath from 'remark-math'; 
-import rehypeKatex from 'rehype-katex'; 
+import remarkMath from 'remark-math'; // Helps parse math expressions in markdown
+import rehypeKatex from 'rehype-katex'; // Renders math expressions
 import 'katex/dist/katex.min.css'; 
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
 interface Chat {
@@ -146,7 +146,7 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
     fontWeight: "400",
     backgroundColor: isDarkMode ? "#000000" : "#FFFFFF", // Dark and light background
     color: isDarkMode ? "#FFFFFF" : "#000000", // Text color
-    minHeight: "100vh", // Ensure the background covers the entire viewport height
+    maxHeight: "100vh", // Ensure the background covers the entire viewport height
   }}
 >
     {/* <header className="hidden md:block  top-0 left-0 right-0 z-50">
