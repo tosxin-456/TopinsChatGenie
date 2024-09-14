@@ -11,7 +11,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import send from "../images/sendMessage.svg";
 import ai from "../images/icon-white-background.svg";
 import aiDark from "../images/icon-black-background.svg";
-import share from "../images/Share.svg";
+import stopWhite from "../images/ic--round-stop-white.svg";
+import stopBlack from "../images/ic--round-stop-black.svg";
 import tickIcon from "../images/charm--tick.svg";
 import { useTheme } from "./useTheme";
 import remarkMath from "remark-math";
@@ -36,6 +37,9 @@ export default function Settings() {
   const [isLoading, setIsLoading] = useState(false);
   const isLoadingRef = useRef<HTMLDivElement>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [isSpeaking, setIsSpeaking] = useState(false); // State to control if speech is active
+  const [isSpeakingIndex, setIsSpeakingIndex] = useState<number | null>(null); // Track the index of the speaking chat
+  const [currentUtterance, setCurrentUtterance] = useState<SpeechSynthesisUtterance | null>(null); // To keep track of the current speech
 
   let pendingQuestion: { question: string } | null = null;
 
@@ -149,6 +153,21 @@ const handleCopy = (text: string, index: number) => {
     });
 };
 
+const handleSpeak = (text: string, index: number) => {
+  setIsSpeakingIndex(index); // Set the current chat as speaking
+  // Speech synthesis logic here
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.onend = () => {
+    setIsSpeakingIndex(null); // Reset when the speech ends
+  };
+  speechSynthesis.speak(utterance);
+};
+
+const handleStop = () => {
+  speechSynthesis.cancel(); // Stop speaking
+  setIsSpeakingIndex(null); // Reset the speaking state
+};
+
 
   return (
     <div
@@ -229,7 +248,16 @@ const handleCopy = (text: string, index: number) => {
       ) : null}
                   </div>
                     <div className="flex gap-3" >
-        <img className="hover:cursor-pointer" src={isDarkMode ? soundWhite: soundBlack} alt="Sound Icon" />
+<img
+          className="hover:cursor-pointer"
+          src={isSpeakingIndex === index 
+                ? (isDarkMode ? stopWhite : stopBlack) 
+                : (isDarkMode ? soundWhite : soundBlack)}
+          alt="Sound Icon"
+          onClick={() => (isSpeakingIndex === index ? handleStop() : handleSpeak(chatItem.response, index))}
+        />
+
+
     <img
   className="hover:cursor-pointer"
   src={copiedIndex === index ? tickIcon : isDarkMode ? copyWhite : copyBlack}
