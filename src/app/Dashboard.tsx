@@ -12,8 +12,9 @@ import profile from "../images/profilepic2.svg";
 import { useTheme } from "./useTheme";
 import remarkMath from 'remark-math'; // Helps parse math expressions in markdown
 import rehypeKatex from 'rehype-katex'; // Renders math expressions
-import 'katex/dist/katex.min.css'; 
+import 'katex/dist/katex.min.css';
 import { MathJaxContext, MathJax } from 'better-react-mathjax';
+
 interface Chat {
   question: string;
   response: string;
@@ -26,14 +27,11 @@ interface DecodedToken {
 
 export default function Settings() {
   const history = useNavigate();
-  const isLoadingRef = useRef<HTMLDivElement>(null);
-const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [chat, setChat] = useState<Chat[]>([]);
   const [question, setQuestion] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   let pendingQuestion: { question: string } | null = null;
-
-
 
   // Pending question handling
   const pendingQuestionJSON = localStorage.getItem("pendingQuestion");
@@ -49,9 +47,7 @@ const { isDarkMode, toggleTheme } = useTheme();
   const tosinToken = localStorage.getItem("token");
   const token = JSON.parse(tosinToken as string);
   const decodedToken = jwtDecode(token) as { [key: string]: string };
-const firstLetter = decodedToken.name?.slice(0, 1) || '';
-
-
+  const firstLetter = decodedToken.name?.slice(0, 1) || '';
 
   // Fetch Chat
   const fetchChat = async () => {
@@ -62,8 +58,8 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const chatData = await response.json();
@@ -97,9 +93,9 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify(formData),
         }
       );
 
@@ -136,130 +132,131 @@ const firstLetter = decodedToken.name?.slice(0, 1) || '';
     ul: ({ children }) => (
       <ul className="list-disc pl-[20px]">{children}</ul>
     ),
-    li: ({ children }) => <li className="mb-[5px]">{children}</li>
+    li: ({ children }) => <li className="mb-[5px]">{children}</li>,
   };
 
   return (
-   <div
-  style={{
-    fontFamily: "Roboto, sans-serif",
-    fontWeight: "400",
-    backgroundColor: isDarkMode ? "#000000" : "#FFFFFF", // Dark and light background
-    color: isDarkMode ? "#FFFFFF" : "#000000", // Text color
-    maxHeight: "100vh", // Ensure the background covers the entire viewport height
-  }}
->
-    {/* <header className="hidden md:block  top-0 left-0 right-0 z-50">
-      <nav className="topHeader flex top-0 left-0 right-0  justify-end items-center my-10 md:my-[0] p-4">
-        <div className="flex items-center gap-4">
-          <img src={share} alt="Bell Icon" className="w-[27px]" />
-          <span
-            onClick={() => history("../profile")}
-            className="rounded-full text-white px-3 py-1 text-xl bg-[#6C8571] cursor-pointer"
-          >
-            {firstLetter}
-          </span>
-        </div>
-      </nav>
-    </header> */}
-
+    <div
+      style={{
+        fontFamily: "Roboto, sans-serif",
+        fontWeight: "400",
+        backgroundColor: isDarkMode ? "#000000" : "#FFFFFF",
+        color: isDarkMode ? "#FFFFFF" : "#000000",
+        maxHeight: "100vh",
+        overflow: "hidden", // Prevent page overflow
+      }}
+    >
       <div className="w-full sm:w-[100%] m-auto mt-[70px] md:mt-[10px] my-12 p-[10px] max-w-[60rem]">
-     <div style={{ margin: "auto", height: "85vh", overflowX: "auto" }}>
-  {chat.map((chatItem, index) => (
-    <div key={index}>
-      {/* User chat */}
-      <div className="w-[70%] flex ml-auto self-end">
-        <div className="ml-auto w-[fit]">
-          <div
-            className={`w-fit ml-auto mr-[10px] mt-[10px] rounded-lg p-[12px] ${
-              isDarkMode
-                ? "bg-[#1C1C1C] text-white"
-                : "bg-[#F7F9FB] text-[black]"
-            }`}
-          >
-            <p className="text-start">{chatItem.question}</p>
-          </div>
-        </div>
-      </div>
-
-      {/* AI chat */}
-      <div className="w-[85%] flex mr-auto items-start">
-       <img
-      src={isDarkMode ? aiDark : ai}
-      alt=""
-      className={`m-[10px] w-[30px] h-[30px] ${
-        isDarkMode ? 'bg-black border-white' : 'bg-white border-[#1C1C1C]'
-      }`}
-    />
-        <div>
-          <div
-            className={`w-[100%] mr-auto mt-[20px] p-[10px]  ${
-              isDarkMode
-                ? " text-white "
-                : " text-[#191919] "
-            }`}
-          >
-  {chatItem.response && chatItem.response.includes("1.") ? (
-      <ReactMarkdown
-        components={components}
-        remarkPlugins={[remarkMath]} // Parses LaTeX
-        rehypePlugins={[rehypeKatex]} // Renders LaTeX
-      >
-        {chatItem.response}
-      </ReactMarkdown>
-    ) : chatItem.response && chatItem.response.includes("$$") ? (
-      <MathJaxContext>
-        <ReactMarkdown
-          components={components}
-          remarkPlugins={[remarkMath]}
-          rehypePlugins={[rehypeKatex]}
+        <div
+          style={{
+            margin: "auto",
+            height: "80vh", // Adjusted height to fit better
+            overflowY: "auto", // Enable vertical scrolling only
+          }}
         >
-          {chatItem.response}
-        </ReactMarkdown>
-      </MathJaxContext>
-    ) : (
-      <ReactMarkdown components={components}>{chatItem.response}</ReactMarkdown>
-    )}
-          </div>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
+          {chat.map((chatItem, index) => (
+            <div key={index}>
+              {/* User chat */}
+              <div className="w-[70%] flex ml-auto self-end">
+                <div className="ml-auto w-[fit]">
+                  <div
+                    className={`w-fit ml-auto mr-[10px] mt-[10px] rounded-lg p-[12px] ${
+                      isDarkMode
+                        ? "bg-[#1C1C1C] text-white"
+                        : "bg-[#F7F9FB] text-[black]"
+                    }`}
+                  >
+                    <p className="text-start">{chatItem.question}</p>
+                  </div>
+                </div>
+              </div>
 
+              {/* AI chat */}
+              <div className="w-[85%] flex mr-auto items-start">
+                <img
+                  src={isDarkMode ? aiDark : ai}
+                  alt=""
+                  className={`m-[10px] w-[30px] h-[30px] ${
+                    isDarkMode ? "bg-black border-white" : "bg-white border-[#1C1C1C]"
+                  }`}
+                  style={{ zIndex: 1 }} // Ensure z-index for AI avatar is correct
+                />
+                <div>
+                  <div
+                    className={`w-[100%] mr-auto mt-[20px] p-[10px] ${
+                      isDarkMode ? " text-white " : " text-[#191919] "
+                    }`}
+                    style={{ zIndex: 1 }} // Ensure content is below the sidenav
+                  >
+                    {chatItem.response && chatItem.response.includes("1.") ? (
+                      <ReactMarkdown
+                        components={components}
+                        remarkPlugins={[remarkMath]} // Parses LaTeX
+                        rehypePlugins={[rehypeKatex]} // Renders LaTeX
+                      >
+                        {chatItem.response}
+                      </ReactMarkdown>
+                    ) : chatItem.response && chatItem.response.includes("$$") ? (
+                      <MathJaxContext>
+                        <ReactMarkdown
+                          components={components}
+                          remarkPlugins={[remarkMath]}
+                          rehypePlugins={[rehypeKatex]}
+                        >
+                          {chatItem.response}
+                        </ReactMarkdown>
+                      </MathJaxContext>
+                    ) : (
+                      <ReactMarkdown components={components}>
+                        {chatItem.response}
+                      </ReactMarkdown>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {/* Input Section */}
-      <div
-      className={` bottom-0 left-0 right-0 flex w-full p-4 ${
-        isDarkMode ? "bg-[#212121] border-t " : "bg-white border-t "
-      }`}
-    >
-      <div
-        className={`flex w-full max-w-[60rem] m-auto p-1 rounded-xl border ${
-          isDarkMode ? "bg-[#212121] border-[#333]" : "bg-white border-black"
-        }`}
-      >
-        <input
-          type="text"
-          onKeyDown={handleKeyDown}
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          className={`outline-none flex-1 p-1 rounded-l-xl ${
-            isDarkMode
-              ? "bg-[#212121] text-white placeholder:text-gray-400"
-              : "bg-white text-black placeholder:text-gray-500"
+        <div
+          className={`bottom-0 left-0 right-0 flex w-full p-4 ${
+            isDarkMode ? "bg-[#212121] border-t " : "bg-white border-t "
           }`}
-          placeholder="Type your question here..."
-        />
-        <img
-          src={send}
-          alt="Send"
-          className="ml-2 hover:cursor-pointer h-7 w-7"
-          onClick={handleSubmit}
-        />
+          style={{ zIndex: 10 }} // Ensure input bar has a higher z-index
+        >
+          <div
+            className={`flex w-full max-w-[60rem] m-auto p-1 rounded-xl border ${
+              isDarkMode ? "bg-[#212121] border-[#333]" : "bg-white border-black"
+            }`}
+          >
+            <input
+              type="text"
+              onKeyDown={handleKeyDown}
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+              className={`outline-none flex-1 p-1 rounded-l-xl ${
+                isDarkMode
+                  ? "bg-[#212121] text-white placeholder:text-gray-400"
+                  : "bg-white text-black placeholder:text-gray-500"
+              }`}
+              placeholder="Type your question here..."
+            />
+            <img
+              src={send}
+              alt="Send"
+              className="ml-2 hover:cursor-pointer h-7 w-7"
+              onClick={handleSubmit}
+            />
+          </div>
+        </div>
       </div>
-    </div>
-      </div>
+
+      {isLoading && (
+        <div className="flex items-center justify-center mt-4">
+          <SyncLoader color={isDarkMode ? "#FFFFFF" : "#000000"} />
+        </div>
+      )}
     </div>
   );
 }
