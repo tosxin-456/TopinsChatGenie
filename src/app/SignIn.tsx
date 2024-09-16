@@ -1,24 +1,23 @@
-import { Link, RouteProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Onboard from "./components/Onboard";
-import google from "../images/google.png";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { HashLoader } from "react-spinners";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import icons for password toggle
 
 export default function SignIn() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [sigining, setSigning] = useState(false);
-  const [error, setErrorMessage] = useState("");
   const [isloading, setIsLoading] = useState(false);
-  // https://topins-chat-backend.onrender.com//user/login
+  const [error, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
   const history = useNavigate();
 
   const constructFormData = () => {
     return { id: id, password: password };
   };
-  // const MyComponent: React.FC<RouteProps> = ({ history }) => {}
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setIsLoading(true);
     e.preventDefault();
@@ -57,12 +56,12 @@ export default function SignIn() {
   return (
     <section
       style={{ fontFamily: "Roboto, sans-serif", fontWeight: "300" }}
-      className="relative flex flex-wrap lg:h-screen lg:items-center "
+      className="relative flex flex-wrap lg:h-screen lg:items-center"
     >
-      <div className="lg:grid lg:min-h-screen lg:grid-cols-12 ">
-        <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6 ">
+      <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+        <main className="flex items-center justify-center px-8 py-10 sm:px-15 lg:col-span-6 lg:px-16 lg:py-12 xl:col-span-6">
           <div className="border-solid flex justify-center flex-col relative border border-gray rounded-lg p-[20px] sm:ml-[100px] lg:m-auto">
-            {/* Laoder */}
+            {/* Loader */}
             {isloading &&
               <div className="flex z-10 h-full bg-slate-100 opacity-85 w-full absolute items-center justify-center">
                 <HashLoader color="#263A5C" />
@@ -82,14 +81,14 @@ export default function SignIn() {
 
             <form
               action="#"
-              className="mx-auto mb-0 mt-8 max-w-md space-y-4 "
+              className="mx-auto mb-0 mt-8 max-w-md space-y-4"
               onSubmit={handleSubmit}
             >
               <div className="w-full">
-                <label htmlFor="email" className="sr-only">
+                <label htmlFor="id" className="sr-only">
                   Enter your Email
                 </label>
-                <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto ">
+                <p className="text-[#B1B5B9] pb-[5px] text-[18px] font-medium w-[20rem] m-auto">
                   Enter Your Email
                 </p>
                 <div className="relative flex justify-center">
@@ -113,36 +112,45 @@ export default function SignIn() {
                   <input
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    type="password"
-                    className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none p-3  text-xl shadow-sm"
+                    type={showPassword ? "text" : "password"} // Toggle between text and password
+                    className="w-[20rem] border-[#B1B5B9] border-[1px] rounded-[6px] outline-none p-3 text-xl shadow-sm"
                   />
+                  <span
+                    className="absolute right-12 top-[25%] cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)} // Toggle icon on click
+                  >
+                    {showPassword
+                      ? <FaEyeSlash className="text-xl text-gray-600" />
+                      : <FaEye className="text-xl text-gray-600" />}
+                  </span>
                 </div>
-                <div className=" w-[24rem] flex justify-end ">
-                  <p className=" text-[#0099D7] text-[15px] text-end">
+                <div className="w-[24rem] flex justify-end">
+                  <p className="text-[#0099D7] text-[15px] text-end">
                     Forgot Password?
                   </p>
                 </div>
               </div>
-              <div className=" w-full flex justify-center">
-                {/* <Link to='/dashboard'> */}
+
+              <div className="w-full flex justify-center">
                 <button
                   type="submit"
-                  className=" rounded-[20px] w-[150px] m-auto bg-[#263A5C]  py-2.5 text-sm font-medium text-white "
+                  className="rounded-[20px] w-[150px] m-auto bg-[#263A5C] py-2.5 text-sm font-medium text-white"
                 >
                   Sign in
                 </button>
-                {/* </Link> */}
               </div>
+
               <p
                 style={{
                   fontFamily: "Clash Display, sans-serif",
                   fontWeight: "500"
                 }}
-                className="text-[#e34141] text-center "
+                className="text-[#e34141] text-center"
               >
                 {error}
               </p>
-              <div className="flex  justify-center ">
+
+              <div className="flex justify-center">
                 <p className="text-lg text-[#221F1F]">
                   Don't have an account?
                   <Link className="text-[#407CE2]" to="/signup">
@@ -154,9 +162,7 @@ export default function SignIn() {
           </div>
         </main>
         <aside className="relative lg:col-span-6 lg:h-full hidden lg:block h-[100vh] bg-[#263A5C]">
-          {/* <div className=""> */}
           <Onboard />
-          {/* </div> */}
         </aside>
       </div>
     </section>
