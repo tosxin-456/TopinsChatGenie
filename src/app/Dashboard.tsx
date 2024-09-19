@@ -298,6 +298,7 @@ const renderedChats = useMemo(() => {
           </div>
         </div>
       </div>
+      
     </div>
   ));
 }, [chat, isDarkMode, isSpeakingIndex, copiedIndex]); // Dependencies
@@ -318,9 +319,24 @@ const renderedChats = useMemo(() => {
       <div className="w-full sm:w-[100%] m-auto mt-[70px] md:mt-[10px] my-12 p-[10px] max-w-[60rem]">
         <div style={{ margin: "auto", height: "85vh", overflowX: "auto" }}>
         {renderedChats}
+          {pendingQuestion && (
+  <div className='w-[70%] flex ml-auto self-end'>
+ <div className='ml-auto w-[fit] '>
+ <div  className={`w-fit ml-auto mr-[10px] mt-[10px] rounded-lg p-[12px] ${
+              isDarkMode ? "bg-[#1C1C1C] text-white" : "bg-[#F7F9FB] text-[black]"
+            }`}>
+   <p className='text-start'>{pendingQuestion.question}</p>
+ </div>
+ <p className='text-end w-fit m-auto mr-[5px] text-[#333333]'>8pm</p>
+</div>
+</div>
+)}
+      {isLoading && 
+      <div ref={isLoadingRef} className='flex w-fit m-[10px]'>
+      <img src={isDarkMode ? aiDark : ai}  alt="" className='m-[10px] w-[30px] h-[30px]' />
+       <SyncLoader color="#263A5C" className='m-[5px] mt-[10px]'/>
+      </div>}
         </div>
-
-
         {/* Input Section */}
         <div
           className={`bottom-0 left-0 right-0 flex w-full p-4 ${
@@ -358,6 +374,7 @@ const renderedChats = useMemo(() => {
       />
     )}
   </div>
+  
         </div>
       </div>
     </div>
