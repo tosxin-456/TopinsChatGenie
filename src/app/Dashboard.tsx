@@ -15,6 +15,11 @@ import ai from "../images/icon-white-background.svg";
 import aiDark from "../images/icon-black-background.svg";
 import stopWhite from "../images/ic--round-stop-white.svg";
 import stopBlack from "../images/ic--round-stop-black.svg";
+import downBlack from "../images/charm--arrow-down-black.svg";
+import downWhite from "../images/charm--arrow-down-white.svg";
+import upBlack from "../images/ph--arrow-up-bold-black.svg";
+import upWhite from "../images/ph--arrow-up-bold-white.svg";
+
 import tickIcon from "../images/charm--tick.svg";
 import { useTheme } from "./useTheme";
 import remarkMath from "remark-math";
@@ -39,12 +44,40 @@ export default function Settings() {
   const [isLoading, setIsLoading] = useState(false);
   const isLoadingRef = useRef<HTMLDivElement>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [isSpeaking, setIsSpeaking] = useState(false); // State to control if speech is active
+  const [isSpeaking, setIsSpeaking] = useState(false); 
+  const [isAtBottom, setIsAtBottom] = useState(true);
   const [isSpeakingIndex, setIsSpeakingIndex] = useState<number | null>(null); // Track the index of the speaking chat
   const [currentUtterance, setCurrentUtterance] = useState<SpeechSynthesisUtterance | null>(null); // To keep track of the current speech
   const [isListening, setIsListening] = useState(false);
-
+   const containerRef = useRef<HTMLDivElement | null>(null);
+     const [isAtTop, setIsAtTop] = useState(true);
+  
   let pendingQuestion: { question: string } | null = null;
+
+    const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToBottom = () => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    setIsAtBottom(true)
+  };
+
+    const handleScroll = () => {
+    if (containerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+      // Check if the user is at the bottom
+      setIsAtBottom(scrollHeight - scrollTop === clientHeight);
+    }
+  };
+
+    const scrollToTop = () => {
+    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    setIsAtTop(true); // Button will hide after scrolling
+  };
+
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chat]);
 
 const SpeechRecognition =
   (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -319,6 +352,16 @@ const renderedChats = useMemo(() => {
       <div className="w-full sm:w-[100%] m-auto mt-[70px] md:mt-[10px] my-12 p-[10px] max-w-[60rem]">
         <div style={{ margin: "auto", height: "85vh", overflowX: "auto" }}>
         {renderedChats}
+             {!isAtBottom && (
+        <img
+          onClick={scrollToBottom}
+          className="w-[35px] ml-auto mr-[5px] m-[7px] rounded-[50%] border-solid border-[3px] p-[5px] border-white"
+          src={isDarkMode ? downWhite : downBlack}
+          alt="Scroll to Bottom"
+        />
+      )}
+      <div ref={chatEndRef} />
+
           {pendingQuestion && (
   <div className='w-[70%] flex ml-auto self-end'>
  <div className='ml-auto w-[fit] '>
